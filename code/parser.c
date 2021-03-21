@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "parser.h"
+#include "pushpop.h"
 
 void parse(char *line) {
      char *delimitadores = " \t\n" ;

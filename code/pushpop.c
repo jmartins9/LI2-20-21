@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "pushpop.h" //tal como a parser.c e parser.h, é preciso haver um ficheiro .h que declare as funçoes e variaveis que vais usar
 
-int stack[128];
+int stack[10240];
 int conta = 0;
 
 void push(int x) {
-    if (conta == 128) { //isto é um erro, secalhar parar o programa?
+    if (conta == 10240) { //isto é um erro, secalhar parar o programa?
         printf("Nao ha espaço na stack\n");
         return;
     }
@@ -22,3 +22,4 @@ int pop() {
     conta--;
     return resto;
 }
+

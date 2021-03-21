@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "parser.h"
 #include "pushpop.h"
 
@@ -39,7 +40,26 @@ void parse(char *line) {
              long Y = pop();
              long X = pop();
              push (X/Y);
-         } 
+         }
+         else if (strcmp(token,"%")==0) {
+             long Y = pop();
+             long X = pop();
+             push (X%Y);
+         }
+         else if (strcmp(token,")")==0) {
+             long Y = pop();
+             push (Y+1);
+         }
+         else if (strcmp(token,"(")==0) {
+             long Y = pop();
+             push (Y-1);
+         }
+         else if (strcmp(token,"#")==0) {
+             long Y = pop();
+             long X = pop();
+             long res = pow(X,Y);
+             push (res);
+         }
      }
     print_stack (stack,conta);
 }

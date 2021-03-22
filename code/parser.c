@@ -68,6 +68,16 @@ void parse(char *line) {
              long Y = pop();
              long X = pop();
              push (X&Y);
+             else if (strcmp(token,"|")==0) {
+             long Y = pop();
+             long X = pop();
+             push (X|Y);
+         }
+         else if (strcmp(token,"^")==0) {
+             long Y = pop();
+             long X = pop();
+             push (X^Y);
+         }
          }
      }
     print_stack (stack,conta);

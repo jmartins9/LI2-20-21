@@ -11,6 +11,7 @@ void print_stack (int v[],int N) {
     for (i=0;i<N;i++) {
         printf("%d",v[i]);
     }
+    printf("\n");
 }
 
 void parse(char *line) {
@@ -68,7 +69,8 @@ void parse(char *line) {
              long Y = pop();
              long X = pop();
              push (X&Y);
-             else if (strcmp(token,"|")==0) {
+         }    
+         else if (strcmp(token,"|")==0) {
              long Y = pop();
              long X = pop();
              push (X|Y);
@@ -77,7 +79,6 @@ void parse(char *line) {
              long Y = pop();
              long X = pop();
              push (X^Y);
-         }
          }
      }
     print_stack (stack,conta);

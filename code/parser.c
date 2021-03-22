@@ -60,6 +60,15 @@ void parse(char *line) {
              long res = pow(X,Y);
              push (res);
          }
+         else if (strcmp(token,"~")==0) {
+             long X = pop();
+             push (~X);
+         }
+         else if (strcmp(token,"&")==0) {
+             long Y = pop();
+             long X = pop();
+             push (X&Y);
+         }
      }
     print_stack (stack,conta);
 }

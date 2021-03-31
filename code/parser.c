@@ -99,4 +99,5 @@ void parse(char *line) {
              push (X^Y);                 //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
      }
-    print_stack (stack,conta);                 
+    print_stack (stack,conta);
+} 

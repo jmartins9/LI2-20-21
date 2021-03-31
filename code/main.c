@@ -18,7 +18,6 @@
  * 
  * @returns 0 valor 0.
  */
-
 int main () {
     char line [10240];
     assert( fgets (line,10240,stdin) != NULL);

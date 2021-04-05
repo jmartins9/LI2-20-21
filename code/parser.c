@@ -16,6 +16,13 @@
 #include "pushpop.h"
 
 
+
+#define make_datas(var, TYPE, value)     \
+        var.elems.TYPE =value;           \
+        var.type       =TYPE;                      
+
+
+
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
  * As operações aritméticas são:
@@ -33,71 +40,129 @@
  * Operação not (bitwise);
  */
 void parse(char *line) {
+     STACK *s = create_stack();
      char *sobra;
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-         long valor = strtol (token,&sobra,10);
+         DATA X;
+         float F;
+         F=strtod (token,&sobra);
          if (strlen(sobra)==0) {
-             push (valor);
+         if (strtol (token,&sobra,10)) {
+         make_datas(X, LONG, strtol (token,&sobra,10));push (s,X);} 
+         else if (strtod (token,&sobra)==F) {
+         make_datas(X, DOUBLE, F);push (s,X);}  
+         }
+         else if (*token!='+' &&
+                  *token!='-' &&
+                  *token!='*' && 
+                  *token!='/' && 
+                  *token!=')' && 
+                  *token!='(' && 
+                  *token!='^' && 
+                  *token!='#' && 
+                  *token!='%' && 
+                  *token!='~' && 
+                  *token!='&' && 
+                  *token!='|') {
+         if (strlen(token)==1) {
+         make_datas(X, CHAR, *token);push (s,X);}
+         else if (strlen(token)>1) { 
+         make_datas(X, STRING,strdup(token));push (s,X);}
          }
          else if (strcmp(token,"+")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X+Y);                       
-         } 
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long soma = p2.elems.LONG+p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,soma);
+             push (s,Z);  
+              }     
          else if (strcmp(token,"-")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X-Y);                        
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long sub = p2.elems.LONG-p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,sub);
+             push (s,Z);                  
          } 
          else if (strcmp(token,"*")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X*Y);                        
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long mult = p2.elems.LONG*p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,mult);
+             push (s,Z);                 
          } 
          else if (strcmp(token,"/")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X/Y);                        
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long div = p2.elems.LONG/p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,div);
+             push (s,Z);                       
          }
          else if (strcmp(token,"%")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X%Y);                        
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long mod = p2.elems.LONG%p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,mod);
+             push (s,Z);                    
          }
          else if (strcmp(token,")")==0) {
-             long Y = pop();
-             push (Y+1);                        
+             DATA p1 = pop(s);
+             long inc = p1.elems.LONG + 1;
+             DATA Z;
+             make_datas(Z,LONG,inc);
+             push (s,Z);                 
          }
          else if (strcmp(token,"(")==0) {
-             long Y = pop();
-             push (Y-1);                        
+             DATA p1 = pop(s);
+             long dec = p1.elems.LONG - 1;
+             DATA Z;
+             make_datas(Z,LONG,dec);
+             push (s,Z);                        
          }
          else if (strcmp(token,"#")==0) {
-             long Y = pop();
-             long X = pop();
-             long res = pow(X,Y);
-             push (res);                        
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long exp = pow(p2.elems.LONG,p1.elems.LONG);
+             DATA Z;
+             make_datas(Z,LONG,exp);
+             push (s,Z);                        
          }
          else if (strcmp(token,"~")==0) {      
-             long X = pop();
-             push (~X);                  //Aqui damos o valor binário e nesta operação é invertida o seu valor, nomeadamente 0's passa para 1's e vice-versa 
+             DATA p1 = pop(s);
+             long not = ~p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,not);
+             push (s,Z);                        //Aqui damos o valor binário e nesta operação é invertida o seu valor, nomeadamente 0's passa para 1's e vice-versa 
          }                                      
          else if (strcmp(token,"&")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X&Y);                 //Compara os elementos do inteiro em binário e verifica se tem numeros iguais nas mesmas posições  
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long e = p2.elems.LONG&p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,e);
+             push (s,Z);                       //Compara os elementos do inteiro em binário e verifica se tem numeros iguais nas mesmas posições  
          }    
          else if (strcmp(token,"|")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X|Y);                 //Disjunção dos elementos bits, neste caso vê quais são iguais e os diferentes mas retorna os valores todos ("ou" em lógica)
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long ou = p2.elems.LONG|p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,ou);
+             push (s,Z);                     //Disjunção dos elementos bits, neste caso vê quais são iguais e os diferentes mas retorna os valores todos ("ou" em lógica)
          }                                      
          else if (strcmp(token,"^")==0) {
-             long Y = pop();
-             long X = pop();
-             push (X^Y);                 //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             long xor = p2.elems.LONG^p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,LONG,xor);
+             push (s,Z);                     //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
      }
-    print_stack (stack,conta);
+    print_stack (s);
 } 

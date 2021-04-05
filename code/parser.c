@@ -46,29 +46,14 @@ void parse(char *line) {
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
          float F;
+         long L;
+         L=strtol (token,&sobra,10);
          F=strtod (token,&sobra);
          if (strlen(sobra)==0) {
-         if (strtol (token,&sobra,10)) {
-         make_datas(X, LONG, strtol (token,&sobra,10));push (s,X);} 
-         else if (strtod (token,&sobra)==F) {
+         if (F==L) {
+         make_datas(X, LONG, L);push (s,X);} 
+         else {
          make_datas(X, DOUBLE, F);push (s,X);}  
-         }
-         else if (*token!='+' &&
-                  *token!='-' &&
-                  *token!='*' && 
-                  *token!='/' && 
-                  *token!=')' && 
-                  *token!='(' && 
-                  *token!='^' && 
-                  *token!='#' && 
-                  *token!='%' && 
-                  *token!='~' && 
-                  *token!='&' && 
-                  *token!='|') {
-         if (strlen(token)==1) {
-         make_datas(X, CHAR, *token);push (s,X);}
-         else if (strlen(token)>1) { 
-         make_datas(X, STRING,strdup(token));push (s,X);}
          }
          else if (strcmp(token,"+")==0) {
              DATA p1 = pop(s);
@@ -163,6 +148,10 @@ void parse(char *line) {
              make_datas(Z,LONG,xor);
              push (s,Z);                     //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
+         else if (strlen(token)==1) {
+         make_datas(X, CHAR, *token);push (s,X);}
+         else if (strlen(token)>1) { 
+         make_datas(X, STRING,strdup(token));push (s,X);}
      }
     print_stack (s);
 } 

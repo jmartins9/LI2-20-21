@@ -148,6 +148,21 @@ void parse(char *line) {
              make_datas(Z,LONG,xor);
              push (s,Z);                     //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
+         else if (strcmp(token,"@")==0) {
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             DATA p3 = pop(s);
+
+             push(s,p2);
+             push(s,p1);
+             push(s,p3);
+         }
+         else if (strcmp(token,"_")==0) {
+             DATA p1 = pop(s);
+
+             push(s,p1);
+             push(s,p1);
+         }
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}
          else if (strlen(token)>1) { 

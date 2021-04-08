@@ -40,16 +40,6 @@ char *ltoa ( long value, char * str ) {
 }
 
 
-int what_type (DATA d) {
-    int r=0;
-    if (d.type == LONG) r=1;
-    if (d.type == DOUBLE) r=2;
-    if (d.type == CHAR) r=4;
-    if (d.type == STRING) r=8;
-    return r;   
-}
-
-
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
  * As operações aritméticas são:

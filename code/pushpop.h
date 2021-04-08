@@ -31,7 +31,13 @@ typedef struct stack {
   int n_elems;
 } STACK;
 
+#define make_datas(var, TYPE, value)     \
+        var.elems.TYPE =value;           \
+        var.type       =TYPE;                      
+
+
 int has_type(DATA elem, int mask);
+int what_type (DATA d);
 STACK *create_stack();
 void push(STACK *s, DATA elem);
 DATA pop(STACK *s);

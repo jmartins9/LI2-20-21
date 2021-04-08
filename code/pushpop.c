@@ -7,6 +7,15 @@ int has_type(DATA elem, int mask) {
   return (elem.type & mask) != 0;
 }
 
+int what_type (DATA d) {
+    int r=0;
+    if (d.type == LONG) r=1;
+    if (d.type == DOUBLE) r=2;
+    if (d.type == CHAR) r=4;
+    if (d.type == STRING) r=8;
+    return r;   
+}
+
 STACK *create_stack() {
   STACK *s = (STACK *) calloc(1, sizeof(STACK));
   s->size = 100;

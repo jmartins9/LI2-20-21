@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "parser.h"
+#include "pushpop.h"
 
 /**
  * \brief Esta é a função principal do programa.
@@ -19,9 +20,11 @@
  * @returns 0 valor 0.
  */
 int main () {
+    STACK *s = create_stack();
     char line [10240];
     assert( fgets (line,10240,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');
-    parse(line);
+    parse(line,s);
+    print_stack (s);
     return 0;
 }

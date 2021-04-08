@@ -12,15 +12,42 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <assert.h>
 #include "parser.h"
 #include "pushpop.h"
 
 
+char *ltoa ( long value, char * str ) {
+    char temp;
+    int i =0;
+    while (value > 0) {
+        int digito = value % 10;
 
-#define make_datas(var, TYPE, value)     \
-        var.elems.TYPE =value;           \
-        var.type       =TYPE;                      
+        str[i] = digito + '0';
+        value /= 10;
+        i++;
+    }
+   i = 0;
+   int j = strlen(str) - 1;
+   while (i < j) {
+      temp = str[i];
+      str[i] = str[j];
+      str[j] = temp;
+      i++;
+      j--;
+   }
+    return str;
+}
 
+
+int what_type (DATA d) {
+    int r=0;
+    if (d.type == LONG) r=1;
+    if (d.type == DOUBLE) r=2;
+    if (d.type == CHAR) r=4;
+    if (d.type == STRING) r=8;
+    return r;   
+}
 
 
 /**
@@ -39,8 +66,7 @@
  * Operação xor (bitwise);
  * Operação not (bitwise);
  */
-void parse(char *line) {
-     STACK *s = create_stack();
+void parse(char *line,STACK *s) {
      char *sobra;
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
@@ -55,12 +81,28 @@ void parse(char *line) {
          else {
          make_datas(X, DOUBLE, F);push (s,X);}  
          }
+         else if (strcmp(token,"l")==0) {
+                  char line1[10240];
+                  assert( fgets (line1,10240,stdin) != NULL);
+                  assert( line1  [strlen (line1)-1] == '\n');
+                  token = strtok(NULL,delimitadores);
+                  if (strcmp(token,"i")==0) {
+                  DATA v1;
+                  char *token1 = strtok(line1,delimitadores);
+                  long t1 = strtol(token1,&sobra,10);
+                  make_datas(v1,LONG,t1);
+                  push (s,v1);
+                  parse (line+4,s);
+                  }
+         }
          else if (strcmp(token,"+")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);
-             long soma = p2.elems.LONG+p1.elems.LONG;
              DATA Z;
-             make_datas(Z,LONG,soma);
+             if (what_type (p1)==LONG && what_type(p2)==LONG) {long soma = p2.elems.LONG+p1.elems.LONG;make_datas(Z,LONG,soma);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double soma = p2.elems.LONG+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
+             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
              push (s,Z);  
               }     
          else if (strcmp(token,"-")==0) {
@@ -163,10 +205,16 @@ void parse(char *line) {
              push(s,p1);
              push(s,p1);
          }
+         else if (strcmp(token,"\\")==0) {
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+
+             push(s,p1);
+             push(s,p2);
+         }
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}
          else if (strlen(token)>1) { 
          make_datas(X, STRING,strdup(token));push (s,X);}
      }
-    print_stack (s);
 } 

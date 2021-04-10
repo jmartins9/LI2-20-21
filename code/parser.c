@@ -17,28 +17,6 @@
 #include "pushpop.h"
 
 
-char *ltoa ( long value, char * str ) {
-    char temp;
-    int i =0;
-    while (value > 0) {
-        int digito = value % 10;
-
-        str[i] = digito + '0';
-        value /= 10;
-        i++;
-    }
-   i = 0;
-   int j = strlen(str) - 1;
-   while (i < j) {
-      temp = str[i];
-      str[i] = str[j];
-      str[j] = temp;
-      i++;
-      j--;
-   }
-    return str;
-}
-
 
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  

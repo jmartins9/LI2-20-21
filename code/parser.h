@@ -6,4 +6,4 @@
  */
 #include "pushpop.h"
 void parse(char *line,STACK *s);
-char *ltoa(long N, char *str);
+

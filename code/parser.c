@@ -180,6 +180,14 @@ void parse(char *line,STACK *s) {
              push(s,p1);
              push(s,p2);
          }
+         else if (strcmp(token,"c")==0) {
+             DATA p1 = pop(s);
+
+             char c = p1.elems.LONG;
+             DATA Z;
+             make_datas(Z,CHAR,c);
+             push(s,Z);
+         }
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}
          else if (strlen(token)>1) { 

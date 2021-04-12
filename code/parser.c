@@ -72,8 +72,16 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
              if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
              push (s,Z);  
-              }     
-         else if (strcmp(token,"-")==0) {
+              else if (strcmp(token,"-")==0) {
+             DATA p1 = pop(s);
+             DATA p2 = pop(s);
+             DATA Z;
+             if (what_type (p1)==LONG && what_type(p2)==LONG) {long subtracao = p2.elems.LONG-p1.elems.LONG;make_datas(Z,LONG,subtracao);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double subtracao = p2.elems.LONG-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
+             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.LONG;make_datas(Z,DOUBLE,subtracao);} 
+             push (s,Z);       
+         }  
              DATA p1 = pop(s);
              DATA p2 = pop(s);
              long sub = p2.elems.LONG-p1.elems.LONG;

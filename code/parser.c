@@ -18,6 +18,8 @@
 
 
 
+
+
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
  * As operações aritméticas são:
@@ -38,6 +40,8 @@ void parse(char *line,STACK *s) {
      char *sobra;
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
+         int contaposleitura=0;
+         contaposleitura+=strlen(token);
          DATA X;
          float F;
          long L;
@@ -53,15 +57,17 @@ void parse(char *line,STACK *s) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
                   assert( line1  [strlen (line1)-1] == '\n');
-                  token = strtok(NULL,delimitadores);
-                  if (strcmp(token,"i")==0) {
-                  DATA v1;
-                  char *token1 = strtok(line1,delimitadores);
-                  long t1 = strtol(token1,&sobra,10);
-                  make_datas(v1,LONG,t1);
-                  push (s,v1);
-                  parse (line+4,s);
-                  }
+                  parse(line1,s);
+                  // ainda falta aqui a leitura do restante da line
+         }
+         else if (strcmp(token,"i")==0) {
+             DATA Z;
+             DATA p1 = pop(s);
+             if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(Z,LONG,conv);}
+             if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(Z,LONG,conv);}
+             if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(Z,LONG,conv);}
+             //if (what_type (p1)==LONG) {long conv = p1.elems.STRING;make_datas(Z,LONG,conv);}      
+             push (s,Z);
          }
          else if (strcmp(token,"+")==0) {
              DATA p1 = pop(s);

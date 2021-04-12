@@ -72,7 +72,7 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
              if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
              push (s,Z);  
-              else if (strcmp(token,"-")==0) {
+        else if (strcmp(token,"-")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);
              DATA Z;

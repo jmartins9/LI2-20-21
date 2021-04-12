@@ -81,20 +81,24 @@ void parse(char *line,STACK *s) {
              make_datas(Z,LONG,sub);
              push (s,Z);                  
          } 
-         else if (strcmp(token,"*")==0) {
+          else if (strcmp(token,"*")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);
-             long mult = p2.elems.LONG*p1.elems.LONG;
              DATA Z;
-             make_datas(Z,LONG,mult);
+             if (what_type (p1)==LONG && what_type(p2)==LONG) {long mult = p2.elems.LONG*p1.elems.LONG;make_datas(Z,LONG,mult);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double mult = p2.elems.LONG*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
+             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.LONG;make_datas(Z,DOUBLE,mult);} 
              push (s,Z);                 
          } 
          else if (strcmp(token,"/")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);
-             long div = p2.elems.LONG/p1.elems.LONG;
              DATA Z;
-             make_datas(Z,LONG,div);
+             if (what_type (p1)==LONG && what_type(p2)==LONG) {long div = p2.elems.LONG/p1.elems.LONG;make_datas(Z,LONG,div);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double div = p2.elems.LONG/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
+             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.LONG;make_datas(Z,DOUBLE,div);} 
              push (s,Z);                       
          }
          else if (strcmp(token,"%")==0) {

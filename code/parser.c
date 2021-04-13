@@ -16,7 +16,13 @@
 #include "parser.h"
 #include "pushpop.h"
 
-
+void preenche (char *line,char v[]) {
+     int i;
+     for(i=0;*line;i++) {
+         v[i]=*line;
+         line++;
+     } 
+}
 
 
 /**
@@ -38,6 +44,8 @@
 void parse(char *line,STACK *s) {
      char *sobra;
      char *sobra1;
+     char guardaline[12040];
+     preenche(line,guardaline);
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
@@ -54,7 +62,7 @@ void parse(char *line,STACK *s) {
                   assert( fgets (line1,10240,stdin) != NULL);
                   assert( line1  [strlen (line1)-1] == '\n');
                   parse(line1,s);
-  
+                  parse(strstr(guardaline,token)+strlen(token),s);
          }
          else if (strcmp(token,"i")==0) {
              DATA Z;

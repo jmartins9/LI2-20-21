@@ -19,7 +19,6 @@
 
 
 
-
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
  * As operações aritméticas são:
@@ -38,27 +37,24 @@
  */
 void parse(char *line,STACK *s) {
      char *sobra;
+     char *sobra1;
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-         int contaposleitura=0;
-         contaposleitura+=strlen(token);
          DATA X;
          float F;
          long L;
          L=strtol (token,&sobra,10);
-         F=strtod (token,&sobra);
-         if (strlen(sobra)==0) {
-         if (F==L) {
-         make_datas(X, LONG, L);push (s,X);} 
-         else {
-         make_datas(X, DOUBLE, F);push (s,X);}  
+         F=strtod (token,&sobra1);
+         if (strlen(sobra1)==0) {
+          if (strlen(sobra)!=0) {make_datas(X,DOUBLE,F);push (s,X);} 
+          else {make_datas(X, LONG, L);push (s,X);}
          }
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
                   assert( line1  [strlen (line1)-1] == '\n');
                   parse(line1,s);
-                  // ainda falta aqui a leitura do restante da line
+  
          }
          else if (strcmp(token,"i")==0) {
              DATA Z;

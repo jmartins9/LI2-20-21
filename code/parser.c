@@ -121,7 +121,7 @@ void parse(char *line,STACK *s) {
              make_datas(Z,LONG,mod);
              push (s,Z);                    
          }
-         else if (strcmp(token,")")==0) {
+         else if (strcmp(token,")")==0) { //ta a funcionar
              DATA p1 = pop(s);
              DATA Z;
              if (what_type (p1)==LONG) {long inc = p1.elems.LONG+1;make_datas(Z,LONG,inc);}
@@ -138,9 +138,11 @@ void parse(char *line,STACK *s) {
          else if (strcmp(token,"#")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);
-             long exp = pow(p2.elems.LONG,p1.elems.LONG);
              DATA Z;
-             make_datas(Z,LONG,exp);
+             if (what_type (p1)==LONG && what_type(p2)==LONG) {long exp = pow(p2.elems.LONG,p1.elems.LONG);make_datas(Z,LONG,exp);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double exp = pow(p2.elems.LONG,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
+             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
+             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.LONG);make_datas(Z,DOUBLE,exp);} 
              push (s,Z);                        
          }
          else if (strcmp(token,"~")==0) {      

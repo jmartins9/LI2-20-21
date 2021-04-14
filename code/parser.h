@@ -5,5 +5,7 @@
  * 
  */
 #include "pushpop.h"
+void leituradatas (char *line,STACK *s);
+void preenche (char *line,char v[]);
 void parse(char *line,STACK *s);
 

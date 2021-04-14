@@ -25,6 +25,37 @@ void preenche (char *line,char v[]) {
 }
 
 
+void leituradatas (char *line,STACK *s) {
+    char *sobra;
+    char *sobra1;
+    char *delimitadores = " \t\n" ;
+    for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
+         DATA X;
+         float F;
+         long L;
+         L=strtol (token,&sobra,10);
+         F=strtod (token,&sobra1);
+         if (strlen(sobra1)==0) {
+          if (strlen(sobra)!=0) {
+              make_datas(X,DOUBLE,F);
+              push (s,X);} 
+          else {
+              make_datas(X, LONG, L);
+              push (s,X);
+          }
+         }
+         else if (strlen(token)==1) {
+              make_datas(X, CHAR, *token);
+              push (s,X);
+              }
+         else if (strlen(token)>1) { 
+              make_datas(X, STRING,strdup(token));
+              push (s,X);
+         }
+    }
+}
+
+
 /**
  * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
  * As operações aritméticas são:
@@ -61,7 +92,7 @@ void parse(char *line,STACK *s) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
                   assert( line1  [strlen (line1)-1] == '\n');
-                  parse(line1,s);
+                  leituradatas(line1,s);
                   parse(strstr(guardaline,token)+strlen(token),s);
          }
          else if (strcmp(token,"i")==0) {

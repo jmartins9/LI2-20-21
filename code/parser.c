@@ -26,32 +26,11 @@ void preenche (char *line,char v[]) {
 
 
 void leituradatas (char *line,STACK *s) {
-    char *sobra;
-    char *sobra1;
     char *delimitadores = " \t\n" ;
     for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-         DATA X;
-         float F;
-         long L;
-         L=strtol (token,&sobra,10);
-         F=strtod (token,&sobra1);
-         if (strlen(sobra1)==0) {
-          if (strlen(sobra)!=0) {
-              make_datas(X,DOUBLE,F);
-              push (s,X);} 
-          else {
-              make_datas(X, LONG, L);
-              push (s,X);
-          }
-         }
-         else if (strlen(token)==1) {
-              make_datas(X, CHAR, *token);
-              push (s,X);
-              }
-         else if (strlen(token)>1) { 
+              DATA X;
               make_datas(X, STRING,strdup(token));
               push (s,X);
-         }
     }
 }
 
@@ -101,7 +80,7 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(Z,LONG,conv);}
              if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(Z,LONG,conv);}
              if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(Z,LONG,conv);}
-             //if (what_type (p1)==LONG) {long conv = p1.elems.STRING;make_datas(Z,LONG,conv);}      
+             if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(Z,LONG,conv);}      
              push (s,Z);
          }
          else if (strcmp(token,"+")==0) {

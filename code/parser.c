@@ -83,6 +83,16 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(Z,LONG,conv);}      
              push (s,Z);
          }
+          
+         else if (strcmp(token,"f")==0) {
+             DATA Z;
+             DATA p1 = pop(s);
+             if (what_type (p1)==LONG) {float conv = p1.elems.LONG;make_datas(Z,DOUBLE,conv);}
+             if (what_type (p1)==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(Z,DOUBLE,conv);}
+             if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(Z,DOUBLE,conv);}
+             if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(Z,DOUBLE,conv);}      
+             push (s,Z);
+         }
          else if (strcmp(token,"+")==0) {
              DATA p1 = pop(s);
              DATA p2 = pop(s);

@@ -136,13 +136,15 @@ void parse(char *line,STACK *s) {
              DATA Z;
              if (what_type (p1)==LONG) {long inc = p1.elems.LONG+1;make_datas(Z,LONG,inc);}
              if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE+1;make_datas(Z,DOUBLE,inc);}
+             if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR+1;make_datas(Z,CHAR,inc);}
              push (s,Z);                 
          }
          else if (strcmp(token,"(")==0) {
              DATA p1 = pop(s);
-             long dec = p1.elems.LONG - 1;
              DATA Z;
-             make_datas(Z,LONG,dec);
+             if (what_type (p1)==LONG) {long inc = p1.elems.LONG-1;make_datas(Z,LONG,inc);}
+             if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE-1;make_datas(Z,DOUBLE,inc);}
+             if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR-1;make_datas(Z,CHAR,inc);}
              push (s,Z);                        
          }
          else if (strcmp(token,"#")==0) {

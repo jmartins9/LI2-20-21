@@ -212,11 +212,14 @@ void parse(char *line,STACK *s) {
          }
          else if (strcmp(token,"c")==0) {
              DATA p1 = pop(s);
-
-             char c = p1.elems.LONG;
              DATA Z;
-             make_datas(Z,CHAR,c);
+             if (what_type (p1)==LONG) {char conv = p1.elems.LONG;make_datas(Z,CHAR,conv);}
+             if (what_type (p1)==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(Z,CHAR,conv);}
+             if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(Z,CHAR,conv);}
              push(s,Z);
+         }
+         else if (strcmp(token,";")==0) {
+            pop(s);
          }
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}

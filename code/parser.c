@@ -234,11 +234,11 @@ void parse(char *line,STACK *s) {
          
          else if (strcmp(token,"$")==0) { 
             DATA p1 = pop(s);
-            int in = p1.elems.long; 
+            int in = p1.elems.LONG; 
             s->n_elems -= in;
             DATA p2 = top(s); 
             s->n_elems += in; 
-            push(s,p1); 
+            push(s,p2); 
              
          }
           

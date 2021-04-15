@@ -231,6 +231,17 @@ void parse(char *line,STACK *s) {
          else if (strcmp(token,";")==0) {
             pop(s);
          }
+         
+         else if (strcmp(token,"$")==0) { 
+            DATA p1 = pop(s);
+            int in = p1.elems.long; 
+            s->n_elems -= in;
+            DATA p2 = top(s); 
+            s->n_elems += in; 
+            push(s,p1); 
+             
+         }
+          
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}
          else if (strlen(token)>1) { 

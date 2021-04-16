@@ -15,6 +15,7 @@
 #include <assert.h>
 #include "parser.h"
 #include "pushpop.h"
+#include "stackoperations.h"
 
 void preenche (char *line,char v[]) {
      int i;
@@ -36,26 +37,16 @@ void leituradatas (char *line,STACK *s) {
 
 
 /**
- * Esta é a função responsável pelas operações aritméticas com os valores e instruções dadas para a stack.  
- * As operações aritméticas são:
- * Operação para a soma;
- * Operação para a subtração;
- * Operação para a multiplicação;
- * Operação para a divisão;
- * Operação para o resto da divisão entre dois valores;
- * Operação de incrementar: Ao último valor adicionado á stack vai incrementar uma unidade;
- * Operação de decrementar: Ao último valor adicionado á stack vai decrementar uma unidade;
- * Operação de Exponenciação : Operação para a potência de um valor pelo outro (X elevado a Y);
- * Operação E (bitwise);
- * Operação ou (bitwise);
- * Operação xor (bitwise);
- * Operação not (bitwise);
+ * 
+ * Esta é a função responsável pelo parse da linha lida e executar as intruções dadas com a ajuda de uma stack.  
+ * 
  */
 void parse(char *line,STACK *s) {
      char *sobra;
      char *sobra1;
      char guardaline[12040];
      preenche(line,guardaline);
+     char *charsStackop = "_;@$\\";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
@@ -67,6 +58,7 @@ void parse(char *line,STACK *s) {
           if (strlen(sobra)!=0) {make_datas(X,DOUBLE,F);push (s,X);} 
           else {make_datas(X, LONG, L);push (s,X);}
          }
+         else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
@@ -198,28 +190,6 @@ void parse(char *line,STACK *s) {
              make_datas(Z,LONG,xor);
              push (s,Z);                     //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
-         else if (strcmp(token,"@")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA p3 = pop(s);
-
-             push(s,p2);
-             push(s,p1);
-             push(s,p3);
-         }
-         else if (strcmp(token,"_")==0) {
-             DATA p1 = pop(s);
-
-             push(s,p1);
-             push(s,p1);
-         }
-         else if (strcmp(token,"\\")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-
-             push(s,p1);
-             push(s,p2);
-         }
          else if (strcmp(token,"c")==0) {
              DATA p1 = pop(s);
              DATA Z;
@@ -228,20 +198,6 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(Z,CHAR,conv);}
              push(s,Z);
          }
-         else if (strcmp(token,";")==0) {
-            pop(s);
-         }
-         
-         else if (strcmp(token,"$")==0) { 
-            DATA p1 = pop(s);
-            int in = p1.elems.LONG; 
-            s->n_elems -= in;
-            DATA p2 = top(s); 
-            s->n_elems += in; 
-            push(s,p2); 
-             
-         }
-          
          else if (strlen(token)==1) {
          make_datas(X, CHAR, *token);push (s,X);}
          else if (strlen(token)>1) { 

@@ -1,7 +1,7 @@
 /**
  * @file stackoperations.c 
  *
- * Este é o ficheiro que contém todas as funções relacionadas com as operções sobre a stack. 
+ * Este é o ficheiro que contém todas as funções relacionadas com as operações sobre a stack. 
  */
 #include <stdio.h>
 #include <string.h>

@@ -16,6 +16,7 @@
 #include "parser.h"
 #include "pushpop.h"
 #include "stackoperations.h"
+#include "matoperations.h"
 
 void preenche (char *line,char v[]) {
      int i;
@@ -47,6 +48,7 @@ void parse(char *line,STACK *s) {
      char guardaline[12040];
      preenche(line,guardaline);
      char *charsStackop = "_;@$\\";
+     char *charsMatOp = "+-*/)%#&|^~";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
@@ -59,6 +61,7 @@ void parse(char *line,STACK *s) {
           else {make_datas(X, LONG, L);push (s,X);}
          }
          else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
+         else if (strstr(charsMatOp, token)!=NULL) {matoperations(token,s);}
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
@@ -75,7 +78,6 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(Z,LONG,conv);}      
              push (s,Z);
          }
-          
          else if (strcmp(token,"f")==0) {
              DATA Z;
              DATA p1 = pop(s);
@@ -84,62 +86,6 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(Z,DOUBLE,conv);}
              if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(Z,DOUBLE,conv);}      
              push (s,Z);
-         }
-         else if (strcmp(token,"+")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG && what_type(p2)==LONG) {long soma = p2.elems.LONG+p1.elems.LONG;make_datas(Z,LONG,soma);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double soma = p2.elems.LONG+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
-             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
-             push (s,Z);  
-        }
-        else if (strcmp(token,"-")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG && what_type(p2)==LONG) {long subtracao = p2.elems.LONG-p1.elems.LONG;make_datas(Z,LONG,subtracao);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double subtracao = p2.elems.LONG-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
-             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.LONG;make_datas(Z,DOUBLE,subtracao);} 
-             push (s,Z);         
-         } 
-          else if (strcmp(token,"*")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG && what_type(p2)==LONG) {long mult = p2.elems.LONG*p1.elems.LONG;make_datas(Z,LONG,mult);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double mult = p2.elems.LONG*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
-             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.LONG;make_datas(Z,DOUBLE,mult);} 
-             push (s,Z);                 
-         } 
-         else if (strcmp(token,"/")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG && what_type(p2)==LONG) {long div = p2.elems.LONG/p1.elems.LONG;make_datas(Z,LONG,div);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double div = p2.elems.LONG/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
-             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.LONG;make_datas(Z,DOUBLE,div);} 
-             push (s,Z);                       
-         }
-         else if (strcmp(token,"%")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             long mod = p2.elems.LONG%p1.elems.LONG;
-             DATA Z;
-             make_datas(Z,LONG,mod);
-             push (s,Z);                    
-         }
-         else if (strcmp(token,")")==0) { //ta a funcionar
-             DATA p1 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG) {long inc = p1.elems.LONG+1;make_datas(Z,LONG,inc);}
-             if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE+1;make_datas(Z,DOUBLE,inc);}
-             if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR+1;make_datas(Z,CHAR,inc);}
-             push (s,Z);                 
          }
          else if (strcmp(token,"(")==0) {
              DATA p1 = pop(s);

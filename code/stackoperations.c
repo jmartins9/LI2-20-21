@@ -74,9 +74,12 @@ void copynelems (STACK *s) {//  $
  * 
  */
 void stackoperations (char *token,STACK *s) {
-    if (strcmp(token,"_")==0) {duplicatop(s);}
-    else if (strcmp(token,";")==0) {retiratop(s);}
-    else if (strcmp(token,"@")==0) {changetop3(s);}
-    else if (strcmp(token,"$")==0) {copynelems(s);}
-    else if (strcmp(token,"\\")==0) {changetop2(s);}    
+    switch (*token) {
+       case ('_') : {duplicatop(s); break;}
+       case (';') : {retiratop(s); break;}
+       case ('@') : {changetop3(s); break;}
+       case ('$') : {copynelems(s); break;}
+       case ('\\') : {changetop2(s); break;}
+
+    }
 }

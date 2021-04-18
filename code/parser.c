@@ -17,6 +17,7 @@
 #include "pushpop.h"
 #include "stackoperations.h"
 #include "matoperations.h"
+#include "logicoperations.h"
 
 void preenche (char *line,char v[]) {
      int i;
@@ -49,6 +50,7 @@ void parse(char *line,STACK *s) {
      preenche(line,guardaline);
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
+     char *charsLogicOp = "=<>!?";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
@@ -62,6 +64,7 @@ void parse(char *line,STACK *s) {
          }
          else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
          else if (strstr(charsMatOp, token)!=NULL) {matoperations(token,s);}
+         else if (strstr(charsLogicOp, token)!=NULL) {logicoperations(token,s);}
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);

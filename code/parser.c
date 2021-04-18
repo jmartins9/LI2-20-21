@@ -48,7 +48,7 @@ void parse(char *line,STACK *s) {
      char guardaline[12040];
      preenche(line,guardaline);
      char *charsStackop = "_;@$\\";
-     char *charsMatOp = "+-*/)%#&|^~";
+     char *charsMatOp = "+-*/)(%#&|^~";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA X;
@@ -86,55 +86,6 @@ void parse(char *line,STACK *s) {
              if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(Z,DOUBLE,conv);}
              if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(Z,DOUBLE,conv);}      
              push (s,Z);
-         }
-         else if (strcmp(token,"(")==0) {
-             DATA p1 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG) {long inc = p1.elems.LONG-1;make_datas(Z,LONG,inc);}
-             if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE-1;make_datas(Z,DOUBLE,inc);}
-             if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR-1;make_datas(Z,CHAR,inc);}
-             push (s,Z);                        
-         }
-         else if (strcmp(token,"#")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG && what_type(p2)==LONG) {long exp = pow(p2.elems.LONG,p1.elems.LONG);make_datas(Z,LONG,exp);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double exp = pow(p2.elems.LONG,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
-             if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
-             if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.LONG);make_datas(Z,DOUBLE,exp);} 
-             push (s,Z);                        
-         }
-         else if (strcmp(token,"~")==0) {      
-             DATA p1 = pop(s);
-             long not = ~p1.elems.LONG;
-             DATA Z;
-             make_datas(Z,LONG,not);
-             push (s,Z);                        //Aqui damos o valor binário e nesta operação é invertida o seu valor, nomeadamente 0's passa para 1's e vice-versa 
-         }                                      
-         else if (strcmp(token,"&")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             long e = p2.elems.LONG&p1.elems.LONG;
-             DATA Z;
-             make_datas(Z,LONG,e);
-             push (s,Z);                       //Compara os elementos do inteiro em binário e verifica se tem numeros iguais nas mesmas posições  
-         }    
-         else if (strcmp(token,"|")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             long ou = p2.elems.LONG|p1.elems.LONG;
-             DATA Z;
-             make_datas(Z,LONG,ou);
-             push (s,Z);                     //Disjunção dos elementos bits, neste caso vê quais são iguais e os diferentes mas retorna os valores todos ("ou" em lógica)
-         }                                      
-         else if (strcmp(token,"^")==0) {
-             DATA p1 = pop(s);
-             DATA p2 = pop(s);
-             long xor = p2.elems.LONG^p1.elems.LONG;
-             DATA Z;
-             make_datas(Z,LONG,xor);
-             push (s,Z);                     //Verifica se os bits são iguais e retorna 0 se forem diferentes e 1 se forem iguais
          }
          else if (strcmp(token,"c")==0) {
              DATA p1 = pop(s);

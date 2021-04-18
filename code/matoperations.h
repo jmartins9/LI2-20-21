@@ -59,4 +59,48 @@ void divResto (STACK *S);
  */
 void somarTop (STACK *S);
 
+/**
+ *
+ * Este é o header da função que executa o comando (.
+ * 
+ */
+void subtrairTop (STACK *s);
+
+/**
+ *
+ * Este é o header da função que executa o comando #.
+ * 
+ */
+void expoente (STACK *s);
+
+/**
+ *
+ * Este é o header da função que executa o comando ~.
+ * 
+ */
+void notBin (STACK *s);
+
+/**
+ *
+ * Este é o header da função que executa o comando &.
+ * 
+ */
+void andBin (STACK *s);
+
+/**
+ *
+ * Este é o header da função que executa o comando |.
+ * 
+ */
+void orBin (STACK *s);
+
+/**
+ *
+ * Este é o header da função que executa o comando ^.
+ * 
+ */
+void xorBin (STACK *s);
+
+
+
 #endif

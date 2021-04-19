@@ -31,4 +31,32 @@ void equivalente (char *token,STACK *s);
  */
 void ifthenelse (char *token,STACK *s);
 
+/**
+ *
+ * Esta é o header da função que executa o comando e>.
+ * 
+ */
+void minoftwo (STACK *s);
+
+/**
+ *
+ * Esta é o header da função que executa o comando e>.
+ * 
+ */
+void maxoftwo (STACK *s);
+
+/**
+ *
+ * Esta é o header da função que executa o comando e&.
+ * 
+ */
+void andlogic (STACK *s); 
+
+/**
+ *
+ * Esta é o header da função que executa o comando e|.
+ * 
+ */
+void orlogic (STACK *s);
+
 #endif

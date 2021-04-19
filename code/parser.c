@@ -18,6 +18,7 @@
 #include "stackoperations.h"
 #include "matoperations.h"
 #include "logicoperations.h"
+#include "variables.h"
 
 void preenche (char *line,char v[]) {
      int i;
@@ -31,9 +32,9 @@ void preenche (char *line,char v[]) {
 void leituradatas (char *line,STACK *s) {
     char *delimitadores = " \t\n" ;
     for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-              DATA X;
-              make_datas(X, STRING,strdup(token));
-              push (s,X);
+              DATA data;
+              make_datas(data, STRING,strdup(token));
+              push (s,data);
     }
 }
 
@@ -46,25 +47,26 @@ void leituradatas (char *line,STACK *s) {
 void parse(char *line,STACK *s) {
      char *sobra;
      char *sobra1;
-     char guardaline[12040];
-     preenche(line,guardaline);
+     char guardaline[12040]; preenche(line,guardaline);
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
-     char *charsLogicOp = "=<>!?";
+     char *charsLogicOp = "=<>!?e&e|e<e>";
+     char *charsVar = "ABCDEFGHIJKLMNRSTUVWXZ";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-         DATA X;
-         float F;
-         long L;
-         L=strtol (token,&sobra,10);
-         F=strtod (token,&sobra1);
+         DATA data;
+         float Float;
+         long Long;
+         Long=strtol (token,&sobra,10);
+         Float=strtod (token,&sobra1);
          if (strlen(sobra1)==0) {
-          if (strlen(sobra)!=0) {make_datas(X,DOUBLE,F);push (s,X);} 
-          else {make_datas(X, LONG, L);push (s,X);}
+          if (strlen(sobra)!=0) {make_datas(data,DOUBLE,Float);push (s,data);} 
+          else {make_datas(data,LONG,Long);push (s,data);}
          }
          else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
-         else if (strstr(charsMatOp, token)!=NULL) {matoperations(token,s);}
-         else if (strstr(charsLogicOp, token)!=NULL) {logicoperations(token,s);}
+         else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);}
+         else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);}
+         else if (strstr(charsVar,token)!=NULL) {varoperations(token,s);}
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
@@ -73,34 +75,34 @@ void parse(char *line,STACK *s) {
                   parse(strstr(guardaline,token)+strlen(token),s);
          }
          else if (strcmp(token,"i")==0) {
-             DATA Z;
+             DATA data;
              DATA p1 = pop(s);
-             if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(Z,LONG,conv);}
-             if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(Z,LONG,conv);}
-             if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(Z,LONG,conv);}
-             if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(Z,LONG,conv);}      
-             push (s,Z);
+             if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(data,LONG,conv);}
+             if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(data,LONG,conv);}
+             if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(data,LONG,conv);}
+             if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(data,LONG,conv);}      
+             push (s,data);
          }
          else if (strcmp(token,"f")==0) {
-             DATA Z;
+             DATA data;
              DATA p1 = pop(s);
-             if (what_type (p1)==LONG) {float conv = p1.elems.LONG;make_datas(Z,DOUBLE,conv);}
-             if (what_type (p1)==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(Z,DOUBLE,conv);}
-             if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(Z,DOUBLE,conv);}
-             if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(Z,DOUBLE,conv);}      
-             push (s,Z);
+             if (what_type (p1)==LONG) {float conv = p1.elems.LONG;make_datas(data,DOUBLE,conv);}
+             if (what_type (p1)==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(data,DOUBLE,conv);}
+             if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(data,DOUBLE,conv);}
+             if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(data,DOUBLE,conv);}      
+             push (s,data);
          }
          else if (strcmp(token,"c")==0) {
              DATA p1 = pop(s);
-             DATA Z;
-             if (what_type (p1)==LONG) {char conv = p1.elems.LONG;make_datas(Z,CHAR,conv);}
-             if (what_type (p1)==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(Z,CHAR,conv);}
-             if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(Z,CHAR,conv);}
-             push(s,Z);
+             DATA data;
+             if (what_type (p1)==LONG) {char conv = p1.elems.LONG;make_datas(data,CHAR,conv);}
+             if (what_type (p1)==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(data,CHAR,conv);}
+             if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(data,CHAR,conv);}
+             push(s,data);
          }
          else if (strlen(token)==1) {
-         make_datas(X, CHAR, *token);push (s,X);}
+         make_datas(data, CHAR, *token);push (s,data);}
          else if (strlen(token)>1) { 
-         make_datas(X, STRING,strdup(token));push (s,X);}
+         make_datas(data, STRING,strdup(token));push (s,data);}
      }
 } 

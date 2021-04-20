@@ -11,6 +11,7 @@
 #include <string.h>
 #include "parser.h"
 #include "pushpop.h"
+#include "variables.h"
 
 /**
  * \brief Esta é a função principal do programa.
@@ -21,6 +22,7 @@
  */
 int main () {
     STACK *s = create_stack();
+    omissionvalues();
     char line [10240];
     assert( fgets (line,10240,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');

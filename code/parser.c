@@ -51,7 +51,7 @@ void parse(char *line,STACK *s) {
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
      char *charsLogicOp = "=<>!?e&e|e<e>";
-     char *charsVar = "ABCDEFGHIJKLMNRSTUVWXZ";
+     char *charsVar = ":A:B:C:D:E:F:N:S:X:Y:Z";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          DATA data;

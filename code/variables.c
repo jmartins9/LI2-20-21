@@ -39,12 +39,10 @@ void putVarTop (char *token,STACK *s) {
 void varoperations (char *token,STACK *s) {
      putVarTop (token,s);
      if (strcmp(token,":A")==0)  {    
-             DATA p1 = top (s);       
-             if (what_type (p1)==LONG) {long val = p1.elems.LONG;make_datas(A,LONG,val);} 
+             A = top (s);        
      }  
      else if (strcmp(token,":B")==0)  {    
-             DATA p1 = top (s);        
-             if (what_type (p1)==LONG) {long val = p1.elems.LONG;make_datas(B,LONG,val);} 
+             B = top (s);         
           }        
 }
 

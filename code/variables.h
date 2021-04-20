@@ -9,18 +9,72 @@
 
 #include "pushpop.h"
 
-#define A (10);
-#define B (11);
-#define C (12);
-#define D (13);
-#define E (14);
-#define F (15);
-#define N ('\n');
-#define S (' ');
-#define X (0);
-#define Y (1);
-#define Z (2);
+/**
+ * Variável global A.
+ */
+DATA A;
+/**
+ * Variável global B.
+ */
+DATA B;
+/**
+ * Variável global C.
+ */
+DATA C;
+/**
+ * Variável global D.
+ */
+DATA D;
+/**
+ * Variável global E.
+ */
+DATA E;
+/**
+ * Variável global F.
+ */
+DATA F;
+/**
+ * Variável global N.
+ */
+DATA N;
+/**
+ * Variável global S.
+ */
+DATA S;
+/**
+ * Variável global X.
+ */
+DATA X;
+/**
+ * Variável global Y.
+ */
+DATA Y;
+/**
+ * Variável global Z.
+ */
+DATA Z;
 
+
+/**
+ *
+ * Esta é o header da função faz push do valor das variáveis para o topo da stack.
+ * 
+ */
+void putVarTop (char *token,STACK *s);
+
+/**
+ *
+ * Esta é o header da função que executa as instruções relativas às variáveis dependendo do token.
+ * 
+ */
 void varoperations(char *token,STACK *s);
+
+
+/**
+ *
+ * Esta é o header da função que inicia as variáveis.
+ * 
+ */
+void omissionvalues ();
 
 #endif

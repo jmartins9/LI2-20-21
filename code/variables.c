@@ -31,6 +31,13 @@ void putVarTop (char *token,STACK *s,VAR *x) {
 }
 
 
+void assvalue (char *token,STACK *s,VAR *x) {
+     switch (*token)
+     {
+     case ('A'): x->A=top(s);break;
+     case ('B'): x->B=top(s);break;
+     }
+}
 
 /**
  *
@@ -39,12 +46,10 @@ void putVarTop (char *token,STACK *s,VAR *x) {
  */
 void varoperations (char *token,STACK *s,VAR *x) {
      putVarTop (token,s,x);
-     if (strcmp(token,":A")==0)  {    
-             x->A = top (s);        
-     }  
-     else if (strcmp(token,":B")==0)  {    
-             x->B = top (s);         
-          }        
+     switch (*token)
+     {
+     case (':'): assvalue (token+1,s,x);break; // atribui valores a variaveis
+     }   
 }
 
 

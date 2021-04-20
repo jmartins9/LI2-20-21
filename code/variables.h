@@ -17,8 +17,23 @@ typedef struct variables {
         DATA D;
         DATA E;
         DATA F;
+        DATA G;
+        DATA H;
+        DATA I;
+        DATA J;
+        DATA K;
+        DATA L
+        DATA M;
         DATA N;
+        DATA O;
+        DATA P;
+        DATA Q;
+        DATA R;
         DATA S;
+        DATA T;
+        DATA U;
+        DATA V;
+        DATA W;
         DATA X;
         DATA Y;
         DATA Z;

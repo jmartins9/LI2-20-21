@@ -159,6 +159,30 @@ void negate (STACK *s) {
 
 /**
  *
+ * Esta é a função que executa o comando <, ou seja, devolve 1 se a condição for verdadeira e 0 se for falsa.
+ * 
+ */
+void smallerthan (STACK *s) {
+    DATA p1 = pop(s);
+    DATA p2 = pop(s);
+    DATA data;
+    if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+}
+
+/**
+ *
+ * Esta é a função que executa o comando >, ou seja, devolve 1 se a condição for verdadeira e 0 se for falsa.
+ * 
+ */
+void biggerthan (STACK *s) {
+    DATA p1 = pop(s);
+    DATA p2 = pop(s);
+    DATA data;
+    if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+}
+
+/**
+ *
  * Esta é a função que recorre a outras funçõoes para executar as operações lógicas iniciadas por o caratere 'e' dependendo da instrução dada.
  * 
  */
@@ -185,6 +209,7 @@ void logicoperations (char *token,STACK *s) {
     case ('?'): ifthenelse(s);break;
     case ('e'): eoperations(token+1,s);break;
     case ('!'): negate(s);break;
-    
+    case ('<'): smallerthan(s);break;
+    case ('>'): biggerthan(s);break;
     }
 }

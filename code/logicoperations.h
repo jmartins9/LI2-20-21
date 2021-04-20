@@ -79,10 +79,21 @@ void orlogic (STACK *s);
  * 
  */
 void negate (STACK *s);
-
 /**
  *
- * Esta é o header da função executar as operações lógicas iniciadas por o caratere 'e'.
+ * Esta é o header da função que executa o comando <.
+ * 
+ */
+void smallerthan (STACK *s);
+/**
+ *
+ * Esta é o header da função que executa o comando >.
+ * 
+ */
+void biggerthan (STACK *s);
+/**
+ *
+ * Esta é o header da função executar as operações lógicas iniciadas por o caracterer 'e'.
  * 
  */
 void eoperations (char *token,STACK *s);

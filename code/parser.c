@@ -20,6 +20,12 @@
 #include "logicoperations.h"
 #include "variables.h"
 
+
+/**
+ *
+ * Esta é a função que guarda a linha de comandos dada numa string.
+ * 
+ */
 void preenche (char *line,char v[]) {
      int i;
      for(i=0;*line;i++) {
@@ -28,7 +34,11 @@ void preenche (char *line,char v[]) {
      } 
 }
 
-
+/**
+ *
+ * Esta é a função que converte uma linha de dados em tipo de dados STRING e coloca na Stack.
+ * 
+ */
 void leituradatas (char *line,STACK *s) {
     char *delimitadores = " \t\n" ;
     for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {

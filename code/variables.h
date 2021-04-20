@@ -9,6 +9,22 @@
 
 #include "pushpop.h"
 
+/*
+typedef struct variables {
+        VAR variables[30];
+} * VARIABLES;
+
+typedef struct var {
+        char letra;
+        DATA valor;
+} VAR;
+
+
+
+#define bla (VAR, valor, letra)  \
+VAR.letra = letra                \
+VAR.valor = valor
+*/
 
 typedef struct variables {  
         DATA A;

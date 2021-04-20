@@ -159,16 +159,32 @@ void negate (STACK *s) {
 
 /**
  *
+ * Esta é a função que recorre a outras funçõoes para executar as operações lógicas iniciadas por o caratere 'e' dependendo da instrução dada.
+ * 
+ */
+void eoperations (char *token,STACK *s) {
+    switch (*token) {
+    case ('<'): minoftwo(s); break;
+    case ('>'): maxoftwo(s); break;
+    case ('&'): andlogic(s); break;
+    case ('|'): orlogic(s); break;   
+    
+    default: pop(s);pop(s);break;
+    }
+}
+
+
+/**
+ *
  * Esta é a função que recorre a outras funçõoes para executar as operações lógicas dependendo da instrução dada.
  * 
  */
 void logicoperations (char *token,STACK *s) {
-    if (strcmp(token,"=")==0) {equivalente(s);}
-    else if (strcmp(token,"?")==0) {ifthenelse(s);}
-    else if (strcmp(token,"e")==0) {pop(s);pop(s);}
-    else if (strcmp(token,"e<")==0) {minoftwo(s);}
-    else if (strcmp(token,"e>")==0) {maxoftwo(s);}
-    else if (strcmp(token,"e&")==0) {andlogic(s);}
-    else if (strcmp(token,"e|")==0) {orlogic(s);}
-    else if (strcmp(token,"!")==0) {negate(s);}
+    switch (*token) {
+    case ('='): equivalente(s);break;
+    case ('?'): ifthenelse(s);break;
+    case ('e'): eoperations(token+1,s);break;
+    case ('!'): negate(s);break;
+    
+    }
 }

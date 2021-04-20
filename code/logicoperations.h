@@ -80,4 +80,11 @@ void orlogic (STACK *s);
  */
 void negate (STACK *s);
 
+/**
+ *
+ * Esta é o header da função executar as operações lógicas iniciadas por o caratere 'e'.
+ * 
+ */
+void eoperations (char *token,STACK *s);
+
 #endif

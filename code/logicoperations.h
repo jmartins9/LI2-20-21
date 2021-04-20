@@ -59,4 +59,11 @@ void andlogic (STACK *s);
  */
 void orlogic (STACK *s);
 
+/**
+ *
+ * Esta é o header da função que executa o comando !.
+ * 
+ */
+void negate (STACK *s);
+
 #endif

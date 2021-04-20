@@ -146,6 +146,17 @@ void orlogic (STACK *s) {
 
 /**
  *
+ * Esta é a função que executa o comando !, ou seja, devolve a negação do valor.
+ * 
+ */
+void negate (STACK *s) {
+    DATA p1 = pop(s);
+    DATA data;
+    if (what_type(p1)==LONG) {long val = !(p1.elems.LONG); make_datas(data,LONG,val); push(s,data);}
+}
+
+/**
+ *
  * Esta é a função que recorre a outras funçõoes para executar as operações lógicas dependendo da instrução dada.
  * 
  */
@@ -156,4 +167,5 @@ void logicoperations (char *token,STACK *s) {
     else if (strcmp(token,"e>")==0) {maxoftwo(s);}
     else if (strcmp(token,"e&")==0) {andlogic(s);}
     else if (strcmp(token,"e|")==0) {orlogic(s);}
+    else if (strcmp(token,"!")==0) {negate(s);}
 }

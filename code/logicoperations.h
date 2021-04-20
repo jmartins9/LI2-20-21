@@ -12,6 +12,20 @@
 
 /**
  *
+ * Esta é uma macro que dado dois valores devolve o menor deles.
+ * 
+ */
+#define MIN(a,b) ((a)>(b)?(b):(a))
+
+/**
+ *
+ * Esta é uma macro que dado dois valores devolve o maior deles.
+ * 
+ */
+#define MAX(a,b) ((a)>(b)?(a):(b))
+
+/**
+ *
  * Esta é o header da função que decide qual das operações matemáticas deve ser executada dependendo da instrução dada.
  * 
  */
@@ -22,14 +36,14 @@ void logicoperations (char *token,STACK *s);
  * Esta é a função que executa o comando =, ou seja, compara os dois elementos no topo da stack.
  * 
  */
-void equivalente (char *token,STACK *s);
+void equivalente (STACK *s);
 
 /**
  *
  * Esta é a função que executa o comando ?, ou seja, executa um 'if then else' com os 3 elementos no topo da stack.
  * 
  */
-void ifthenelse (char *token,STACK *s);
+void ifthenelse (STACK *s);
 
 /**
  *

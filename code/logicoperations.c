@@ -5,6 +5,7 @@
  */
 #include <stdio.h>
 #include <string.h>
+#include "logicoperations.h"
 #include "pushpop.h"
 
 /**
@@ -63,23 +64,29 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
 void minoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
+    DATA data;
     if (what_type (p1)==LONG && what_type(p2)==LONG) {
-        if (p2.elems.LONG <= p1.elems.LONG) push (s,p2);
-        else push(s,p1);
+        long val = MIN(p1.elems.LONG,p2.elems.LONG);
+        make_datas(data,LONG,val);
+        push (s,data);
         }
     if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {
-        if (p2.elems.LONG <= p1.elems.DOUBLE) push (s,p2);
-        else push(s,p1);
+        double val = MIN(p1.elems.DOUBLE,p2.elems.LONG);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
     }
     if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {
-        if (p2.elems.DOUBLE <= p1.elems.DOUBLE) push (s,p2);
-        else push(s,p1);
+        double val = MIN(p1.elems.DOUBLE,p2.elems.DOUBLE);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
         }
     if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {
-        if (p2.elems.DOUBLE <= p1.elems.LONG) push (s,p2);
-        else push(s,p1);
+        double val = MIN(p1.elems.LONG,p2.elems.DOUBLE);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
         }
 }
+
 
 
 /**
@@ -90,21 +97,26 @@ void minoftwo (STACK *s) {
 void maxoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
+    DATA data;
     if (what_type (p1)==LONG && what_type(p2)==LONG) {
-        if (p2.elems.LONG >= p1.elems.LONG) push (s,p2);
-        else push(s,p1);
+        long val = MAX(p1.elems.LONG,p2.elems.LONG);
+        make_datas(data,LONG,val);
+        push (s,data);
         }
     if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {
-        if (p2.elems.LONG >= p1.elems.DOUBLE) push (s,p2);
-        else push(s,p1);
+        double val = MAX(p1.elems.DOUBLE,p2.elems.LONG);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
     }
     if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {
-        if (p2.elems.DOUBLE >= p1.elems.DOUBLE) push (s,p2);
-        else push(s,p1);
+        double val = MAX(p1.elems.DOUBLE,p2.elems.DOUBLE);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
         }
     if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {
-        if (p2.elems.DOUBLE >= p1.elems.LONG) push (s,p2);
-        else push(s,p1);
+        double val = MAX(p1.elems.LONG,p2.elems.DOUBLE);
+        make_datas(data,DOUBLE,val);
+        push (s,data);
         }
 }
 
@@ -116,13 +128,8 @@ void maxoftwo (STACK *s) {
 void andlogic (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    DATA Z;
-    if (p1.elems.LONG==0 || p2.elems.LONG==0) {
-        make_datas(Z,LONG,0);
-        push(s,Z);
-        }
-     else if (p1.elems.LONG==0) push(s,p2);
-          else push(s,p1);
+    if (p2.elems.LONG==0) push(s,p2);
+    else push(s,p1);
 }
 
 
@@ -135,13 +142,8 @@ void andlogic (STACK *s) {
 void orlogic (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    DATA Z;
-    if (p1.elems.LONG==0 && p2.elems.LONG==0) {
-        make_datas(Z,LONG,0);
-        push(s,Z);
-        }
-    else if (p1.elems.LONG==0) push(s,p1);
-         else push(s,p2);
+    if (p2.elems.LONG==0) push(s,p1);
+    else push(s,p2);
 }
 
 /**
@@ -163,6 +165,7 @@ void negate (STACK *s) {
 void logicoperations (char *token,STACK *s) {
     if (strcmp(token,"=")==0) {equivalente(s);}
     else if (strcmp(token,"?")==0) {ifthenelse(s);}
+    else if (strcmp(token,"e")==0) {pop(s);pop(s);}
     else if (strcmp(token,"e<")==0) {minoftwo(s);}
     else if (strcmp(token,"e>")==0) {maxoftwo(s);}
     else if (strcmp(token,"e&")==0) {andlogic(s);}

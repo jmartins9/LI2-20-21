@@ -22,7 +22,7 @@ typedef struct variables {
         DATA I;
         DATA J;
         DATA K;
-        DATA L
+        DATA L;
         DATA M;
         DATA N;
         DATA O;

@@ -7,6 +7,7 @@
 #ifndef ___PARSER_H___
 #define ___PARSER_H___
 
+#include "variables.h"
 #include "pushpop.h"
 
 /**
@@ -28,7 +29,7 @@ void preenche (char *line,char v[]);
  * Esta é o header da função responsável pelo parser da linha de comandos dada.
  * 
  */
-void parse(char *line,STACK *s);
+void parse(char *line,STACK *s,VAR *x);
 
 
 #endif

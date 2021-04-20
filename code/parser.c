@@ -54,7 +54,7 @@ void leituradatas (char *line,STACK *s) {
  * Esta é a função responsável pelo parse da linha lida e executar as intruções dadas com a ajuda de uma stack.  
  * 
  */
-void parse(char *line,STACK *s) {
+void parse(char *line,STACK *s,VAR *x) {
      char *sobra;
      char *sobra1;
      char guardaline[12040]; preenche(line,guardaline);
@@ -76,13 +76,13 @@ void parse(char *line,STACK *s) {
          else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
          else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);}
          else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);}
-         else if (strstr(charsVar,token)!=NULL) {varoperations(token,s);}
+         else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);}
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
                   assert( line1  [strlen (line1)-1] == '\n');
                   leituradatas(line1,s);
-                  parse(strstr(guardaline,token)+strlen(token),s);
+                  parse(strstr(guardaline,token)+strlen(token),s,x);
          }
          else if (strcmp(token,"i")==0) {
              DATA data;

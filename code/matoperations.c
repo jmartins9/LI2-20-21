@@ -192,16 +192,18 @@ void xorBin (STACK *s) {
  * 
  */
 void matoperations (char *token,STACK *s) {
-    if (strcmp(token,"+")==0) {somar(s);}
-    else if (strcmp(token,"-")==0) {subtrair(s);}
-    else if (strcmp(token,"*")==0) {multiplicar(s);}
-    else if (strcmp(token,"/")==0) {divInteira(s);}
-    else if (strcmp(token,"%")==0) {divResto(s);} 
-    else if (strcmp(token,")")==0) {somarTop(s);}
-    else if (strcmp(token,"#")==0) {expoente(s);}  
-    else if (strcmp(token,"(")==0) {subtrairTop(s);}  
-    else if (strcmp(token,"~")==0) {notBin(s);}  
-    else if (strcmp(token,"&")==0) {andBin(s);}  
-    else if (strcmp(token,"|")==0) {orBin(s);}  
-    else if (strcmp(token,"^")==0) {xorBin(s);}      
+    switch (*token) {
+    case ('+'): somar(s);break;
+    case ('-'): subtrair(s);break;
+    case ('*'): multiplicar(s);break;
+    case ('%'): divResto(s);break;
+    case ('/'): divInteira(s);break;
+    case (')'): somarTop(s);break;
+    case ('('): subtrairTop(s);break;
+    case ('#'): expoente(s);break;
+    case ('&'): andBin(s);break;
+    case ('~'): notBin(s);break;
+    case ('|'): orBin(s);break;
+    case ('^'): xorBin(s);break;
+    }      
 }

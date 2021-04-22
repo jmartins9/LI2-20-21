@@ -9,12 +9,23 @@
 
 #include <assert.h>
 
+/**
+ *
+ * De modo a simplificar o manuseamento de dados, criamos uma definição 'enum' de maneira a representar os tipos como inteiros.
+ * 
+ */
 typedef enum {LONG = 1, DOUBLE = 2, CHAR = 4, STRING = 8} TYPE;
 
 #define INTEGER  (LONG | CHAR)
 #define NUMBER   (INTEGER | DOUBLE)
 
-
+/**
+ *
+ * Esta struct é responsável por definir o tipo (data) de cada elemento da stack.
+ * Da maneira que a stack está criada, é possível, no mesmo array, possuir elementos que representam tipos de dados
+ * diferentes, dado que todos tem o tipo DATA.
+ * 
+ */
 typedef struct data {
   TYPE   type;
   union {
@@ -25,17 +36,36 @@ typedef struct data {
   } elems;
 } DATA;
 
+/**
+ *
+ * Nesta definição da stack, é criado um array de elementos do tipo DATA (de maneira a ter elementos diferentes no mesmo array),
+ * é definido o tamanho da stack (size), e o número de elementos da stack (será 0 no início).
+ * 
+ */
 typedef struct stack {
   DATA *stack;
   int size;
   int n_elems;
 } STACK;
 
+/**
+ *
+ * Esta macro é utilizada para simplificar o modo de criação de um elemento.
+ * Por exemplo, para introduzir o inteiro 3 na stack, é neccessário este ser do tipo DATA.
+ * Logo, será necessário definir o tipo do elemento DATA, e o respetivo valor.
+ * Assim, através desta macro é facilitado este processo.
+ * 
+ */
 #define make_datas(var, TYPE, value)     \
         var.elems.TYPE =value;           \
         var.type       =TYPE;                      
 
 
+/**
+ *
+ * Definições dos headers das funções em pushpop.c
+ * 
+ */
 int has_type(DATA elem, int mask);
 int what_type (DATA d);
 STACK *create_stack();

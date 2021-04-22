@@ -48,6 +48,58 @@ void leituradatas (char *line,STACK *s) {
     }
 }
 
+/**
+ *
+ * Esta é a função que faz o parse de dados tipo char e string.
+ * 
+ */
+void parsedatas (char *token,STACK *s) {
+     DATA data;
+     if (strlen(token)==1) {
+     make_datas(data, CHAR, *token);push (s,data);}
+     if (strlen(token)>1) { 
+     make_datas(data, STRING,strdup(token));push (s,data);}
+}
+
+/**
+ *
+ * Esta é a função que gere os dados dados no token e executa as suas instruções.
+ * 
+ */
+void alloperations (char *token,STACK *s,VAR *x) {
+     int r=0;
+     char *charsStackop = "_;@$\\";
+     char *charsMatOp = "+-*/)(%#&|^~";
+     char *charsLogicOp = "=<>!?e&e|e<e>";
+     char *charsVar = ":A:B:C:D:E:F:N:S:X:Y:Z";
+     if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
+     if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
+     if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
+     if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
+     if (r==0) parsedatas(token,s);
+}
+
+/**
+ *
+ * Esta é a função que faz o parse de dados tipo long e double.
+ * 
+ */
+int parseNumbers (char *token,STACK *s) {
+    int r=0;
+    char *sobra;
+    char *sobra1;
+    DATA data;
+    float Float;
+    long Long;
+    Long=strtol (token,&sobra,10);
+    Float=strtod (token,&sobra1);
+    if (strlen(sobra1)==0) {
+        if (strlen(sobra)!=0) {make_datas(data,DOUBLE,Float);push (s,data);r=1;} 
+        else {make_datas(data,LONG,Long);push (s,data);r=1;}
+    }
+    return r;
+}
+
 
 /**
  * 
@@ -55,28 +107,10 @@ void leituradatas (char *line,STACK *s) {
  * 
  */
 void parse(char *line,STACK *s,VAR *x) {
-     char *sobra;
-     char *sobra1;
      char guardaline[12040]; preenche(line,guardaline);
-     char *charsStackop = "_;@$\\";
-     char *charsMatOp = "+-*/)(%#&|^~";
-     char *charsLogicOp = "=<>!?e&e|e<e>";
-     char *charsVar = ":A:B:C:D:E:F:N:S:X:Y:Z";
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-         DATA data;
-         float Float;
-         long Long;
-         Long=strtol (token,&sobra,10);
-         Float=strtod (token,&sobra1);
-         if (strlen(sobra1)==0) {
-          if (strlen(sobra)!=0) {make_datas(data,DOUBLE,Float);push (s,data);} 
-          else {make_datas(data,LONG,Long);push (s,data);}
-         }
-         else if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);}
-         else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);}
-         else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);}
-         else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);}
+         if (parseNumbers(token,s)==1);
          else if (strcmp(token,"l")==0) {
                   char line1[10240];
                   assert( fgets (line1,10240,stdin) != NULL);
@@ -110,9 +144,6 @@ void parse(char *line,STACK *s,VAR *x) {
              if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(data,CHAR,conv);}
              push(s,data);
          }
-         else if (strlen(token)==1) {
-         make_datas(data, CHAR, *token);push (s,data);}
-         else if (strlen(token)>1) { 
-         make_datas(data, STRING,strdup(token));push (s,data);}
+         else alloperations(token,s,x);
      }
 } 

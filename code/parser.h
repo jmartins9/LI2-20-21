@@ -31,5 +31,26 @@ void preenche (char *line,char v[]);
  */
 void parse(char *line,STACK *s,VAR *x);
 
+/**
+ *
+ * Esta é o header da função que faz o parse de dados tipo char e string.
+ * 
+ */
+void parsedatas (char *token,STACK *s); 
+
+/**
+ *
+ * Esta é o header da função que executa as instruções.
+ * 
+ */
+void alloperations (char *token,STACK *s,VAR *x);
+
+/**
+ *
+ * Esta é o header da função que faz o parse de dados tipo long e double.
+ * 
+ */
+int parseNumbers (char *token,STACK *s);
+
 
 #endif

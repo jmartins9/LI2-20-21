@@ -77,4 +77,11 @@ void varoperations (char *token,STACK *s,VAR *x);
  */
 VAR *omissionvalues ();
 
+/**
+ *
+ * Esta é a função que executa as instruções :<letra>,em que a variavel fica com o valor do topo da stack.
+ * 
+ */
+void assvalue (char *token,STACK *s,VAR *x);
+
 #endif

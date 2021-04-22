@@ -32,32 +32,32 @@ VAR.valor = valor
  * 
  */
 typedef struct variables {  
-        DATA A;
-        DATA B;
-        DATA C;
-        DATA D;
-        DATA E;
-        DATA F;
-        DATA G;
-        DATA H;
-        DATA I;
-        DATA J;
-        DATA K;
-        DATA L;
-        DATA M;
-        DATA N;
-        DATA O;
-        DATA P;
-        DATA Q;
-        DATA R;
-        DATA S;
-        DATA T;
-        DATA U;
-        DATA V;
-        DATA W;
-        DATA X;
-        DATA Y;
-        DATA Z;
+        DATA A; /** value A*/  
+        DATA B; /** value B*/
+        DATA C; /** value C*/
+        DATA D; /** value D*/
+        DATA E; /** value E*/
+        DATA F; /** value F*/
+        DATA G; /** value G*/
+        DATA H; /** value H*/
+        DATA I; /** value I*/ 
+        DATA J; /** value J*/
+        DATA K; /** value K*/
+        DATA L; /** value L*/
+        DATA M; /** value M*/
+        DATA N; /** value N*/ 
+        DATA O; /** value O*/
+        DATA P; /** value P*/
+        DATA Q; /** value Q*/ 
+        DATA R; /** value R*/
+        DATA S; /** value S*/
+        DATA T; /** value T*/ 
+        DATA U; /** value U*/ 
+        DATA V; /** value V*/ 
+        DATA W; /** value W*/ 
+        DATA X; /** value X*/ 
+        DATA Y; /** value Y*/ 
+        DATA Z; /** value Z*/
 } VAR;
 
 /**

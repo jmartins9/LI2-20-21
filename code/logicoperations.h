@@ -10,19 +10,6 @@
 #include <assert.h>
 #include "pushpop.h"
 
-/**
- *
- * Esta é uma macro que dado dois valores devolve o menor deles.
- * 
- */
-#define MIN(a,b) ((a)>(b)?(b):(a))
-
-/**
- *
- * Esta é uma macro que dado dois valores devolve o maior deles.
- * 
- */
-#define MAX(a,b) ((a)>(b)?(a):(b))
 
 /**
  *

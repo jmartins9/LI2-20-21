@@ -19,7 +19,7 @@
 #include "matoperations.h"
 #include "logicoperations.h"
 #include "variables.h"
-
+#include "convoperations.h"
 
 /**
  *
@@ -71,10 +71,12 @@ void alloperations (char *token,STACK *s,VAR *x) {
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
      char *charsLogicOp = "=<>!?e&e|e<e>";
+     char *charsConvOp = "fci";
      char *charsVar = ":A:B:C:D:E:F:N:S:X:Y:Z";
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
+    if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
      if (r==0) parsedatas(token,s);
 }
@@ -127,32 +129,8 @@ void parse(char *line,STACK *s,VAR *x) {
          else if (strcmp(token,"l")==0) { 
               loperation (token,guardaline,s,x); 
          }
-         else if (strcmp(token,"i")==0) {
-             DATA data;
-             DATA p1 = pop(s);
-             if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(data,LONG,conv);}
-             if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(data,LONG,conv);}
-             if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(data,LONG,conv);}
-             if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(data,LONG,conv);}      
-             push (s,data);
-         }
-         else if (strcmp(token,"f")==0) {
-             DATA data;
-             DATA p1 = pop(s);
-             if (what_type (p1)==LONG) {float conv = p1.elems.LONG;make_datas(data,DOUBLE,conv);}
-             if (what_type (p1)==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(data,DOUBLE,conv);}
-             if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(data,DOUBLE,conv);}
-             if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(data,DOUBLE,conv);}      
-             push (s,data);
-         }
-         else if (strcmp(token,"c")==0) {
-             DATA p1 = pop(s);
-             DATA data;
-             if (what_type (p1)==LONG) {char conv = p1.elems.LONG;make_datas(data,CHAR,conv);}
-             if (what_type (p1)==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(data,CHAR,conv);}
-             if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(data,CHAR,conv);}
-             push(s,data);
-         }
          else alloperations(token,s,x);
      }
 } 
+
+

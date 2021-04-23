@@ -55,6 +55,29 @@ void assvalue (char *token,STACK *s,VAR *x) {
      {
      case ('A'): x->A=top(s);break;
      case ('B'): x->B=top(s);break;
+     case ('C'): x->C=top(s);break;
+     case ('D'): x->D=top(s);break;
+     case ('E'): x->E=top(s);break;
+     case ('F'): x->F=top(s);break;
+     case ('G'): x->G=top(s);break;
+     case ('I'): x->I=top(s);break;
+     case ('J'): x->J=top(s);break;
+     case ('K'): x->K=top(s);break;
+     case ('L'): x->L=top(s);break;
+     case ('M'): x->M=top(s);break;
+     case ('N'): x->N=top(s);break;
+     case ('O'): x->O=top(s);break;
+     case ('P'): x->P=top(s);break;
+     case ('Q'): x->Q=top(s);break;
+     case ('R'): x->R=top(s);break;
+     case ('S'): x->S=top(s);break;
+     case ('T'): x->T=top(s);break;
+     case ('U'): x->U=top(s);break;
+     case ('V'): x->V=top(s);break;
+     case ('W'): x->W=top(s);break;
+     case ('X'): x->X=top(s);break;
+     case ('Y'): x->Y=top(s);break;
+     case ('Z'): x->Z=top(s);break;
      }
 }
 

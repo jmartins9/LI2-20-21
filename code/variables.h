@@ -58,7 +58,7 @@ typedef struct variables {
         DATA X; /** value X*/ 
         DATA Y; /** value Y*/ 
         DATA Z; /** value Z*/
-} VAR;
+} VAR;  /**< variável struct VAR. */
 
 /**
  *

@@ -38,7 +38,7 @@ typedef struct data {
   char   CHAR; /** tipo de dados CHAR*/
   char*  STRING; /** tipo de dados STRING*/
   } elems;
-} DATA;
+} DATA;  /**< variável struct DATA. */
 
 /*!
  *
@@ -50,7 +50,7 @@ typedef struct stack{
   DATA *stack; /** apontador para elementos da stack*/
   int size; /** tamanho do array de DATAS */
   int n_elems; /** apontador do topo da stack */
-} STACK;
+} STACK;  /**< variavel struct STACK. */
 
 /**
  *

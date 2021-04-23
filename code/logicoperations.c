@@ -167,9 +167,9 @@ void smallerthan (STACK *s) {
     DATA p2 = pop(s);
     DATA data;
     if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
 }
 
 /**
@@ -182,9 +182,9 @@ void biggerthan (STACK *s) {
     DATA p2 = pop(s);
     DATA data;
     if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    if else (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
 }
 
 /**

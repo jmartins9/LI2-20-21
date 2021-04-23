@@ -170,6 +170,9 @@ void smallerthan (STACK *s) {
     else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
     else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
     else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==LONG && what_type(p2)==CHAR) {long val = p2.elems.CHAR < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==CHAR && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==CHAR && what_type(p2)==CHAR) {long val = p2.elems.CHAR < p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
 }
 
 /**
@@ -185,6 +188,9 @@ void biggerthan (STACK *s) {
     else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
     else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
     else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==LONG && what_type(p2)==CHAR) {long val = p2.elems.CHAR > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==CHAR && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
+    else if (what_type(p1)==CHAR && what_type(p2)==CHAR) {long val = p2.elems.CHAR > p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
 }
 
 /**

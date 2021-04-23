@@ -55,7 +55,6 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
 }
 
 
-
 /**
  *
  * Esta é a função que executa o comando e<, ou seja, devolve o menor dos dois ultimos valores colocados na stack.
@@ -64,29 +63,20 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
 void minoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    DATA data;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {
-        long val = MIN(p1.elems.LONG,p2.elems.LONG);
-        make_datas(data,LONG,val);
-        push (s,data);
-        }
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {
-        double val = MIN(p1.elems.DOUBLE,p2.elems.LONG);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
+    if (what_type (p1)==LONG && what_type(p2)==LONG && p1.elems.LONG<p2.elems.LONG) {
+        push(s,p1);
     }
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {
-        double val = MIN(p1.elems.DOUBLE,p2.elems.DOUBLE);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
-        }
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {
-        double val = MIN(p1.elems.LONG,p2.elems.DOUBLE);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
-        }
+    else if (what_type (p1)==DOUBLE && what_type(p2)==LONG && p1.elems.DOUBLE<p2.elems.LONG) {
+        push(s,p1);
+    }
+    else if (what_type (p1)==LONG && what_type(p2)==DOUBLE && p1.elems.LONG<p2.elems.DOUBLE) {
+        push(s,p1);
+    }
+    else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE<p2.elems.DOUBLE) {
+        push(s,p1);
+    }
+    else push(s,p2); 
 }
-
 
 
 /**
@@ -97,27 +87,19 @@ void minoftwo (STACK *s) {
 void maxoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    DATA data;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {
-        long val = MAX(p1.elems.LONG,p2.elems.LONG);
-        make_datas(data,LONG,val);
-        push (s,data);
-        }
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {
-        double val = MAX(p1.elems.DOUBLE,p2.elems.LONG);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
+    if (what_type (p1)==LONG && what_type(p2)==LONG && p1.elems.LONG>p2.elems.LONG) {
+        push(s,p1);
     }
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {
-        double val = MAX(p1.elems.DOUBLE,p2.elems.DOUBLE);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
-        }
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {
-        double val = MAX(p1.elems.LONG,p2.elems.DOUBLE);
-        make_datas(data,DOUBLE,val);
-        push (s,data);
-        }
+    else if (what_type (p1)==DOUBLE && what_type(p2)==LONG && p1.elems.DOUBLE>p2.elems.LONG) {
+        push(s,p1);
+    }
+    else if (what_type (p1)==LONG && what_type(p2)==DOUBLE && p1.elems.LONG>p2.elems.DOUBLE) {
+        push(s,p1);
+    }
+    else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE>p2.elems.DOUBLE) {
+        push(s,p1);
+    }
+    else push(s,p2); 
 }
 
 /**
@@ -159,6 +141,22 @@ void negate (STACK *s) {
     if (what_type(p1)==CHAR) {long val = !(p1.elems.CHAR); make_datas(data,LONG,val); push(s,data);}
 }
 
+
+/**
+ *
+ * Esta é a função que converte um valor data para um data do tipo double.
+ * 
+ */
+DATA converteDouble (DATA a) {
+    double valor;
+    if (what_type(a)==LONG) {valor = a.elems.LONG;make_datas(a,DOUBLE,valor);} 
+    if (what_type(a)==DOUBLE) {valor = a.elems.DOUBLE;make_datas(a,DOUBLE,valor);} 
+    if (what_type(a)==CHAR) {valor = a.elems.CHAR;make_datas(a,DOUBLE,valor); }
+    return a;
+} 
+
+
+
 /**
  *
  * Esta é a função que executa o comando <, ou seja, devolve 1 se a condição for verdadeira e 0 se for falsa.
@@ -168,13 +166,12 @@ void smallerthan (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA data;
-    if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.DOUBLE; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.DOUBLE < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.DOUBLE < p1.elems.DOUBLE; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==LONG && what_type(p2)==CHAR) {long val = p2.elems.CHAR < p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==CHAR && what_type(p2)==LONG) {long val = p2.elems.LONG < p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==CHAR && what_type(p2)==CHAR) {long val = p2.elems.CHAR < p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
+    long val;
+    p1 = converteDouble(p1);
+    p2 = converteDouble(p2);
+    val = p2.elems.DOUBLE < p1.elems.DOUBLE;
+    make_datas(data,LONG,val); 
+    push(s,data);
 }
 
 /**
@@ -186,13 +183,12 @@ void biggerthan (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA data;
-    if (what_type(p1)==LONG && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==LONG && what_type(p2)==DOUBLE) {long val = p2.elems.DOUBLE > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==DOUBLE && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.DOUBLE; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==DOUBLE && what_type(p2)==DOUBLE) {long val = p2.elems.DOUBLE > p1.elems.DOUBLE; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==LONG && what_type(p2)==CHAR) {long val = p2.elems.CHAR > p1.elems.LONG; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==CHAR && what_type(p2)==LONG) {long val = p2.elems.LONG > p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
-    else if (what_type(p1)==CHAR && what_type(p2)==CHAR) {long val = p2.elems.CHAR > p1.elems.CHAR; make_datas(data,LONG,val); push(s,data);}
+    long val;
+    p1 = converteDouble(p1);
+    p2 = converteDouble(p2);
+    val = p2.elems.DOUBLE > p1.elems.DOUBLE;
+    make_datas(data,LONG,val); 
+    push(s,data);
 }
 
 /**

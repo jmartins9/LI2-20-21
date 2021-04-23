@@ -98,4 +98,11 @@ void biggerthan (STACK *s);
  */
 void eoperations (char *token,STACK *s);
 
+/**
+ *
+ * Esta é o header da função que converte um valor data para um data do tipo double.
+ * 
+ */
+DATA converteDouble (DATA a);
+
 #endif

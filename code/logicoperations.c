@@ -156,6 +156,7 @@ void negate (STACK *s) {
     DATA data;
     if (what_type(p1)==LONG) {long val = !(p1.elems.LONG); make_datas(data,LONG,val); push(s,data);}
     if (what_type(p1)==DOUBLE) {long val = !(p1.elems.DOUBLE); make_datas(data,LONG,val); push(s,data);}
+    if (what_type(p1)==CHAR) {long val = !(p1.elems.CHAR); make_datas(data,LONG,val); push(s,data);}
 }
 
 /**

@@ -26,7 +26,7 @@ VAR.letra = letra                \
 VAR.valor = valor
 */
 
-/**
+/*!
  *
  * Esta é a struct responsável por conter o valor das variáveis.
  * 

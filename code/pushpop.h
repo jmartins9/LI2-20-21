@@ -9,7 +9,7 @@
 
 #include <assert.h>
 
-/**
+/*!
  *
  * De modo a simplificar o manuseamento de dados, criamos uma definição 'enum' de maneira a representar os tipos como inteiros.
  * 
@@ -23,7 +23,7 @@ typedef enum {LONG = 1,  /** tipo de dados LONG*/
 
 
 
-/**
+/*!
  *
  * Esta struct é responsável por definir o tipo (data) de cada elemento da stack.
  * Da maneira que a stack está criada, é possível, no mesmo array, possuir elementos que representam tipos de dados
@@ -40,13 +40,13 @@ typedef struct data {
   } elems;
 } DATA;
 
-/**
+/*!
  *
  * Nesta definição da stack, é criado um array de elementos do tipo DATA (de maneira a ter elementos diferentes no mesmo array),
  * é definido o tamanho da stack (size), e o número de elementos da stack (será 0 no início).
  * 
  */
-typedef struct stack {
+typedef struct stack{
   DATA *stack; /** apontador para elementos da stack*/
   int size; /** tamanho do array de DATAS */
   int n_elems; /** apontador do topo da stack */

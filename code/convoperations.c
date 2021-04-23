@@ -10,6 +10,11 @@
 #include "variables.h"
 #include "pushpop.h"
 
+/**
+ *
+ * Esta é a função que executa o comando i, ou seja, converte o topo da stack em long.
+ *
+ */
 void convertLong (STACK *s) {
     DATA data;
     DATA p1 = pop(s);
@@ -20,6 +25,11 @@ void convertLong (STACK *s) {
     push (s,data);
 }
 
+/**
+ *
+ * Esta é a função que executa o comando f, ou seja, converte o topo da stack em float.
+ *
+ */
 void convertFloat (STACK *s) {
     DATA data;
     DATA p1 = pop(s);
@@ -30,6 +40,11 @@ void convertFloat (STACK *s) {
     push (s,data);
 }
 
+/**
+ *
+ * Esta é a função que executa o comando c, ou seja, converte o topo da stack em char.
+ *
+ */
 void convertChar (STACK *s) {
     DATA p1 = pop(s);
     DATA data;
@@ -39,11 +54,16 @@ void convertChar (STACK *s) {
     push(s,data);
 }
 
+/**
+ *
+ * Esta é a função que decide qual das operações de conversão deve ser executada dependendo da instrução dada.
+ *
+ */
 void convoperations (char *token,STACK *s) {
     switch (*token) {
-        case ('f'): somar(S);break;
-        case ('c'): subtrair(s);break;
-        case ('i'): multiplicar(s);break;
+        case ('f'): convertFloat(s);break;
+        case ('c'): convertChar(s);break;
+        case ('i'): convertLong(s);break;
     }
 }
 

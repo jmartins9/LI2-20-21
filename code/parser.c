@@ -53,10 +53,10 @@ void leituradatas (char *line,STACK *s) {
  * Esta é a função que faz o parse de dados tipo char e string.
  * 
  */
-void parsedatas (char *token,STACK *s) {
-     DATA data;
+void parsedatas (char *token,STACK *s,VARIABLES *x) {
+     DATA data = darValor(*token, x);
      if (strlen(token)==1) {
-     make_datas(data, CHAR, *token);push (s,data);}
+     push (s,data);}
      if (strlen(token)>1) { 
      make_datas(data, STRING,strdup(token));push (s,data);}
 }
@@ -66,19 +66,20 @@ void parsedatas (char *token,STACK *s) {
  * Esta é a função que gere os dados dados no token e executa as suas instruções.
  * 
  */
-void alloperations (char *token,STACK *s,VAR *x) {
+void alloperations (char *token,STACK *s,VARIABLES *x) {
      int r=0;
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
      char *charsLogicOp = "=<>!?e&e|e<e>";
      char *charsConvOp = "fci";
-     char *charsVar = ":A:B:C:D:E:F:N:S:X:Y:Z";
+     char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
+     if (*token >= 'A' && *token <= 'Z') {parsedatas(token,s,x);r=1;}
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
-    if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
+     if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
-     if (r==0) parsedatas(token,s);
+     if (r==0) parsedatas(token,s,x);
 }
 
 /**
@@ -108,7 +109,7 @@ int parseNumbers (char *token,STACK *s) {
  * Esta é a função responsável pela execução do comando l.  
  * 
  */
-void loperation (char *token,char *guardaline,STACK *s,VAR *x) {
+void loperation (char *token,char *guardaline,STACK *s,VARIABLES *x) {
     char line1[10240];
     assert( fgets (line1,10240,stdin) != NULL);
     assert( line1  [strlen (line1)-1] == '\n');
@@ -121,7 +122,7 @@ void loperation (char *token,char *guardaline,STACK *s,VAR *x) {
  * Esta é a função responsável pelo parse da linha lida e executar as intruções dadas com a ajuda de uma stack.  
  * 
  */
-void parse(char *line,STACK *s,VAR *x) {
+void parse(char *line,STACK *s,VARIABLES *x) {
      char guardaline[12040]; preenche(line,guardaline);
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
@@ -129,7 +130,9 @@ void parse(char *line,STACK *s,VAR *x) {
          else if (strcmp(token,"l")==0) { 
               loperation (token,guardaline,s,x); 
          }
-         else alloperations(token,s,x);
+         else {
+             alloperations(token,s,x);
+         }
      }
 } 
 

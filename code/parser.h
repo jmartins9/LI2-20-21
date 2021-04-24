@@ -29,21 +29,21 @@ void preenche (char *line,char v[]);
  * Esta é o header da função responsável pelo parser da linha de comandos dada.
  * 
  */
-void parse(char *line,STACK *s,VAR *x);
+void parse(char *line,STACK *s,VARIABLES *x);
 
 /**
  *
  * Esta é o header da função que faz o parse de dados tipo char e string.
  * 
  */
-void parsedatas (char *token,STACK *s); 
+void parsedatas (char *token,STACK *s, VARIABLES *x); 
 
 /**
  *
  * Esta é o header da função que executa as instruções.
  * 
  */
-void alloperations (char *token,STACK *s,VAR *x);
+void alloperations (char *token,STACK *s,VARIABLES *x);
 
 /**
  *
@@ -57,6 +57,6 @@ int parseNumbers (char *token,STACK *s);
  * Esta é o header da função responsável pela execução do comando l.  
  * 
  */
-void loperation (char *token,char *guardaline,STACK *s,VAR *x);
+void loperation (char *token,char *guardaline,STACK *s,VARIABLES *x);
 
 #endif

@@ -11,74 +11,15 @@
 
 /**
  *
- * Esta é a função faz push do valor das variáveis para o topo da stack.
- * 
- */
-void putVarTop (char *token,STACK *s,VAR *x) {
-   switch (*token) {
-     case ('A'): push(s,x->A);break;
-     case ('B'): push(s,x->B);break;
-     case ('C'): push(s,x->C);break;
-     case ('D'): push(s,x->D);break;
-     case ('E'): push(s,x->E);break;
-     case ('F'): push(s,x->F);break;
-     case ('G'): push(s,x->G);break;
-     case ('H'): push(s,x->H);break;
-     case ('I'): push(s,x->I);break;
-     case ('J'): push(s,x->J);break;
-     case ('K'): push(s,x->K);break;
-     case ('L'): push(s,x->L);break;
-     case ('M'): push(s,x->M);break;
-     case ('N'): push(s,x->N);break;
-     case ('O'): push(s,x->O);break;
-     case ('P'): push(s,x->P);break;
-     case ('Q'): push(s,x->Q);break;
-     case ('R'): push(s,x->R);break;
-     case ('S'): push(s,x->S);break;
-     case ('T'): push(s,x->T);break;
-     case ('U'): push(s,x->U);break;
-     case ('V'): push(s,x->V);break;
-     case ('W'): push(s,x->W);break;
-     case ('X'): push(s,x->X);break;
-     case ('Y'): push(s,x->Y);break;
-     case ('Z'): push(s,x->Z);break;
-     }  
-}
-
-/**
- *
  * Esta é a função que executa as instruções :<letra>,em que a variavel fica com o valor do topo da stack.
  * 
  */
-void assvalue (char *token,STACK *s,VAR *x) {
-     switch (*token)
-     {
-     case ('A'): x->A=top(s);break;
-     case ('B'): x->B=top(s);break;
-     case ('C'): x->C=top(s);break;
-     case ('D'): x->D=top(s);break;
-     case ('E'): x->E=top(s);break;
-     case ('F'): x->F=top(s);break;
-     case ('G'): x->G=top(s);break;
-     case ('I'): x->I=top(s);break;
-     case ('J'): x->J=top(s);break;
-     case ('K'): x->K=top(s);break;
-     case ('L'): x->L=top(s);break;
-     case ('M'): x->M=top(s);break;
-     case ('N'): x->N=top(s);break;
-     case ('O'): x->O=top(s);break;
-     case ('P'): x->P=top(s);break;
-     case ('Q'): x->Q=top(s);break;
-     case ('R'): x->R=top(s);break;
-     case ('S'): x->S=top(s);break;
-     case ('T'): x->T=top(s);break;
-     case ('U'): x->U=top(s);break;
-     case ('V'): x->V=top(s);break;
-     case ('W'): x->W=top(s);break;
-     case ('X'): x->X=top(s);break;
-     case ('Y'): x->Y=top(s);break;
-     case ('Z'): x->Z=top(s);break;
-     }
+void assvalue (char *token,STACK *s,VARIABLES *x) {
+     DATA p1 = top(s);
+     VAR V;
+     V.letra = * token;
+     V.valor = p1;
+     pushvar(x,V);
 }
 
 /**
@@ -86,8 +27,7 @@ void assvalue (char *token,STACK *s,VAR *x) {
  * Esta é a função que executa as instruções relativas às variáveis dependendo do token.
  * 
  */
-void varoperations (char *token,STACK *s,VAR *x) {
-     putVarTop (token,s,x);
+void varoperations (char *token,STACK *s,VARIABLES *x) {
      switch (*token)
      {
      case (':'): assvalue (token+1,s,x);break; // atribui valores a variaveis
@@ -100,18 +40,48 @@ void varoperations (char *token,STACK *s,VAR *x) {
  * Esta é a função inicia as variáveis com os seus valores por omissão.
  * 
  */
-VAR *omissionvalues () {
-     VAR *x = (VAR *) calloc(1, sizeof(VAR));
-     DATA A;make_datas(A,LONG,10);x->A=A;
-     DATA B;make_datas(B,LONG,11);x->B=B;
-     DATA C;make_datas(C,LONG,12);x->C=C;
-     DATA D;make_datas(D,LONG,13);x->D=D;
-     DATA E;make_datas(E,LONG,14);x->E=E;
-     DATA F;make_datas(F,LONG,15);x->F=F;
-     DATA N;make_datas(N,CHAR,'\n');x->N=N;
-     DATA S;make_datas(S,CHAR,' ');x->S=S;
-     DATA X;make_datas(X,LONG,0);x->X=X;
-     DATA Y;make_datas(Y,LONG,1);x->Y=Y;
-     DATA Z;make_datas(Z,LONG,2);x->Z=Z;
-     return x;
+DATA omissionvalues (char token) {
+     DATA Z;
+     switch (token) {
+          case ('A'): make_datas(Z,LONG,10);break;
+          case ('B'): make_datas(Z,LONG,11);break;
+          case ('C'): make_datas(Z,LONG,12);break;
+          case ('D'): make_datas(Z,LONG,13);break;
+          case ('E'): make_datas(Z,LONG,14);break;
+          case ('F'): make_datas(Z,LONG,15);break;
+          case ('X'): make_datas(Z,LONG,0);break;
+          case ('Y'): make_datas(Z,LONG,1);break;
+          case ('Z'): make_datas(Z,LONG,2);break;
+          case ('N'): make_datas(Z,CHAR,'\n');break;
+          case ('S'): make_datas(Z,CHAR,' ');break;
+     }
+     return Z;
+}
+
+DATA darValor(char token, VARIABLES *x) {
+     int i = 0;
+     DATA Z;
+     Z = omissionvalues(token);
+     for (i=0; i< x->n_elems; i++) {
+          if (token == (x->variables[i]).letra) {
+               Z = (x->variables[i]).valor;
+          }
+     }
+     return Z;
+}
+
+VARIABLES *create_varlist() {
+  VARIABLES *vars = (VARIABLES *) calloc(1, sizeof(VARIABLES));
+  vars->size = 100;
+  vars->variables = (VAR *) calloc(vars->size, sizeof(VAR));
+  return vars;
+}
+
+void pushvar(VARIABLES *vars, VAR var) {
+  if(vars->size == vars->n_elems) {
+    vars->size += 100;
+    vars->variables = (VAR *) realloc(vars->variables, vars->size * sizeof(VAR));
+  }
+  vars->variables[vars->n_elems] = var;
+  vars->n_elems++;
 }

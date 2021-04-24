@@ -22,11 +22,11 @@
  */
 int main () {
     STACK *s = create_stack();
-    VAR *x = omissionvalues();
+    VARIABLES *vars = create_varlist();
     char line [10240];
     assert( fgets (line,10240,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');
-    parse(line,s,x);
+    parse(line,s,vars);
     print_stack (s);
     return 0;
 }

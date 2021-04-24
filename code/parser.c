@@ -53,10 +53,10 @@ void leituradatas (char *line,STACK *s) {
  * Esta é a função que faz o parse de dados tipo char e string.
  * 
  */
-void parsedatas (char *token,STACK *s,VARIABLES *x) {
-     DATA data = darValor(*token, x);
+void parsedatas (char *token,STACK *s) {
+     DATA data;
      if (strlen(token)==1) {
-     push (s,data);}
+     make_datas(data,CHAR,*token);push (s,data);}
      if (strlen(token)>1) { 
      make_datas(data, STRING,strdup(token));push (s,data);}
 }
@@ -73,13 +73,12 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsLogicOp = "=<>!?e&e|e<e>";
      char *charsConvOp = "fci";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
-     if (*token >= 'A' && *token <= 'Z') {parsedatas(token,s,x);r=1;}
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
-     if (r==0) parsedatas(token,s,x);
+     if (r==0) parsedatas(token,s);
 }
 
 /**

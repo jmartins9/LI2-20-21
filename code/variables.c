@@ -28,9 +28,11 @@ void assvalue (char *token,STACK *s,VARIABLES *x) {
  * 
  */
 void varoperations (char *token,STACK *s,VARIABLES *x) {
+     DATA z;
      switch (*token)
      {
      case (':'): assvalue (token+1,s,x);break; // atribui valores a variaveis
+     default : z = darValor(*token,x); push(s,z); 
      }   
 }
 
@@ -60,8 +62,7 @@ DATA omissionvalues (char token) {
 
 DATA darValor(char token, VARIABLES *x) {
      int i = 0;
-     DATA Z;
-     Z = omissionvalues(token);
+     DATA Z = omissionvalues(token);
      for (i=0; i< x->n_elems; i++) {
           if (token == (x->variables[i]).letra) {
                Z = (x->variables[i]).valor;

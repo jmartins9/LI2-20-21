@@ -36,7 +36,7 @@ void parse(char *line,STACK *s,VARIABLES *x);
  * Esta é o header da função que faz o parse de dados tipo char e string.
  * 
  */
-void parsedatas (char *token,STACK *s, VARIABLES *x); 
+void parsedatas (char *token,STACK *s); 
 
 /**
  *

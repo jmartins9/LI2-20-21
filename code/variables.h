@@ -10,26 +10,26 @@
 #include "pushpop.h"
 
 /**
- *
+ * \struct
  * Nesta struct é definida o tipo VAR, que representa uma variável, armazenando o seu valor e o char correspondente à variável.
  * 
  */
 typedef struct var {
-        char letra;
-        DATA valor;
-} VAR;
+        char letra; /**< Caratere que nos diz a variável correspondente ao valor guardado */
+        DATA valor; /**< Valor DATA que guarda o valor da variável */
+} VAR; /**< Variável struct VAR */
 
 /**
- *
+ * \struct
  * Nesta definição da stack de variáveis, é criado um array de elementos do tipo VAR (de maneira a armazenar as variáveis),
  * é definido o tamanho da stack de variáveis (size), e o número de elementos da mesma (será 0 no início).
  * 
  */
 typedef struct variables {
-        VAR * variables;
-        int size;
-        int n_elems;
-} VARIABLES;
+        VAR * variables; /**< Array de dados do tipo Var */
+        int size; /**< Tamanho do array */
+        int n_elems; /**< Variável que contem a posiçao seguinte a ser preenchida */
+} VARIABLES; /**< Variável struct VARIABLES */
 
 /**
  *

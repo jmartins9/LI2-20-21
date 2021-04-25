@@ -24,8 +24,8 @@ typedef enum {
 
 
 
-/*!
- *
+/**
+ * \struct 
  * Esta struct é responsável por definir o tipo (data) de cada elemento da stack.
  * Da maneira que a stack está criada, é possível, no mesmo array, possuir elementos que representam tipos de dados
  * diferentes, dado que todos tem o tipo DATA.
@@ -45,8 +45,8 @@ typedef struct data {
   } elems;
 } DATA;  /**< variável struct DATA. */
 
-/*!
- *
+/**
+ * \struct
  * Nesta definição da stack, é criado um array de elementos do tipo DATA (de maneira a ter elementos diferentes no mesmo array),
  * é definido o tamanho da stack (size), e o número de elementos da stack (será 0 no início).
  * 

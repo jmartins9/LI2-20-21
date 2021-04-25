@@ -39,7 +39,7 @@ void varoperations (char *token,STACK *s,VARIABLES *x) {
 
 /**
  *
- * Esta é a função inicia as variáveis com os seus valores por omissão.
+ * Esta é a função que recebe um char, e devolve o seu valor de omissão.
  * 
  */
 DATA omissionvalues (char token) {
@@ -60,6 +60,14 @@ DATA omissionvalues (char token) {
      return Z;
 }
 
+/**
+ *
+ * Esta função recebe um char e um pointer para a stack de variáveis, e atribui valor a uma variável.
+ * - Inicialmente é atribuido à variável o seu valor de omissão, para o caso da variável não ter sido definida;
+ * - De seguida, é encontrado o valor que foi atribuido à variável (se foi atribuido), através de um ciclo for que percorre
+ *   todas as variáveis que foram introduzidas na stack de variáveis.
+ * 
+ */
 DATA darValor(char token, VARIABLES *x) {
      int i = 0;
      DATA Z = omissionvalues(token);
@@ -71,6 +79,12 @@ DATA darValor(char token, VARIABLES *x) {
      return Z;
 }
 
+/**
+ *
+ * Esta função é responsável por criar a stack de variáveis (funciona da mesma maneira que a função que cria a stack).
+ * A stack de variáveis é inicializada com 100 de tamanho.
+ * 
+ */
 VARIABLES *create_varlist() {
   VARIABLES *vars = (VARIABLES *) calloc(1, sizeof(VARIABLES));
   vars->size = 100;
@@ -78,6 +92,13 @@ VARIABLES *create_varlist() {
   return vars;
 }
 
+/**
+ *
+ * Esta é a função que é responsável por introduzir novas variáveis e os seus respetivos valores à stack.
+ * Ela recebe a stack de variáveis, e a variável a introduzir.
+ * Tal como a função push principal, é verificado se atingiu o tamanho máximo e é realocado espaço se assim for necessário.
+ * 
+ */
 void pushvar(VARIABLES *vars, VAR var) {
   if(vars->size == vars->n_elems) {
     vars->size += 100;

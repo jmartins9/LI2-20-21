@@ -9,12 +9,22 @@
 
 #include "pushpop.h"
 
-
+/**
+ *
+ * Nesta struct é definida o tipo VAR, que representa uma variável, armazenando o seu valor e o char correspondente à variável.
+ * 
+ */
 typedef struct var {
         char letra;
         DATA valor;
 } VAR;
 
+/**
+ *
+ * Nesta definição da stack de variáveis, é criado um array de elementos do tipo VAR (de maneira a armazenar as variáveis),
+ * é definido o tamanho da stack de variáveis (size), e o número de elementos da mesma (será 0 no início).
+ * 
+ */
 typedef struct variables {
         VAR * variables;
         int size;
@@ -50,10 +60,25 @@ DATA omissionvalues (char token);
  */
 void assvalue (char *token,STACK *s,VARIABLES *x);
 
+/**
+ *
+ * Esta é o header da função que atribui o valor às variáveis.
+ * 
+ */
 DATA darValor(char token, VARIABLES *x);
 
+/**
+ *
+ * Esta é o header da função que cria a stack de variáveis.
+ * 
+ */
 VARIABLES *create_varlist();
 
+/**
+ *
+ * Esta é o header da função que introduz variáveis na stack de variáveis.
+ * 
+ */
 void pushvar(VARIABLES *vars, VAR var);
 
 #endif

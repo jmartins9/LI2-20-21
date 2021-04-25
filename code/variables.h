@@ -14,7 +14,8 @@
  * Nesta struct é definida o tipo VAR, que representa uma variável, armazenando o seu valor e o char correspondente à variável.
  * 
  */
-typedef struct var {
+typedef struct var /**< var - struct definida */
+{
         char letra; /**< Caratere que nos diz a variável correspondente ao valor guardado */
         DATA valor; /**< Valor DATA que guarda o valor da variável */
 } VAR; /**< Variável struct VAR */
@@ -25,7 +26,8 @@ typedef struct var {
  * é definido o tamanho da stack de variáveis (size), e o número de elementos da mesma (será 0 no início).
  * 
  */
-typedef struct variables {
+typedef struct variables /**< variables - struct definida */
+{
         VAR * variables; /**< Array de dados do tipo Var */
         int size; /**< Tamanho do array */
         int n_elems; /**< Variável que contem a posiçao seguinte a ser preenchida */

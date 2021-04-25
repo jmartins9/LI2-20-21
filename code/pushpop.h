@@ -9,17 +9,18 @@
 
 #include <assert.h>
 
-/*!
- *
+/**
+ * \enum TYPE
  * De modo a simplificar o manuseamento de dados, criamos uma definição 'enum' de maneira a representar os tipos como inteiros.
  * 
  */
-typedef enum {LONG = 1,  /** tipo de dados LONG*/ 
-              DOUBLE = 2, /** tipo de dados DOUBLE*/ 
-              CHAR = 4,  /** tipo de dados CHAR*/
-              STRING = 8   /** tipo de dados STRING*/
-              } 
-              TYPE;
+typedef enum {
+        LONG = 1,  /**< tipo de dados LONG*/ 
+        DOUBLE = 2, /**< tipo de dados DOUBLE*/ 
+        CHAR = 4,  /**< tipo de dados CHAR*/
+        STRING = 8   /**< tipo de dados STRING*/
+        } 
+        TYPE; /**< variável enum TYPE*/
 
 
 
@@ -31,12 +32,16 @@ typedef enum {LONG = 1,  /** tipo de dados LONG*/
  * 
  */
 typedef struct data {
-  TYPE   type; /** tipo do elemnento guardado*/ 
+  TYPE   type; /**< Tipo do elemnento guardado. */ 
+  /**
+   * \union elems
+   *  Usado para armazenar uma variável dependendo do tipo.
+   */
   union {
-  long   LONG; /** tipo de dados LONG*/ 
-  double DOUBLE; /** tipo de dados DOUBLE*/ 
-  char   CHAR; /** tipo de dados CHAR*/
-  char*  STRING; /** tipo de dados STRING*/
+  long   LONG; /**< LONG que armazena o valor da variável*/ 
+  double DOUBLE; /**< DOUBLE que armazena o valor da variável*/
+  char   CHAR; /**< CHAR que armazena o valor da variável*/
+  char*  STRING; /**< STRING que armazena o valor da variável*/
   } elems;
 } DATA;  /**< variável struct DATA. */
 
@@ -47,9 +52,9 @@ typedef struct data {
  * 
  */
 typedef struct stack{
-  DATA *stack; /** apontador para elementos da stack*/
-  int size; /** tamanho do array de DATAS */
-  int n_elems; /** apontador do topo da stack */
+  DATA *stack; /**< apontador para elementos da stack*/
+  int size; /**< tamanho do array de DATAS */
+  int n_elems; /**< apontador do topo da stack */
 } STACK;  /**< variavel struct STACK. */
 
 /**

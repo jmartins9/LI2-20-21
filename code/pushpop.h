@@ -31,7 +31,8 @@ typedef enum {
  * diferentes, dado que todos tem o tipo DATA.
  * 
  */
-typedef struct data {
+typedef struct data /**< data - struct definida. */
+{
   TYPE   type; /**< Tipo do elemnento guardado. */ 
   /**
    * \union elems
@@ -42,7 +43,7 @@ typedef struct data {
   double DOUBLE; /**< DOUBLE que armazena o valor da variável*/
   char   CHAR; /**< CHAR que armazena o valor da variável*/
   char*  STRING; /**< STRING que armazena o valor da variável*/
-  } elems;
+  } elems; /**< elems - enum definido. */
 } DATA;  /**< variável struct DATA. */
 
 /**
@@ -51,7 +52,8 @@ typedef struct data {
  * é definido o tamanho da stack (size), e o número de elementos da stack (será 0 no início).
  * 
  */
-typedef struct stack{
+typedef struct stack /**< stact struct definida. */
+{
   DATA *stack; /**< apontador para elementos da stack*/
   int size; /**< tamanho do array de DATAS */
   int n_elems; /**< apontador do topo da stack */

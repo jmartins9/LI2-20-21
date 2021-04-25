@@ -108,15 +108,12 @@ int parseNumbers (char *token,STACK *s) {
  * Esta é a função responsável pela execução do comando l.  
  * 
  */
-//void loperation (char *token,char *guardaline,STACK *s,VARIABLES *x) {
 void loperation (STACK *s) {
     char line1[10240];
     assert( fgets (line1,10240,stdin) != NULL);
     assert( line1  [strlen (line1)-1] == '\n');
     DATA Z; make_datas(Z,STRING,line1);
     push(s,Z);
-    //eituradatas(line1,s);
-    //parse(strstr(guardaline,token)+strlen(token),s,x);
 }
 
 /**
@@ -130,7 +127,6 @@ void parse(char *line,STACK *s,VARIABLES *x) {
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
          if (parseNumbers(token,s)==1);
          else if (strcmp(token,"l")==0) { 
-              //loperation (token,guardaline,s,x); 
               loperation (s); 
          }
          else {

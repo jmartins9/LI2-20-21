@@ -128,7 +128,6 @@ void parse(char *line,STACK *s,VARIABLES *x) {
      char guardaline[12040]; preenche(line,guardaline);
      char *delimitadores = " \t\n" ;
      for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-        printf("%s\n", token);
          if (parseNumbers(token,s)==1);
          else if (strcmp(token,"l")==0) { 
               //loperation (token,guardaline,s,x); 

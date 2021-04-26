@@ -6,16 +6,29 @@
 #include "pushpop.h"
 
 char *get_token(char *line, char **rest) {
-    char *delimitadores = " \t\n" ;
-    int i=0, j=0;
+    if (strlen(line) == 0) return NULL;
 
-    for (i=0; (strchr(delimitadores,line[i])==NULL) ; i++); //aumentar o valor de i ate ao indice final do token
-    line[i] = '\0'; i++; //"fechar" o token e aumentar i para começar a preencher o rest
-    for (j=0; line[i] != '\0'; j++) {
-        (*rest)[j] = line[i+j]; //preencher o resto da linha no array rest. Secalhar ta mal pq rest é pointer de pointer de char.
-    }
-    (*rest)[j] = '\0';
+    printf("cp1 %s\n", line);
 
+    const char *delimitadores = " \t\n\0" ;
+    int i=0;
+    char *linenova = (char *) malloc(strlen(line) * sizeof(char));
+    strcpy(linenova,line);
+
+    printf("cp2 %s\n", linenova);
+
+    for (i=0; (strchr(delimitadores,linenova[i])==NULL) ; i++); //aumentar o valor de i ate ao indice final do primeiro token
+    linenova[i] = '\0';
+
+    printf("cp3 %s\n", linenova);
+
+    (*rest) = line + i + 1;
+
+    line = linenova;
+
+    printf("cp4 %s\n", line);
+    printf("resto e .%s.\n", *rest);
+    
     return line;
 }
 /*

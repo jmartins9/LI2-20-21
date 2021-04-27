@@ -124,17 +124,14 @@ void loperation (STACK *s) {
  */
 void parse(char *line,STACK *s,VARIABLES *x) {
      char guardaline[12040]; preenche(line,guardaline);
-     char *rest[12040];
-     char *linenova = (char *) malloc(12040 * sizeof(char));
-     char *token = (char*)malloc(sizeof(char) * 12040);
-     *rest = (char*)malloc(sizeof(char) * 12040);
+     char *rest[100];
+     char *linenova = (char *) malloc(100 * sizeof(char));
+     char *token = (char*)malloc(sizeof(char) * 100);
+     *rest = (char*)malloc(sizeof(char) * 100);
      strcpy(linenova,line);
      strcpy(token,line);
      strcpy(*rest,line);
-     int i = 0;
      for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
-         if (i>10) break;
-         i++;
          if (parseNumbers(token,s)==1);
          else if (strcmp(token,"l")==0) { 
               loperation (s); 
@@ -144,7 +141,7 @@ void parse(char *line,STACK *s,VARIABLES *x) {
          }
         
          strcpy(linenova,*rest);
-         *rest = (char*) malloc(12040*sizeof(char));
+         *rest = (char*) malloc(100*sizeof(char));
      }  
 } 
 

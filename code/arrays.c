@@ -20,6 +20,8 @@ char *get_token(char *line, char **rest) {
     linenova[i] = '\0';
 
     (*rest) = line + i;
+    while ((strchr(delimitadores,**rest)!=NULL && **rest != '\0')) (*rest)++; //aumentar o valor do resto enquanto estiver em cima de uns dos delimitadores
+    //para que ele aponte diretamente para um char que nao é espaços
 
     line = linenova;
     return line;

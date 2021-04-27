@@ -7,28 +7,21 @@
 
 char *get_token(char *line, char **rest) {
     if (strlen(line) == 0) return NULL;
-
-    printf("cp1 %s\n", line);
-
-    const char *delimitadores = " \t\n\0" ;
+    char *delimitadores = " \t\n" ;
+    while (strchr(delimitadores,*line)!=NULL && *line != '\0') {
+        line++;
+    }
+    if (strlen(line) == 0 || *line == '\n') return NULL;
     int i=0;
     char *linenova = (char *) malloc(strlen(line) * sizeof(char));
     strcpy(linenova,line);
 
-    printf("cp2 %s\n", linenova);
-
     for (i=0; (strchr(delimitadores,linenova[i])==NULL) ; i++); //aumentar o valor de i ate ao indice final do primeiro token
     linenova[i] = '\0';
 
-    printf("cp3 %s\n", linenova);
-
-    (*rest) = line + i + 1;
+    (*rest) = line + i;
 
     line = linenova;
-
-    printf("cp4 %s\n", line);
-    printf("resto e .%s.\n", *rest);
-    
     return line;
 }
 /*

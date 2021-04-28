@@ -29,7 +29,7 @@ void preenche (char *line,char v[]);
  * Esta é o header da função responsável pelo parser da linha de comandos dada.
  * 
  */
-void parse(char *line,STACK *s,VARIABLES *x);
+STACK *parse(char *line,STACK *s,VARIABLES *x);
 
 /**
  *

@@ -24,6 +24,7 @@ int what_type (DATA d) {
     if (d.type == DOUBLE) r=2;
     if (d.type == CHAR) r=4;
     if (d.type == STRING) r=8;
+    if (d.type == STACKK) r=16;
     return r;   
 }
 
@@ -105,8 +106,30 @@ void print_stack(STACK *s) {
         printf("%c", elem.elems.CHAR); break;
       case STRING:
         printf("%s", elem.elems.STRING); break;
+      case STACKK:
+        print_array(elem.elems.STACKK);break;
     }
   }
-  printf("\n");                               
+  printf("\n");
+}
+
+void print_array(STACK *s) { //ha como evitar isto!? se possivel evitar copiar a funçao
+  for(int K = 0; K < s->n_elems; K++) {
+    DATA elem = s->stack[K];
+    TYPE type = elem.type;
+    switch(type) {
+      case LONG:
+        printf("%ld", elem.elems.LONG); break;
+      case DOUBLE:
+        printf("%g", elem.elems.DOUBLE); break;
+      case CHAR:
+        printf("%c", elem.elems.CHAR); break;
+      case STRING:
+        printf("%s", elem.elems.STRING); break;
+      case STACKK:
+        print_array(elem.elems.STACKK);break;
+    }
+  }
+  //printf("\n");
 }
 

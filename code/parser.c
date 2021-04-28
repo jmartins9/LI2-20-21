@@ -122,27 +122,41 @@ void loperation (STACK *s) {
  * Esta é a função responsável pelo parse da linha lida e executar as intruções dadas com a ajuda de uma stack.  
  * 
  */
-void parse(char *line,STACK *s,VARIABLES *x) {
-     char guardaline[12040]; preenche(line,guardaline);
-     char *rest[100];
-     char *linenova = (char *) malloc(100 * sizeof(char));
-     char *token = (char*)malloc(sizeof(char) * 100);
-     *rest = (char*)malloc(sizeof(char) * 100);
-     strcpy(linenova,line);
-     strcpy(token,line);
-     strcpy(*rest,line);
-     for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
-         if (parseNumbers(token,s)==1);
-         else if (strcmp(token,"l")==0) { 
-              loperation (s); 
-         }
-         else {
-             alloperations(token,s,x);
-         }
-        
-         strcpy(linenova,*rest);
-         *rest = (char*) malloc(100*sizeof(char));
-     }  
-} 
+STACK *parse(char *line,STACK *s,VARIABLES *x) {
+    if (s == NULL) s = create_stack();
+    char guardaline[12040]; preenche(line,guardaline);
+    char *rest[100];
+    char *linenova = (char *) malloc(100 * sizeof(char));
+    char *token = (char*)malloc(sizeof(char) * 100);
+    *rest = (char*)malloc(sizeof(char) * 100);
+    strcpy(linenova,line);
+    strcpy(token,line);
+    strcpy(*rest,line);
+    /*
+    DATA p1; make_datas(p1,LONG,5);
+    DATA p2; make_datas(p2,LONG,7);
+    STACK *stacknova = create_stack();
+    push(stacknova,p1);push(stacknova,p2);
+    DATA Z; make_datas(Z,STACKK,stacknova);
+    push(s,Z);
+    */
+    for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
+        if (*linenova == '[') {
+            //criarArray(linenova+1,s, x, rest);
+        }
+        else if (parseNumbers(token,s)==1);
+        else if (strcmp(token,"l")==0) { 
+             loperation (s); 
+        }
+        else {
+            alloperations(token,s,x);
+        }
+       
+        strcpy(linenova,*rest);
+        *rest = (char*) malloc(100*sizeof(char));
+    }
+
+    return s;
+}
 
 

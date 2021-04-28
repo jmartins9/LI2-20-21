@@ -26,7 +26,7 @@ int main () {
     char line [10240];
     assert( fgets (line,10240,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');
-    parse(line,s,vars);
+    s = parse(line,s,vars);
     print_stack (s);
     return 0;
 }

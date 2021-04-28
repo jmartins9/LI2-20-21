@@ -18,7 +18,8 @@ typedef enum {
         LONG = 1,  /**< tipo de dados LONG*/ 
         DOUBLE = 2, /**< tipo de dados DOUBLE*/ 
         CHAR = 4,  /**< tipo de dados CHAR*/
-        STRING = 8   /**< tipo de dados STRING*/
+        STRING = 8,   /**< tipo de dados STRING*/
+        STACKK = 16
         } 
         TYPE; /**< variável enum TYPE*/
 
@@ -43,6 +44,7 @@ typedef struct data /**< data - struct definida. */
   double DOUBLE; /**< DOUBLE que armazena o valor da variável*/
   char   CHAR; /**< CHAR que armazena o valor da variável*/
   char*  STRING; /**< STRING que armazena o valor da variável*/
+  struct stack *STACKK;
   } elems; /**< elems - enum definido. */
 } DATA;  /**< variável struct DATA. */
 
@@ -85,5 +87,6 @@ DATA pop(STACK *s);
 DATA top(STACK *s);
 int is_empty(STACK *s);
 void print_stack(STACK *s);
+void print_array(STACK *s);
 
 #endif

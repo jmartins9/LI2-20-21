@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "pushpop.h"
+#include "variables.h"
+#include "parser.h"
 
 char *get_token(char *line, char **rest) {
     if (strlen(line) == 0) return NULL;
@@ -26,6 +28,17 @@ char *get_token(char *line, char **rest) {
     line = linenova;
     return line;
 }
+
+/*
+void criarArray (char *line, STACK *s,VARIABLES *x, char **rest) {
+    char *token = get_delimited_array(line, rest);
+    STACK *arrayS = NULL;
+    arrayS = parse(token, arrayS, x);
+    DATA Z; make_datas(Z,STACKK,arrayS);
+    push(s,Z);
+}
+*/
+
 /*
 char *get_delimited (char *line, char *seps, char **rest) {
     int i = 0, x=0;

@@ -107,29 +107,8 @@ void print_stack(STACK *s) {
       case STRING:
         printf("%s", elem.elems.STRING); break;
       case STACKK:
-        print_array(elem.elems.STACKK);break;
+        print_stack(elem.elems.STACKK);break;
     }
   }
-  printf("\n");
-}
-
-void print_array(STACK *s) { //ha como evitar isto!? se possivel evitar copiar a funçao
-  for(int K = 0; K < s->n_elems; K++) {
-    DATA elem = s->stack[K];
-    TYPE type = elem.type;
-    switch(type) {
-      case LONG:
-        printf("%ld", elem.elems.LONG); break;
-      case DOUBLE:
-        printf("%g", elem.elems.DOUBLE); break;
-      case CHAR:
-        printf("%c", elem.elems.CHAR); break;
-      case STRING:
-        printf("%s", elem.elems.STRING); break;
-      case STACKK:
-        print_array(elem.elems.STACKK);break;
-    }
-  }
-  //printf("\n");
 }
 

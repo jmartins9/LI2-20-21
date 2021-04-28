@@ -28,5 +28,6 @@ int main () {
     assert( line  [strlen (line)-1] == '\n');
     s = parse(line,s,vars);
     print_stack (s);
+    printf("\n");
     return 0;
 }

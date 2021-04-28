@@ -74,11 +74,13 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsLogicOp = "=<>!?e&e|e<e>";
      char *charsConvOp = "fci";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
+     char *charsArray = ",S/N/";
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
+     if (strstr(charsArray,token)!=NULL) {arrayops(token,s);r=1;}
      if (r==0) parsedatas(token,s);
 }
 
@@ -142,7 +144,7 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     */
     for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
         if (*linenova == '[') {
-            //criarArray(linenova+1,s, x, rest);
+            criarArray(linenova+1,s, x, rest);
         }
         else if (parseNumbers(token,s)==1);
         else if (strcmp(token,"l")==0) { 

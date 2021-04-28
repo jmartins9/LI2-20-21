@@ -21,6 +21,7 @@
 #include "variables.h"
 #include "convoperations.h"
 #include "arrays.h"
+#include "leituraInputs.h"
 
 /**
  *
@@ -75,12 +76,14 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsConvOp = "fci";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
      char *charsArray = ",S/N/";
+     char *charsLeitura = "ltp";
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
      if (strstr(charsArray,token)!=NULL) {arrayops(token,s);r=1;}
+     if (strstr(charsLeitura,token)!=NULL) {leituraop(token,s);r=1;}
      if (r==0) parsedatas(token,s);
 }
 
@@ -106,18 +109,6 @@ int parseNumbers (char *token,STACK *s) {
 }
 
 
-/**
- * 
- * Esta é a função responsável pela execução do comando l.  
- * 
- */
-void loperation (STACK *s) {
-    char line1[10240];
-    assert( fgets (line1,10240,stdin) != NULL);
-    assert( line1  [strlen (line1)-1] == '\n');
-    DATA Z; make_datas(Z,STRING,line1);
-    push(s,Z);
-}
 
 /**
  * 
@@ -126,7 +117,6 @@ void loperation (STACK *s) {
  */
 STACK *parse(char *line,STACK *s,VARIABLES *x) {
     if (s == NULL) s = create_stack();
-    char guardaline[12040]; preenche(line,guardaline);
     char *rest[100];
     char *linenova = (char *) malloc(100 * sizeof(char));
     char *token = (char*)malloc(sizeof(char) * 100);
@@ -147,9 +137,6 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
             criarArray(linenova+1,s, x, rest);
         }
         else if (parseNumbers(token,s)==1);
-        else if (strcmp(token,"l")==0) { 
-             loperation (s); 
-        }
         else {
             alloperations(token,s,x);
         }

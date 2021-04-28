@@ -52,11 +52,5 @@ void alloperations (char *token,STACK *s,VARIABLES *x);
  */
 int parseNumbers (char *token,STACK *s);
 
-/**
- * 
- * Esta é o header da função responsável pela execução do comando l.  
- * 
- */
-void loperation (STACK *s);
 
 #endif

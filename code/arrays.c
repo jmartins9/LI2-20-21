@@ -1,5 +1,9 @@
-
-
+/**
+ * @file arrays.c
+ *
+ * Este é o ficheiro que contém todas as funções relacionadas com os arrays. 
+ * 
+ */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -7,6 +11,13 @@
 #include "variables.h"
 #include "parser.h"
 
+/**
+ * 
+ *  Função que separa o token do resto do input.
+ *  
+ *  \returns O token e o resto da linha.
+ * 
+ */
 char *get_token(char *line, char **rest) {
     if (strlen(line) == 0) return NULL;
     char *delimitadores = " \t\n" ;
@@ -30,6 +41,21 @@ char *get_token(char *line, char **rest) {
 }
 
 /*
+char *get_delimited (char *line, char *seps, char **rest) {
+    int i = 0, x=0;
+    for (i=0; line[i] != '\0'; i++) {
+        if (strstr(seps,line[i])!=NULL) x++;
+    }
+    return line;
+}
+
+*/
+
+/**
+ * 
+ *  Função que cria um array e realiza as operaçoes nele contidas. 
+ * 
+ */
 void criarArray (char *line, STACK *s,VARIABLES *x, char **rest) {
     char *token = get_delimited_array(line, rest);
     STACK *arrayS = NULL;
@@ -37,42 +63,19 @@ void criarArray (char *line, STACK *s,VARIABLES *x, char **rest) {
     DATA Z; make_datas(Z,STACKK,arrayS);
     push(s,Z);
 }
-*/
-
-/*
-char *get_delimited (char *line, char *seps, char **rest) {
-    int i = 0, x=0;
-
-    for (i=0; line[i] != '\0'; i++) {
-        if (strstr(seps,line[i])!=NULL) x++;
-    }
-    return line;
-}
-
-STACK *eval (char *line, STACK *init_stack) {
-    int i=0;
-
-    if (init_stack == NULL) {
-        init_stack = create_stack();
-    }
-
-    for (i=0; line[i] != '\0'; i++) {
-
-    }
-
-    return init_stack;
-}
-*/
 
 
-
-/*
-
+/**
+ * 
+ *  Função que executa o comando ',' , ou seja, 
+ *  se for um array o topo da stack da-nos o seu tamanho, caso contrário cria um array.
+ *  
+ */
 void tamanho_range (STACK *s) {
     DATA p1 = pop(s);
-    if (p1.type==array_string) {
-      STACK *x = p1.elems.array_string;
-      long tamanho = x->n_elms;
+    if (p1.type==STACKK) {
+      STACK *x = p1.elems.STACKK;
+      long tamanho = x->n_elems;
       make_datas(p1,LONG,tamanho);
       push(s,p1);
     }
@@ -84,10 +87,23 @@ void tamanho_range (STACK *s) {
          make_datas(p2,LONG,i);
          push(x,p2);
         }
-        make_datas(p2,array_string,x);
+        make_datas(p2,STACKK,x);
         push(s,p2);
     }
 }
 
 
-*/
+
+
+/**
+ * 
+ *  Função lê um token sobre operações relacionadas com arrays e manda executar as operações. 
+ * 
+ */
+void arrayops (char *token,STACK *s) {
+     switch (*token)
+     {
+     case (','): tamanho_range(s); break; 
+     
+     }
+}

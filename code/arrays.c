@@ -50,3 +50,31 @@ STACK *eval (char *line, STACK *init_stack) {
     return init_stack;
 }
 */
+
+
+
+/*
+
+void tamanho_range (STACK *s) {
+    DATA p1 = pop(s);
+    if (p1.type==array_string) {
+      STACK *x = p1.elems.array_string;
+      long tamanho = x->n_elms;
+      make_datas(p1,LONG,tamanho);
+      push(s,p1);
+    }
+    else {
+        int i;
+        DATA p2;
+        STACK *x=create_stack();
+         for (i=0;i<p1.elems.LONG;i++) {
+         make_datas(p2,LONG,i);
+         push(x,p2);
+        }
+        make_datas(p2,array_string,x);
+        push(s,p2);
+    }
+}
+
+
+*/

@@ -4,6 +4,7 @@
  * Este é o ficheiro que contém todas as funções relacionadas com as operações lógitas. 
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "logicoperations.h"
 #include "pushpop.h"
@@ -74,6 +75,9 @@ void minoftwo (STACK *s) {
     else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE<p2.elems.DOUBLE) {
         push(s,p1);
     }
+    else if (p1.type==STRING && p2.type==STRING && strcmp(p2.elems.STRING,p1.elems.STRING)>0) {
+        push(s,p1);
+    }
     else push(s,p2); 
 }
 
@@ -96,6 +100,9 @@ void maxoftwo (STACK *s) {
         push(s,p1);
     }
     else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE>p2.elems.DOUBLE) {
+        push(s,p1);
+    }
+    else if (p1.type==STRING && p2.type==STRING && strcmp(p2.elems.STRING,p1.elems.STRING)<0) {
         push(s,p1);
     }
     else push(s,p2); 
@@ -166,11 +173,23 @@ void smallerthan (STACK *s) {
     DATA p2 = pop(s);
     DATA data;
     long val;
+    if (p1.type==STRING && p2.type==STRING) {
+        if (strcmp(p2.elems.STRING,p1.elems.STRING)<0) {
+            make_datas(data,LONG,1);
+            push(s,data);
+            }
+        else {
+            make_datas (data,LONG,0);
+            push(s,data);
+       }   
+    }
+    else {
     p1 = converteDouble(p1);
     p2 = converteDouble(p2);
     val = p2.elems.DOUBLE < p1.elems.DOUBLE;
     make_datas(data,LONG,val); 
     push(s,data);
+    }
 }
 
 /**
@@ -183,11 +202,23 @@ void biggerthan (STACK *s) {
     DATA p2 = pop(s);
     DATA data;
     long val;
+    if (p1.type==STRING && p2.type==STRING) {
+       if (strcmp(p2.elems.STRING,p1.elems.STRING)>0) {
+            make_datas(data,LONG,1);
+            push(s,data);
+            }
+       else {
+            make_datas (data,LONG,0);
+            push(s,data);
+       }     
+    }
+    else {
     p1 = converteDouble(p1);
     p2 = converteDouble(p2);
     val = p2.elems.DOUBLE > p1.elems.DOUBLE;
     make_datas(data,LONG,val); 
     push(s,data);
+    }
 }
 
 /**
@@ -206,6 +237,103 @@ void eoperations (char *token,STACK *s) {
     }
 }
 
+/**
+ * 
+ * Função que vai buscar um valor por índice.
+ * 
+ */
+void arrayelemN(STACK *s) {
+     DATA p1=pop(s);
+     DATA p2=pop(s);
+     STACK *x=p2.elems.STACKK;
+     x->n_elems-=p1.elems.LONG;
+     push(s,top(x));
+
+}
+
+/**
+ * 
+ * Função vai buscar X elems/carat do início.
+ * 
+ */
+void removeStart (STACK *s) {
+    DATA p1 = pop(s);
+    DATA p2 = pop(s);
+    if (p2.type==STACKK) {
+        STACK *x=p2.elems.STACKK;
+        STACK *z=create_stack();
+        int i;
+        for (i=0;i<=p1.elems.LONG;i++) {
+            x->n_elems=i;
+            push(z,top(x));
+        }
+        make_datas(p1,STACKK,z);
+        push(s,p1);
+    }
+    else {
+        char *z = (char *) malloc (sizeof(char)*p1.elems.LONG);
+        z=p2.elems.STRING;
+        z[p1.elems.LONG]='\0';
+        make_datas(p1,STRING,z);
+        push(s,p1);
+    }
+}
+
+
+/**
+ * 
+ * Função vai buscar X elems/carat do fim.
+ * 
+ */
+void removeLast (STACK *s) {
+     DATA p1 = pop(s);
+     DATA p2 = pop(s);
+     if (p2.type==STACKK) {
+        STACK *x=p2.elems.STACKK;
+        STACK *z=create_stack();
+        int i;
+        int posicao=x->n_elems+1;
+        for (i=p1.elems.LONG;i>0;i--) {
+             x->n_elems=posicao-i;
+             push(z,top(x));
+        }
+        make_datas(p1,STACKK,z);
+        push(s,p1);
+     }
+     else {
+        char *z = (char *) malloc (sizeof(char)*p1.elems.LONG);
+        int posicao=strlen(p2.elems.STRING);
+        z=p2.elems.STRING+(posicao-p1.elems.LONG);
+        make_datas(p1,STRING,z);
+        push(s,p1);
+     }
+}
+
+/**
+ * 
+ * Decide qual instrução com o mesmo comando '=' deve ser executado.
+ * 
+ */
+void handlelogic (char *token,STACK *s) {
+     DATA p1=pop(s);
+     DATA p2=top(s);
+     if (p1.type==LONG && (p2.type==STACKK || p2.type==STRING )) {
+         push(s,p1);
+         switch (*token) {
+         case ('='): arrayelemN(s); break;
+         case ('<'): removeStart(s);break;
+         case ('>'): removeLast(s);break;
+         }
+     }
+     else {
+         push(s,p1);
+         switch (*token) {
+         case ('='): equivalente(s); break;
+         case ('<'): smallerthan(s);break;
+         case ('>'): biggerthan(s);break;
+         }
+     }
+}
 
 /**
  *
@@ -214,11 +342,11 @@ void eoperations (char *token,STACK *s) {
  */
 void logicoperations (char *token,STACK *s) {
     switch (*token) {
-    case ('='): equivalente(s);break;
+    case ('='): handlelogic(token,s);break;
     case ('?'): ifthenelse(s);break;
     case ('e'): eoperations(token+1,s);break;
     case ('!'): negate(s);break;
-    case ('<'): smallerthan(s);break;
-    case ('>'): biggerthan(s);break;
+    case ('<'): handlelogic(token,s);break;
+    case ('>'): handlelogic(token,s);break;
     }
 }

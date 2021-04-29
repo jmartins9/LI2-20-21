@@ -91,5 +91,9 @@ void eoperations (char *token,STACK *s);
  * 
  */
 DATA converteDouble (DATA a);
+void arrayelemN(STACK *s);
+void removeStart (STACK *s);
+void removeLast (STACK *s);
+void handlelogic (char *token,STACK *s);
 
 #endif

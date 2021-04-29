@@ -24,13 +24,14 @@ char *get_token(char *line, char **rest) {
     while (strchr(delimitadores,*line)!=NULL && *line != '\0') {
         line++;
     }
-    if (strlen(line) == 0 || *line == '\n') return NULL;
+    //if (strlen(line) == 0 || *line == '\n' ) return NULL;
+
     int i=0;
     char *linenova = (char *) malloc(strlen(line) * sizeof(char));
     strcpy(linenova,line);
 
     for (i=0; (strchr(delimitadores,linenova[i])==NULL) ; i++); //aumentar o valor de i ate ao indice final do primeiro token
-    linenova[i] = '\0';
+    linenova[i++] = '\0';
 
     (*rest) = line + i;
     while ((strchr(delimitadores,**rest)!=NULL && **rest != '\0')) (*rest)++; //aumentar o valor do resto enquanto estiver em cima de uns dos delimitadores
@@ -39,7 +40,6 @@ char *get_token(char *line, char **rest) {
     line = linenova;
     return line;
 }
-
 
 
 
@@ -53,6 +53,35 @@ char *get_delimited (char *line, char *seps, char **rest) {
 }
 
 */
+
+char *get_delimited_string(char *line, char **rest) {
+    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
+    long unsigned int i=0;
+    int k=0;
+    for (i=0;i<strlen(line);i++) {
+        if (line[i] == '"') break;
+        else {
+            linenova[k] = line[i];
+            k++;
+        }
+    }
+    linenova[k++] = '\0';
+    *rest = line + k + 1;
+    line = linenova;
+
+    return line;
+}
+
+/**
+ * 
+ *  Função que cria um array e realiza as operaçoes nele contidas. 
+ * 
+ */
+void criarString (char *line, STACK *s, char **rest) {
+    char *token = get_delimited_string(line, rest);
+    DATA Z; make_datas(Z,STRING,token);
+    push(s,Z);
+}
 
 /**
  * 

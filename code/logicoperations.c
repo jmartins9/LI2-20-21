@@ -18,12 +18,11 @@ void equivalente (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    //long p1long = p1.elems.LONG, p2long = p2.elems.LONG;
-    //double p1double = p1.elems.DOUBLE, p2double = p2.elems.DOUBLE;
     if (what_type (p1)==LONG && what_type(p2)==LONG) {long equiv = p2.elems.LONG == p1.elems.LONG;make_datas(Z,LONG,equiv);}
     if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {long equiv = p2.elems.LONG == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
     if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.LONG;make_datas(Z,LONG,equiv);}            
+    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.LONG;make_datas(Z,LONG,equiv);}
+    if ( p1.type==STRING && p2.type==STRING ) {long equiv = !strcmp(p1.elems.STRING,p2.elems.STRING);make_datas(Z,LONG,equiv);}            
     push (s,Z);  
 }
 

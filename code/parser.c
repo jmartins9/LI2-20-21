@@ -124,24 +124,18 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     strcpy(linenova,line);
     strcpy(token,line);
     strcpy(*rest,line);
-    /*
-    DATA p1; make_datas(p1,LONG,5);
-    DATA p2; make_datas(p2,LONG,7);
-    STACK *stacknova = create_stack();
-    push(stacknova,p1);push(stacknova,p2);
-    DATA Z; make_datas(Z,STACKK,stacknova);
-    push(s,Z);
-    */
+
     for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
-        if (*linenova == '[') {
-            criarArray(linenova+1,s, x, rest);
+       
+        if (*linenova == '[') criarArray(linenova+1,s,x,rest);
+        else if (*linenova == '"') {
+            criarString(linenova+1,s,rest);
         }
         else if (parseNumbers(token,s)==1);
-        else {
-            alloperations(token,s,x);
-        }
-       
+        else alloperations(token,s,x);
+        
         strcpy(linenova,*rest);
+          
         *rest = (char*) malloc(100*sizeof(char));
     }
 

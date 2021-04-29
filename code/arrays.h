@@ -19,6 +19,8 @@ void arrayops (char *token,STACK *s);
 void tamanho_range (STACK *s);
 void separaWhitespace (STACK *s);
 void separaNewlines (STACK *s);
+void criarString (char *line, STACK *s, char **rest);
+char *get_delimited_string(char *line, char **rest);
 
 
 #endif

@@ -41,19 +41,39 @@ char *get_token(char *line, char **rest) {
     return line;
 }
 
-
-
-/*
-char *get_delimited (char *line, char *seps, char **rest) {
-    int i = 0, x=0;
-    for (i=0; line[i] != '\0'; i++) {
-        if (strstr(seps,line[i])!=NULL) x++;
+/**
+ * 
+ *  Função que separa o token de um array do resto do input.
+ *  
+ *  \returns O token e o resto da linha.
+ * 
+ */
+char *get_delimited_array(char *line, char **rest) {
+    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
+    long unsigned int i=0;
+    int j=0,k=0;
+    for (i=0;i<strlen(line);i++) {
+        if (line[i] == ']' && j<=0) break;
+        else {
+            linenova[k] = line[i];
+            k++;
+        }
+        if(line[i] == '[') j++;
+        else if (line[i] == ']') j--;
     }
+    linenova[k++] = '\0';
+    *rest = line + k + 1;
+    line = linenova;
     return line;
 }
 
-*/
-
+/**
+ * 
+ *  Função que separa o token de uma string do resto do input.
+ *  
+ *  \returns O token e o resto da linha.
+ * 
+ */
 char *get_delimited_string(char *line, char **rest) {
     char *linenova = (char*) malloc(strlen(line) * sizeof(char));
     long unsigned int i=0;
@@ -185,24 +205,6 @@ void separaNewlines (STACK *s) {
      }
 }
 
-char *get_delimited_array(char *line, char **rest) {
-    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
-    long unsigned int i=0;
-    int j=0,k=0;
-    for (i=0;i<strlen(line);i++) {
-        if (line[i] == ']' && j<=0) break;
-        else {
-            linenova[k] = line[i];
-            k++;
-        }
-        if(line[i] == '[') j++;
-        else if (line[i] == ']') j--;
-    }
-    linenova[k++] = '\0';
-    *rest = line + k + 1;
-    line = linenova;
-    return line;
-}
 
 /**
  * 

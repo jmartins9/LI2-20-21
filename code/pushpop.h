@@ -87,6 +87,6 @@ DATA pop(STACK *s);
 DATA top(STACK *s);
 int is_empty(STACK *s);
 void print_stack(STACK *s);
-void print_array(STACK *s);
+
 
 #endif

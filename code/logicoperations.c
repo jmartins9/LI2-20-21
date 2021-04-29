@@ -311,7 +311,7 @@ void removeLast (STACK *s) {
 
 /**
  * 
- * Decide qual instrução com o mesmo comando '=' deve ser executado.
+ * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações lógicas recebem.
  * 
  */
 void handlelogic (char *token,STACK *s) {
@@ -320,17 +320,17 @@ void handlelogic (char *token,STACK *s) {
      if (p1.type==LONG && (p2.type==STACKK || p2.type==STRING )) {
          push(s,p1);
          switch (*token) {
-         case ('='): arrayelemN(s); break;
-         case ('<'): removeStart(s);break;
-         case ('>'): removeLast(s);break;
+            case ('='): arrayelemN(s); break;
+            case ('<'): removeStart(s);break;
+            case ('>'): removeLast(s);break;
          }
      }
      else {
          push(s,p1);
          switch (*token) {
-         case ('='): equivalente(s); break;
-         case ('<'): smallerthan(s);break;
-         case ('>'): biggerthan(s);break;
+            case ('='): equivalente(s); break;
+            case ('<'): smallerthan(s);break;
+            case ('>'): biggerthan(s);break;
          }
      }
 }
@@ -342,11 +342,9 @@ void handlelogic (char *token,STACK *s) {
  */
 void logicoperations (char *token,STACK *s) {
     switch (*token) {
-    case ('='): handlelogic(token,s);break;
-    case ('?'): ifthenelse(s);break;
-    case ('e'): eoperations(token+1,s);break;
-    case ('!'): negate(s);break;
-    case ('<'): handlelogic(token,s);break;
-    case ('>'): handlelogic(token,s);break;
+        case ('?'): ifthenelse(s);break;
+        case ('e'): eoperations(token+1,s);break;
+        case ('!'): negate(s);break;
+        default: handlelogic(token,s);break;
     }
 }

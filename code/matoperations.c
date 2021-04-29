@@ -187,23 +187,51 @@ void xorBin (STACK *s) {
 }             
 
 /**
+ * 
+ * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações aritméticas recebem.
+ * 
+ */
+void handle_arithmetic (char *token,STACK *s) {
+    DATA p1=pop(s);
+    DATA p2=top(s);
+    if ((p1.type==STRING || p1.type==STACKK) || ((p2.type==STACKK || p2.type==STRING) && p1.type==LONG)) {
+        push(s,p1);
+        switch (*token) {
+            case ('~'): break;
+            case ('+'): break;
+            case ('*'): break;
+            case ('('): break;
+            case (')'): break;
+            case ('#'): break;
+            case ('/'): break;
+        }
+    } 
+    else {
+        push(s,p1);
+        switch (*token) {
+            case ('~'): notBin(s);break;
+            case ('+'): somar(s);break;
+            case ('*'): multiplicar(s);break;
+            case ('('): subtrairTop(s);break;
+            case (')'): somarTop(s);break;
+            case ('#'): expoente(s);break;
+            case ('/'): divInteira(s);break;
+        }
+    }
+} 
+
+/**
  *
  * Esta é a função que decide qual das operações matemáticas deve ser executada dependendo da instrução dada.
  * 
  */
 void matoperations (char *token,STACK *s) {
     switch (*token) {
-    case ('+'): somar(s);break;
     case ('-'): subtrair(s);break;
-    case ('*'): multiplicar(s);break;
     case ('%'): divResto(s);break;
-    case ('/'): divInteira(s);break;
-    case (')'): somarTop(s);break;
-    case ('('): subtrairTop(s);break;
-    case ('#'): expoente(s);break;
     case ('&'): andBin(s);break;
-    case ('~'): notBin(s);break;
     case ('|'): orBin(s);break;
     case ('^'): xorBin(s);break;
+    default : handle_arithmetic(token,s);break;
     }      
 }

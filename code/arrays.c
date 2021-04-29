@@ -185,6 +185,24 @@ void separaNewlines (STACK *s) {
      }
 }
 
+char *get_delimited_array(char *line, char **rest) {
+    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
+    long unsigned int i=0;
+    int j=0,k=0;
+    for (i=0;i<strlen(line);i++) {
+        if (line[i] == ']' && j<=0) break;
+        else {
+            linenova[k] = line[i];
+            k++;
+        }
+        if(line[i] == '[') j++;
+        else if (line[i] == ']') j--;
+    }
+    linenova[k++] = '\0';
+    *rest = line + k + 1;
+    line = linenova;
+    return line;
+}
 
 /**
  * 

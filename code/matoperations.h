@@ -101,6 +101,7 @@ void orBin (STACK *s);
  */
 void xorBin (STACK *s);
 void handle_arithmetic (char *token,STACK *s);
+void putArrayStack (STACK *s);
 
 
 

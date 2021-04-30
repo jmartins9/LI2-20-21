@@ -186,6 +186,25 @@ void xorBin (STACK *s) {
     push (s,Z);  
 }             
 
+
+
+/**
+ *
+ * Coloca todos os valores do array na stack. 
+ * 
+ */
+void putArrayStack (STACK *s) {
+    DATA p1=pop(s);
+    STACK *x=p1.elems.STACKK;
+    int i;
+    int tamanho=x->n_elems;
+    for(i=0;i<=tamanho;i++) {
+        x->n_elems=i;
+        push(s,top(x));
+    }
+}
+
+
 /**
  * 
  * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações aritméticas recebem.
@@ -197,7 +216,7 @@ void handle_arithmetic (char *token,STACK *s) {
     if ((p1.type==STRING || p1.type==STACKK) || ((p2.type==STACKK || p2.type==STRING) && p1.type==LONG)) {
         push(s,p1);
         switch (*token) {
-            case ('~'): break;
+            case ('~'): putArrayStack(s);break;
             case ('+'): break;
             case ('*'): break;
             case ('('): break;

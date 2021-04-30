@@ -216,24 +216,3 @@ void arrayops (char *token,STACK *s) {
     if (strcmp(token,"S/")==0) separaWhitespace(s);
     if (strcmp(token,"N/")==0) separaNewlines(s);
     
-
-
-
-
-char *get_delimited_string (char *line, char **rest) {
-    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
-    int i=0,j=0,k=0;
-    for (i=0;i<strlen(line);i++) {
-        if (line[i] == '"') break;
-        linenova[k] = line[i];
-        k++;
-    }
-    linenova[k] = '\n';
-    linenova[k+1] = '\0';
-    *rest = line + k + 1;
-
-    line = linenova;
-
-    return line;
-}
-}

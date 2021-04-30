@@ -204,6 +204,25 @@ void putArrayStack (STACK *s) {
     }
 }
 
+/**
+ *
+ * Concatena dois arrays.
+ * Percorre os elementos de um array e dá push a todos os elementos no outro array. 
+ * 
+ */
+void concatenateArrays (STACK *s) {
+    DATA array1 = pop(s);
+    DATA array2 = pop(s);
+    STACK *stack1 = array1.elems.STACKK;
+    STACK *stack2 = array2.elems.STACKK;
+    int i;
+    for (i=0; i<stack1->n_elems; i++) {
+        push(stack2,stack1->stack[i]);
+    }
+    make_datas(array2, STACKK, stack2);
+    push (s,array2);
+}
+
 
 /**
  * 
@@ -217,7 +236,7 @@ void handle_arithmetic (char *token,STACK *s) {
         push(s,p1);
         switch (*token) {
             case ('~'): putArrayStack(s);break;
-            case ('+'): break;
+            case ('+'): concatenateArrays(s);break;
             case ('*'): break;
             case ('('): break;
             case (')'): break;

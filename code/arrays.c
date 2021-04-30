@@ -213,6 +213,7 @@ void separaNewlines (STACK *s) {
  */
 void arrayops (char *token,STACK *s) {
     if (strcmp(token,",")==0) tamanho_range(s);
-    if (strcmp(token,"S/")==0) separaWhitespace(s);
-    if (strcmp(token,"N/")==0) separaNewlines(s);
+    else if (strcmp(token,"S/")==0) separaWhitespace(s);
+    else if (strcmp(token,"N/")==0) separaNewlines(s);
+}
     

@@ -100,8 +100,27 @@ void orBin (STACK *s);
  * 
  */
 void xorBin (STACK *s);
+
+/**
+ *
+ * Este é o header da função que decide a operação a executar conforme o tipo dos elementos no topo da stack.
+ * 
+ */
 void handle_arithmetic (char *token,STACK *s);
+
+/**
+ *
+ * Este é o header da função que coloca os elementos de um array na stack.
+ * 
+ */
 void putArrayStack (STACK *s);
+
+/**
+ *
+ * Este é o header da função que concatena arrays.
+ * 
+ */
+void concatenateArrays (STACK *s);
 
 
 

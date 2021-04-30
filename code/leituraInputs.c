@@ -18,8 +18,8 @@
  * 
  */
 void loperation (STACK *s) {
-    char line1[10240];
-    assert( fgets (line1,10240,stdin) != NULL);
+    char line1[10000];
+    assert( fgets (line1,10000,stdin) != NULL);
     assert( line1  [strlen (line1)-1] == '\n');
     DATA Z; make_datas(Z,STRING,line1);
     push(s,Z);
@@ -31,9 +31,9 @@ void loperation (STACK *s) {
  * 
  */
 void toperation (STACK *s) {
-    char line1[10240];
-    char line2[10240];
-    while (fgets (line1,10240,stdin) != NULL) {
+    char line1[10000];
+    char line2[10000];
+    while (fgets (line1,10000,stdin) != NULL) {
            strcpy(line2+strlen(line2),line1);
     }
     assert( line2  [strlen (line2)-1] == '\n');

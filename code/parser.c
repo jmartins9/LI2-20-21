@@ -118,27 +118,26 @@ int parseNumbers (char *token,STACK *s) {
 STACK *parse(char *line,STACK *s,VARIABLES *x) {
     if (s == NULL) s = create_stack();
     char *rest[100];
-    char *linenova = (char *) malloc(100 * sizeof(char));
-    char *token = (char*)malloc(sizeof(char) * 100);
-    *rest = (char*)malloc(sizeof(char) * 100);
-    strcpy(linenova,line);
-    strcpy(token,line);
-    strcpy(*rest,line);
+    char *token = (char*) malloc(sizeof(char) * 20);
+    *rest = (char*) malloc(sizeof(char) * strlen(line));
 
-    for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
+    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
        
-        if (*linenova == '[') criarArray(linenova+1,s,x,rest);
-        else if (*linenova == '"') {
-            criarString(linenova+1,s,rest);
+        if (*line == '[') criarArray(line+1,s,x,rest);
+        else if (*line == '"') {
+            criarString(line+1,s,rest);
         }
         else if (parseNumbers(token,s)==1);
         else alloperations(token,s,x);
         
-        strcpy(linenova,*rest);
-          
-        *rest = (char*) malloc(100*sizeof(char));
+        strcpy(line,*rest); 
     }
-
+    *rest=NULL;
+    token=NULL;
+    line=NULL;
+    free(*rest);
+    free(token);
+    free(line);
     return s;
 }
 

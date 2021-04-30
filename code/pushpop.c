@@ -37,7 +37,7 @@ int what_type (DATA d) {
  */
 STACK *create_stack() {
   STACK *s = (STACK *) calloc(1, sizeof(STACK));
-  s->size = 100;
+  s->size = 25;
   s->stack = (DATA *) calloc(s->size, sizeof(DATA));
   return s;
 }

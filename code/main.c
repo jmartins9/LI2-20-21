@@ -21,10 +21,10 @@
  * @returns 0 valor 0.
  */
 int main () {
-    STACK *s = create_stack();
+    STACK *s=NULL;
     VARIABLES *vars = create_varlist();
-    char line [10240];
-    assert( fgets (line,10240,stdin) != NULL);
+    char line [10000];
+    assert( fgets (line,10000,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');
     s = parse(line,s,vars);
     print_stack (s);

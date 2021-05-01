@@ -122,6 +122,10 @@ void putArrayStack (STACK *s);
  */
 void concatenateArrays (STACK *s,DATA array1,DATA array2);
 void concatenateStrings (STACK *s,DATA array1,DATA array2);
+void remove1string (STACK *s,DATA array1);
+void remove1array (STACK *s,DATA array1);
+void removeUltstring (STACK *s,DATA array1);
+void removeUltarray (STACK *s,DATA array1);
 
 
 

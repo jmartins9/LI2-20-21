@@ -170,6 +170,7 @@ void separaWhitespace (STACK *s) {
              push(x,p2);
             
          }
+        pop(x);
         make_datas(p1,STACKK,x);
         push(s,p1);
      }
@@ -200,6 +201,7 @@ void separaNewlines (STACK *s) {
              make_datas(p2,STRING,guardastring);
              push(x,p2);
          }
+        pop(x);
         make_datas(p1,STACKK,x);
         push(s,p1);
      }

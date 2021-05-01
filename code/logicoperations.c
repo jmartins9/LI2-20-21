@@ -245,10 +245,16 @@ void eoperations (char *token,STACK *s) {
 void arrayelemN(STACK *s) {
      DATA p1=pop(s);
      DATA p2=pop(s);
+     if (p2.type==STACKK) {
      STACK *x=p2.elems.STACKK;
      x->n_elems-=p1.elems.LONG;
      push(s,top(x));
-
+     }
+     else {
+         char c = p2.elems.STRING[p1.elems.LONG];
+         make_datas(p1,CHAR,c);
+         push(s,p1);
+     }
 }
 
 /**

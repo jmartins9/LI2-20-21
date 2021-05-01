@@ -37,7 +37,7 @@ int what_type (DATA d) {
  */
 STACK *create_stack() {
   STACK *s = (STACK *) calloc(1, sizeof(STACK));
-  s->size = 25;
+  s->size = 5;
   s->stack = (DATA *) calloc(s->size, sizeof(DATA));
   return s;
 }
@@ -51,7 +51,7 @@ STACK *create_stack() {
  */
 void push(STACK *s, DATA elem) {
   if(s->size == s->n_elems) {
-    s->size += 100;
+    s->size += 5;
     s->stack = (DATA *) realloc(s->stack, s->size * sizeof(DATA));
   }
   s->stack[s->n_elems] = elem;

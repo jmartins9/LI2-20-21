@@ -6,7 +6,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "pushpop.h"
+#include <stdlib.h>
 #include <math.h>
+#include "convoperations.h"
 
 
 /**
@@ -206,23 +208,129 @@ void putArrayStack (STACK *s) {
 
 /**
  *
+ * Concatena duas Strings.
+ * 
+ */
+void concatenateStrings (STACK *s,DATA array1,DATA array2) {
+    if (array1.type==STRING && array2.type==STRING) {  
+        strcat(array2.elems.STRING,array1.elems.STRING);  // nao funcina quando faço : "ola" S "mundo" + + , mas "ola" "mundo" funciona
+        push (s,array2);
+    }
+    else if (array1.type==STRING && array2.type!=STRING) {
+        char string[strlen(array1.elems.STRING)+1];
+        string[0]=array2.elems.CHAR;  
+        memcpy(string+1,array1.elems.STRING,strlen(array1.elems.STRING));
+        array1.elems.STRING=string;
+        push (s,array1);
+    }
+    else if (array1.type!=STRING && array2.type==STRING) {
+        *(array2.elems.STRING+strlen(array2.elems.STRING))=array1.elems.CHAR;
+        push (s,array2);
+    }
+}
+
+/**
+ *
  * Concatena dois arrays.
  * Percorre os elementos de um array e dá push a todos os elementos no outro array. 
  * 
  */
-void concatenateArrays (STACK *s) {
-    DATA array1 = pop(s);
-    DATA array2 = pop(s);
-    STACK *stack1 = array1.elems.STACKK;
-    STACK *stack2 = array2.elems.STACKK;
-    int i;
-    for (i=0; i<stack1->n_elems; i++) {
-        push(stack2,stack1->stack[i]);
+void concatenateArrays (STACK *s,DATA array1,DATA array2) {
+    if (array1.type==STACKK && array2.type==STACKK) {
+        STACK *stack1 = array1.elems.STACKK;
+        STACK *stack2 = array2.elems.STACKK;
+        int i;
+        for (i=0; i<stack1->n_elems; i++) {
+            push(stack2,stack1->stack[i]);
+        }
+        make_datas(array2, STACKK, stack2);
+        push (s,array2);
+
     }
-    make_datas(array2, STACKK, stack2);
-    push (s,array2);
+    else if (array1.type==STACKK) {
+        STACK *x=create_stack();
+        push(x,array2);
+        push(x,array1);
+        DATA p;
+        make_datas(p,STACKK,x);
+        push(s,p);
+         
+    }
+    else if (array2.type==STACKK) {
+        push(array2.elems.STACKK,array1);
+        push(s,array2);
+    }
 }
 
+/**
+ * 
+ * Função que remove o primeiro elemento de uma string e coloca a string e o elemento na stack.
+ * 
+ */
+void remove1string (STACK *s,DATA array1) {
+    if (array1.type==STRING) {
+         char c = *array1.elems.STRING;
+         array1.elems.STRING=array1.elems.STRING+1;
+         DATA p;
+         push(s,array1);
+         make_datas(p,CHAR,c);
+         push(s,p);
+    
+    }
+}
+
+/**
+ * 
+ * Função que remove o primeiro elemento de um array e coloca o array e o elemento na stack.
+ * 
+ */
+void remove1array (STACK *s,DATA array1) {
+     if (array1.type==STACKK) {
+         STACK *x=array1.elems.STACKK;
+         STACK *z=create_stack();
+         int i;
+         int tamanho=x->n_elems;
+         for(i=2;i<=tamanho;i++) {
+             x->n_elems=i;
+             push(z,pop(x));
+         }
+         make_datas(array1,STACKK,z);
+         push(s,array1);
+         x->n_elems=1;
+         push(s,pop(x));
+     }
+}
+
+/**
+ * 
+ * Função que remove o ultimo elemento de uma string e coloca a string e o elemento na stack.
+ * 
+ */
+void removeUltstring (STACK *s,DATA array1) {
+     if (array1.type==STRING) {
+         char c = array1.elems.STRING[strlen(array1.elems.STRING)-1];
+         array1.elems.STRING[strlen(array1.elems.STRING)-1]='\0';
+         DATA p;
+         push(s,array1);
+         make_datas(p,CHAR,c);
+         push(s,p);
+     }
+
+}
+
+/**
+ * 
+ * Função que remove o ultimo elemento de um array e coloca o array e o elemento na stack.
+ * 
+ */
+void removeUltarray (STACK *s,DATA array1) {
+    if (array1.type==STACKK) {
+        STACK *x=array1.elems.STACKK;
+        DATA p = pop(x);
+        push(s,array1);
+        push(s,p);
+    }
+}
 
 /**
  * 
@@ -232,14 +340,16 @@ void concatenateArrays (STACK *s) {
 void handle_arithmetic (char *token,STACK *s) {
     DATA p1=pop(s);
     DATA p2=top(s);
-    if ((p1.type==STRING || p1.type==STACKK) || ((p2.type==STACKK || p2.type==STRING) && p1.type==LONG)) {
+    if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
         push(s,p1);
+        DATA array1;
+        DATA array2;
         switch (*token) {
             case ('~'): putArrayStack(s);break;
-            case ('+'): concatenateArrays(s);break;
+            case ('+'): array1 = pop(s);array2 = pop(s); concatenateArrays(s,array1,array2);concatenateStrings(s,array1,array2);break;
             case ('*'): break;
-            case ('('): break;
-            case (')'): break;
+            case ('('): array1 = pop(s);remove1string(s,array1);remove1array(s,array1);break;
+            case (')'): array1 = pop(s);removeUltstring(s,array1);removeUltarray(s,array1);break;
             case ('#'): break;
             case ('/'): break;
         }

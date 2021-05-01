@@ -31,14 +31,15 @@ void loperation (STACK *s) {
  * 
  */
 void toperation (STACK *s) {
-    char line1[10000];
+    char line1[2000];
     char line2[10000];
-    while (fgets (line1,10000,stdin) != NULL) {
+    while (fgets (line1,2000,stdin) != NULL) {
            strcpy(line2+strlen(line2),line1);
     }
     assert( line2  [strlen (line2)-1] == '\n');
     DATA Z; make_datas(Z,STRING,line2);
     push(s,Z);
+    
 }
 
 /**

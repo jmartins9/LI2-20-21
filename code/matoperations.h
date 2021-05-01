@@ -120,7 +120,8 @@ void putArrayStack (STACK *s);
  * Este é o header da função que concatena arrays.
  * 
  */
-void concatenateArrays (STACK *s);
+void concatenateArrays (STACK *s,DATA array1,DATA array2);
+void concatenateStrings (STACK *s,DATA array1,DATA array2);
 
 
 

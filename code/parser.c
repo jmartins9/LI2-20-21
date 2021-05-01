@@ -117,12 +117,12 @@ int parseNumbers (char *token,STACK *s) {
  */
 STACK *parse(char *line,STACK *s,VARIABLES *x) {
     if (s == NULL) s = create_stack();
-    char *rest[100];
-    char *token = (char*) malloc(sizeof(char) * 20);
+    char *rest[50];
+    char *token = (char*) malloc(sizeof(char) * 10);
     *rest = (char*) malloc(sizeof(char) * strlen(line));
 
     for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
-       
+
         if (*line == '[') criarArray(line+1,s,x,rest);
         else if (*line == '"') {
             criarString(line+1,s,rest);

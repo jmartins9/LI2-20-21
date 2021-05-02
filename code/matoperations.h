@@ -126,6 +126,8 @@ void remove1string (STACK *s,DATA array1);
 void remove1array (STACK *s,DATA array1);
 void removeUltstring (STACK *s,DATA array1);
 void removeUltarray (STACK *s,DATA array1);
+void concatenaNvezes_string (STACK *s,DATA p1,DATA p2);
+void concatenaNvezes_array (STACK *s,DATA p1,DATA p2);
 
 
 

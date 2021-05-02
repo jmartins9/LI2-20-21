@@ -133,11 +133,8 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
         strcpy(line,*rest); 
     }
     *rest=NULL;
-    token=NULL;
-    line=NULL;
     free(*rest);
     free(token);
-    free(line);
     return s;
 }
 

@@ -332,6 +332,11 @@ void removeUltarray (STACK *s,DATA array1) {
     }
 }
 
+void concatenaNvezes_array (STACK *s,DATA p1,DATA p2);
+
+void concatenaNvezes_string (STACK *s,DATA p1,DATA p2);
+
+
 /**
  * 
  * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações aritméticas recebem.
@@ -346,8 +351,8 @@ void handle_arithmetic (char *token,STACK *s) {
         DATA array2;
         switch (*token) {
             case ('~'): putArrayStack(s);break;
-            case ('+'): array1 = pop(s);array2 = pop(s); concatenateArrays(s,array1,array2);concatenateStrings(s,array1,array2);break;
-            case ('*'): break;
+            case ('+'): array1 = pop(s);array2 = pop(s); concatenateArrays(s,array1,array2); concatenateStrings(s,array1,array2); break;
+            case ('*'): array1 = pop(s);array2 = pop(s); concatenaNvezes_array(s,array1,array2); concatenaNvezes_string(s,array1,array2); break;
             case ('('): array1 = pop(s);remove1string(s,array1);remove1array(s,array1);break;
             case (')'): array1 = pop(s);removeUltstring(s,array1);removeUltarray(s,array1);break;
             case ('#'): break;

@@ -197,12 +197,22 @@ void xorBin (STACK *s) {
  */
 void putArrayStack (STACK *s) {
     DATA p1=pop(s);
-    STACK *x=p1.elems.STACKK;
-    int i;
-    int tamanho=x->n_elems;
-    for(i=0;i<=tamanho;i++) {
-        x->n_elems=i;
-        push(s,top(x));
+    if (p1.type==STACKK) {
+        STACK *x=p1.elems.STACKK;
+        int i;
+        int tamanho=x->n_elems;
+        for(i=0;i<=tamanho;i++) {
+            x->n_elems=i;
+            push(s,top(x));
+        }
+    }
+    else {
+        int i;
+        for (i=0;p1.elems.STRING[i]!='\0';i++) {
+             DATA p;
+             make_datas(p,CHAR,p1.elems.STRING[i]);
+             push(s,p);
+        }
     }
 }
 

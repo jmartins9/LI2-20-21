@@ -18,7 +18,7 @@
  *  \returns O token e o resto da linha.
  * 
  */
-char *get_token(char *line, char **rest) {
+char *get_token(char *line, char **rest) { 
     char *delimitadores = " \t\n" ;
     while (strchr(delimitadores,*line)!=NULL && *line != '\0') {
         line++;

@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include "convoperations.h"
-
+#include "arrays.h"
+#include "variables.h"
 
 /**
  *
@@ -377,6 +378,32 @@ void concatenaNvezes_string (STACK *s,DATA p1,DATA p2) {
          p2.elems.STRING=string;
          push(s,p2);
      }
+}
+
+void dividirString (STACK *s) {
+    DATA str = pop(s);
+    char *line = str.elems.STRING;
+    STACK *x = create_stack();
+    DATA Z;
+    make_datas(Z,STACKK,x);
+    char *rest[50];
+    char *token = (char*) malloc(sizeof(char) * 10);
+    *rest = (char*) malloc(sizeof(char) * strlen(line));
+
+    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
+        while (strchr(" \t\n",*line)!=NULL && *line != '\0') { //tirar espaços do inicio
+            line++;
+        
+        }
+        DATA substring;
+        make_datas(substring,STRING,token);
+        push(Z.elems.STACKK,substring);
+        strcpy(line,*rest);
+    }
+    push(s,Z);
+    *rest=NULL;
+    free(*rest);
+    free(token);
 }
 
 void procurarSubstring (STACK *s);

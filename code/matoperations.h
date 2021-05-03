@@ -129,7 +129,7 @@ void removeUltarray (STACK *s,DATA array1);
 void concatenaNvezes_string (STACK *s,DATA p1,DATA p2);
 void concatenaNvezes_array (STACK *s,DATA p1,DATA p2);
 void procurarSubstring (STACK *s);
-
+void dividirString (STACK *s);
 
 
 #endif

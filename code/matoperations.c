@@ -363,8 +363,23 @@ void concatenaNvezes_array (STACK *s,DATA p1,DATA p2) {
      }
 }
 
-void concatenaNvezes_string (STACK *s,DATA p1,DATA p2);
+/**
+ *
+ * Função que concatena strings n vezes
+ *
+ */
 
+void concatenaNvezes_string (STACK *s,DATA p1,DATA p2) {
+     if (p2.type==STRING) {
+         int i;
+         char *string= (char *) calloc(p1.elems.LONG*strlen(p2.elems.STRING),sizeof(char));
+         for (i=0;i<p1.elems.LONG;i++) {
+             strcat(string,p2.elems.STRING);
+         }
+         p2.elems.STRING=string;
+         push(s,p2);
+     }
+}
 
 /**
  * 

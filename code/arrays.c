@@ -132,6 +132,11 @@ void tamanho_range (STACK *s) {
       make_datas(p1,LONG,tamanho);
       push(s,p1);
     }
+    else if(p1.type==STRING) {
+         long tamanho=strlen(p1.elems.STRING);
+         make_datas(p1,LONG,tamanho);
+         push(s,p1);
+    }
     else {
         int i;
         DATA p2;

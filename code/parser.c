@@ -122,6 +122,9 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     *rest = (char*) malloc(sizeof(char) * strlen(line));
 
     for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
+        while (strchr(" \t\n",*line)!=NULL && *line != '\0') { //tirar espaços do inicio
+            line++;
+        }
 
         if (*line == '[') criarArray(line+1,s,x,rest);
         else if (*line == '"') {
@@ -130,7 +133,7 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
         else if (parseNumbers(token,s)==1);
         else alloperations(token,s,x);
         
-        strcpy(line,*rest); 
+        strcpy(line,*rest);
     }
     *rest=NULL;
     free(*rest);

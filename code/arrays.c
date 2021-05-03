@@ -19,11 +19,11 @@
  * 
  */
 char *get_token(char *line, char **rest) {
-    if (strlen(line) == 0) return NULL;
     char *delimitadores = " \t\n" ;
     while (strchr(delimitadores,*line)!=NULL && *line != '\0') {
         line++;
     }
+    if (strlen(line) == 0) return NULL;
     //if (strlen(line) == 0 || *line == '\n' ) return NULL;
 
     int i=0;
@@ -61,7 +61,8 @@ char *get_delimited_array(char *line, char **rest) {
         if(line[i] == '[') j++;
         else if (line[i] == ']') j--;
     }
-    linenova[k++] = '\0';
+    linenova[k] = '\n'; //isto é perigoso
+    linenova[k+1] = '\0';
     *rest = line + k + 1;
     line = linenova;
     return line;

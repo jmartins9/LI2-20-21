@@ -225,17 +225,16 @@ void concatenateStrings (STACK *s,DATA array1,DATA array2) {
     if (array1.type==STRING && array2.type==STRING) {  
         strcat(array2.elems.STRING,array1.elems.STRING);  // nao funcina quando faço : "ola" S "mundo" + + , mas "ola" "mundo" funciona
         push (s,array2);
+    } else if (array1.type==STRING && array2.type==CHAR) {
+        char *aux = (char*) malloc((strlen(array1.elems.STRING)) * sizeof(char));
+        aux[0] = array2.elems.CHAR;
+        strcpy(aux+1,array1.elems.STRING);
+        DATA Z; make_datas(Z, STRING, aux);
+        push (s,Z);
     }
-    else if (array1.type==STRING && array2.type!=STRING) {
-        char string[strlen(array1.elems.STRING)+1];
-        string[0]=array2.elems.CHAR;  
-        memcpy(string+1,array1.elems.STRING,strlen(array1.elems.STRING));
-        array1.elems.STRING=string;
-        push (s,array1);
-    }
-    else if (array1.type!=STRING && array2.type==STRING) {
-        *(array2.elems.STRING+strlen(array2.elems.STRING))=array1.elems.CHAR;
-        push (s,array2);
+    else if (array1.type==CHAR && array2.type==STRING) {
+        strncat(array2.elems.STRING, &array1.elems.CHAR,1);
+        push(s,array2);
     }
 }
 
@@ -267,8 +266,12 @@ void concatenateArrays (STACK *s,DATA array1,DATA array2) {
          
     }
     else if (array2.type==STACKK) {
-        push(array2.elems.STACKK,array1);
-        push(s,array2);
+        STACK *x=create_stack();
+        push(x,array1);
+        push(x,array2);
+        DATA p;
+        make_datas(p,STACKK,x);
+        push(s,p);
     }
 }
 

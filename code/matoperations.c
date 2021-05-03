@@ -342,7 +342,26 @@ void removeUltarray (STACK *s,DATA array1) {
     }
 }
 
-void concatenaNvezes_array (STACK *s,DATA p1,DATA p2);
+void concatenaNvezes_array (STACK *s,DATA p1,DATA p2) {
+     if (p2.type==STACKK) {
+        int i;
+        STACK *x=p2.elems.STACKK;
+        STACK *new=create_stack();
+        int length = x->n_elems;
+
+        for (i=0;i<p1.elems.LONG;i++) {
+            x->n_elems=1;
+            while (x->n_elems!=length+1) {
+                push(new,pop(x));
+                x->n_elems+=2;
+            }
+            x->n_elems=1;            
+        }
+
+        p2.elems.STACKK=new;
+        push(s,p2);
+     }
+}
 
 void concatenaNvezes_string (STACK *s,DATA p1,DATA p2);
 

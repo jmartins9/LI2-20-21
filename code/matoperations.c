@@ -11,6 +11,7 @@
 #include "convoperations.h"
 #include "arrays.h"
 #include "variables.h"
+#include "matoperations.h"
 
 /**
  *
@@ -381,32 +382,28 @@ void concatenaNvezes_string (STACK *s,DATA p1,DATA p2) {
 }
 
 void dividirString (STACK *s) {
-    DATA str = pop(s);
-    char *line = str.elems.STRING;
+    DATA delims = pop(s);
+    DATA toDivide = pop(s);
     STACK *x = create_stack();
-    DATA Z;
-    make_datas(Z,STACKK,x);
-    char *rest[50];
-    char *token = (char*) malloc(sizeof(char) * 10);
-    *rest = (char*) malloc(sizeof(char) * strlen(line));
-
-    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
-        while (strchr(" \t\n",*line)!=NULL && *line != '\0') { //tirar espaços do inicio
-            line++;
-        
+    DATA Z; make_datas(Z,STACKK,x);
+    DATA str;
+    if (delims.type == STRING && toDivide.type == STRING) {
+        char *strdelims = delims.elems.STRING;
+        char * strToDivide = toDivide.elems.STRING;
+        char *token;
+        token = strtok(strToDivide,strdelims);
+        while (token!=NULL) {
+            make_datas(str, STRING, token);
+            push(Z.elems.STACKK,str);
+            token = strtok(NULL,strdelims);
         }
-        DATA substring;
-        make_datas(substring,STRING,token);
-        push(Z.elems.STACKK,substring);
-        strcpy(line,*rest);
+        push(s,Z);
     }
-    push(s,Z);
-    *rest=NULL;
-    free(*rest);
-    free(token);
 }
 
-void procurarSubstring (STACK *s);
+void procurarSubstring (STACK *s) {
+    return;
+}
 
 /**
  * 
@@ -427,7 +424,7 @@ void handle_arithmetic (char *token,STACK *s) {
             case ('('): array1 = pop(s);remove1string(s,array1);remove1array(s,array1);break;
             case (')'): array1 = pop(s);removeUltstring(s,array1);removeUltarray(s,array1);break;
             case ('#'): procurarSubstring(s);break;
-            case ('/'): break;
+            case ('/'): dividirString(s);break;
         }
     } 
     else {

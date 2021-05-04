@@ -7,6 +7,8 @@
 #ifndef ___ARRAYS_H___
 #define ___ARRAYS_H___
 
+#include "variables.h"
+
 /**
  * 
  * Header da função que divide uma linha em um tokem e o resto da mesma. 

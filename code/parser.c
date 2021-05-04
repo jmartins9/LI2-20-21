@@ -117,27 +117,26 @@ int parseNumbers (char *token,STACK *s) {
  */
 STACK *parse(char *line,STACK *s,VARIABLES *x) {
     if (s == NULL) s = create_stack();
-    char *rest[50];
-    char *token = (char*) malloc(sizeof(char) * 10);
+    char *rest[strlen(line)];
+    char *token = (char*) malloc(sizeof(char) * strlen(line));
     *rest = (char*) malloc(sizeof(char) * strlen(line));
+    char *linenova= (char*) malloc (strlen(line)*sizeof(char));
+    strcpy(linenova,line);
 
-    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
-        while (strchr(" \t\n",*line)!=NULL && *line != '\0') { //tirar espaços do inicio
-            line++;
+    for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
+        while (strchr(" \t\n",*linenova)!=NULL && *linenova != '\0') { //tirar espaços do inicio
+            linenova++;
         }
 
-        if (*line == '[') criarArray(line+1,s,x,rest);
-        else if (*line == '"') {
-            criarString(line+1,s,rest);
+        if (*linenova == '[') criarArray(linenova+1,s,x,rest);
+        else if (*linenova == '"') {
+            criarString(linenova+1,s,rest);
         }
         else if (parseNumbers(token,s)==1);
         else alloperations(token,s,x);
         
-        strcpy(line,*rest);
+        linenova=*rest;
     }
-    *rest=NULL;
-    free(*rest);
-    free(token);
     return s;
 }
 

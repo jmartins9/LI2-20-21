@@ -23,8 +23,8 @@
 int main () {
     STACK *s=NULL;
     VARIABLES *vars = create_varlist();
-    char line [10000];
-    assert( fgets (line,10000,stdin) != NULL);
+    char line [15000];
+    assert( fgets (line,15000,stdin) != NULL);
     assert( line  [strlen (line)-1] == '\n');
     s = parse(line,s,vars);
     print_stack (s);

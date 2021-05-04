@@ -260,11 +260,12 @@ void concatenateArrays (STACK *s,DATA array1,DATA array2) {
     else if (array1.type==STACKK) {
         STACK *x=create_stack();
         push(x,array2);
-        push(x,array1);
-        DATA p;
-        make_datas(p,STACKK,x);
-        push(s,p);
-         
+        int i = 0;
+        for (i=0; i<array1.elems.STACKK->n_elems; i++) {
+            push(x,array1.elems.STACKK->stack[i]);
+        }
+        make_datas(array1, STACKK, x);
+        push(s,array1);
     }
     else if (array2.type==STACKK) {
         push(array2.elems.STACKK,array1);

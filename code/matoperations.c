@@ -401,8 +401,27 @@ void dividirString (STACK *s) {
     }
 }
 
+/**
+ *
+ * Função que procura uma string dentro de outra string e devolve o índice onde a mesma aparece
+ *
+ */
 void procurarSubstring (STACK *s) {
-    return;
+    DATA arraytoBeSearched = pop(s);
+    DATA arraytoSearch = pop(s);
+    if (arraytoBeSearched.type == STRING && arraytoSearch.type == STRING) {
+        char *str1 = arraytoSearch.elems.STRING;
+        char *str2 = arraytoBeSearched.elems.STRING;
+        char *line = strstr(str1,str2);
+        int i = 0;
+    
+        while (str1 != line && *str1) {
+            str1++; i++;
+        }
+        if (line == NULL) i=-1;
+        DATA Z; make_datas(Z,LONG, i);
+        push(s,Z);
+    }
 }
 
 /**

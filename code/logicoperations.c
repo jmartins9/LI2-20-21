@@ -44,7 +44,8 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
         } else {
             push(s,p1);
         }
-    } else if (what_type(p3) != DOUBLE) push(s,p1);
+    } else if (what_type(p3) == STACKK && is_empty(p3.elems.STACKK)) push(s,p1);
+    else if (what_type(p3) == STACKK && !is_empty(p3.elems.STACKK)) push(s,p2);
     else if (p3.elems.DOUBLE) push (s,p2);
     else push(s,p1); 
 }
@@ -241,9 +242,8 @@ void arrayelemN(STACK *s) {
      DATA p1=pop(s);
      DATA p2=pop(s);
      if (p2.type==STACKK) {
-     STACK *x=p2.elems.STACKK;
-     x->n_elems-=p1.elems.LONG;
-     push(s,top(x));
+        STACK *x=p2.elems.STACKK;
+        push(s,x->stack[p1.elems.LONG]);
      }
      else {
          char c = p2.elems.STRING[p1.elems.LONG];

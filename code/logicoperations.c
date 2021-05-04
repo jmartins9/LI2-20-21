@@ -44,14 +44,9 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
         } else {
             push(s,p1);
         }
-    }
-    else {
-        if (p3.elems.DOUBLE) {
-            push(s,p2);
-        } else {
-            push(s,p1);
-        }
-    }         
+    } else if (what_type(p3) != DOUBLE) push(s,p1);
+    else if (p3.elems.DOUBLE) push (s,p2);
+    else push(s,p1); 
 }
 
 

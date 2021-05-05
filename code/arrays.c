@@ -27,7 +27,7 @@ char *get_token(char *line, char **rest) {
     //if (strlen(line) == 0 || *line == '\n' ) return NULL;
 
     int i=0;
-    char *linenova = (char *) malloc(strlen(line) * sizeof(char));
+    char *linenova = (char *) malloc((strlen(line)+1)* sizeof(char));
     strcpy(linenova,line);
 
     for (i=0; (strchr(delimitadores,linenova[i])==NULL) ; i++); //aumentar o valor de i ate ao indice final do primeiro token
@@ -49,7 +49,7 @@ char *get_token(char *line, char **rest) {
  * 
  */
 char *get_delimited_array(char *line, char **rest) {
-    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
+    char *linenova = (char*) malloc((strlen(line)+1)* sizeof(char));
     long unsigned int i=0;
     int j=0,k=0;
     for (i=0;i<strlen(line);i++) {
@@ -76,7 +76,7 @@ char *get_delimited_array(char *line, char **rest) {
  * 
  */
 char *get_delimited_string(char *line, char **rest) {
-    char *linenova = (char*) malloc(strlen(line) * sizeof(char));
+    char *linenova = (char*) malloc((strlen(line)+1)* sizeof(char));
     long unsigned int i=0;
     int k=0;
     for (i=0;i<strlen(line);i++) {

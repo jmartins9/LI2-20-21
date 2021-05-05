@@ -117,10 +117,10 @@ int parseNumbers (char *token,STACK *s) {
  */
 STACK *parse(char *line,STACK *s,VARIABLES *x) {
     if (s == NULL) s = create_stack();
-    char *rest[strlen(line)];
-    char *token = (char*) malloc(sizeof(char) * strlen(line));
-    *rest = (char*) malloc(sizeof(char) * strlen(line));
-    char *linenova= (char*) malloc (strlen(line)*sizeof(char));
+    char *rest[strlen(line)+1];
+    char *token = (char*) malloc((sizeof(char)+1)* strlen(line));
+    *rest = (char*) malloc((sizeof(char)+1)* strlen(line));
+    char *linenova= (char*) malloc ((strlen(line)+1)*sizeof(char));
     strcpy(linenova,line);
 
     for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {

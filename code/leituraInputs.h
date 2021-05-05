@@ -11,11 +11,12 @@
 
 /**
  * 
- * Esta é o header da função responsável pela execução do comando l.  
+ * Esta é o header das funções responsáveis pela execução dos comandos Input/Output.  
  * 
  */
 void loperation (STACK *s);
 void toperation (STACK *s);
 void leituraop (char *token,STACK *s);
+void printtop (STACK *s);
 
 #endif

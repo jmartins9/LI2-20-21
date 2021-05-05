@@ -44,6 +44,31 @@ void toperation (STACK *s) {
 
 /**
  * 
+ * Esta é a função responsável pela execução do comando p , que imprime o topo da stack.  
+ * 
+ */
+void printtop (STACK *s) {
+    DATA elem = top(s);
+    TYPE type = elem.type;
+    switch(type) {
+      case LONG:
+        printf("%ld", elem.elems.LONG); break;
+      case DOUBLE:
+        printf("%g", elem.elems.DOUBLE); break;
+      case CHAR:
+        printf("%c", elem.elems.CHAR); break;
+      case STRING:
+        printf("%s", elem.elems.STRING); break;
+      case BLOCO:
+        printf("%s", elem.elems.BLOCO); break;
+      case STACKK:
+        print_stack(elem.elems.STACKK);break;
+    }
+    printf("\n");
+} 
+
+/**
+ * 
  * Esta é a função responsável pela execução dos comandos de leitura dependendo do token.  
  * 
  */
@@ -52,7 +77,7 @@ void leituraop (char *token,STACK *s) {
      {
      case ('l'): loperation(s);break;
      case ('t'): toperation(s);break;
-     case ('p'):   break;
+     case ('p'): printtop(s);break;
  
      }
 }

@@ -442,22 +442,19 @@ void procurarSubstring (STACK *s) {
 void handle_arithmetic (char *token,STACK *s) {
     DATA p1=pop(s);
     DATA p2=top(s);
+    push(s,p1);
     if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
-        push(s,p1);
-        DATA array1;
-        DATA array2;
         switch (*token) {
             case ('~'): putArrayStack(s);break;
-            case ('+'): array1 = pop(s);array2 = pop(s); concatenateArrays(s,array1,array2); concatenateStrings(s,array1,array2); break;
-            case ('*'): array1 = pop(s);array2 = pop(s); concatenaNvezes_array(s,array1,array2); concatenaNvezes_string(s,array1,array2); break;
-            case ('('): array1 = pop(s);remove1string(s,array1);remove1array(s,array1);break;
-            case (')'): array1 = pop(s);removeUltstring(s,array1);removeUltarray(s,array1);break;
+            case ('+'): p1 = pop(s); p2 = pop(s); concatenateArrays(s,p1,p2); concatenateStrings(s,p1,p2); break;
+            case ('*'): p1 = pop(s); p2 = pop(s); concatenaNvezes_array(s,p1,p2); concatenaNvezes_string(s,p1,p2); break;
+            case ('('): p1 = pop(s);remove1string(s,p1);remove1array(s,p1);break;
+            case (')'): p1 = pop(s);removeUltstring(s,p1);removeUltarray(s,p1);break;
             case ('#'): procurarSubstring(s);break;
             case ('/'): dividirString(s);break;
         }
     } 
     else {
-        push(s,p1);
         switch (*token) {
             case ('~'): notBin(s);break;
             case ('+'): somar(s);break;

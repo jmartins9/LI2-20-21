@@ -59,17 +59,11 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
 void minoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    if (what_type (p1)==LONG && what_type(p2)==LONG && p1.elems.LONG<p2.elems.LONG) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==DOUBLE && what_type(p2)==LONG && p1.elems.DOUBLE<p2.elems.LONG) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==LONG && what_type(p2)==DOUBLE && p1.elems.LONG<p2.elems.DOUBLE) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE<p2.elems.DOUBLE) {
-        push(s,p1);
+    if ((p1.type==LONG || p1.type==DOUBLE) && (p2.type==LONG || p2.type==DOUBLE)) {
+        DATA p3 = converteDouble(p1);
+        DATA p4 = converteDouble(p2);
+        if (p3.elems.DOUBLE<p4.elems.DOUBLE) push(s,p1);
+        else push(s,p2);
     }
     else if (p1.type==STRING && p2.type==STRING && strcmp(p2.elems.STRING,p1.elems.STRING)>0) {
         push(s,p1);
@@ -86,17 +80,11 @@ void minoftwo (STACK *s) {
 void maxoftwo (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
-    if (what_type (p1)==LONG && what_type(p2)==LONG && p1.elems.LONG>p2.elems.LONG) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==DOUBLE && what_type(p2)==LONG && p1.elems.DOUBLE>p2.elems.LONG) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==LONG && what_type(p2)==DOUBLE && p1.elems.LONG>p2.elems.DOUBLE) {
-        push(s,p1);
-    }
-    else if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE && p1.elems.DOUBLE>p2.elems.DOUBLE) {
-        push(s,p1);
+    if ((p1.type==LONG || p1.type==DOUBLE) && (p2.type==LONG || p2.type==DOUBLE)) {
+        DATA p3 = converteDouble(p1);
+        DATA p4 = converteDouble(p2);
+        if (p3.elems.DOUBLE>p4.elems.DOUBLE) push(s,p1);
+        else push(s,p2);
     }
     else if (p1.type==STRING && p2.type==STRING && strcmp(p2.elems.STRING,p1.elems.STRING)<0) {
         push(s,p1);

@@ -247,13 +247,11 @@ void concatenateStrings (STACK *s,DATA array1,DATA array2) {
  */
 void concatenateArrays (STACK *s,DATA array1,DATA array2) {
     if (array1.type==STACKK && array2.type==STACKK) {
-        STACK *stack1 = array1.elems.STACKK;
-        STACK *stack2 = array2.elems.STACKK;
         int i;
-        for (i=0; i<stack1->n_elems; i++) {
-            push(stack2,stack1->stack[i]);
+        for (i=0; i<array1.elems.STACKK->n_elems; i++) {
+            push(array2.elems.STACKK,array1.elems.STACKK->stack[i]);
         }
-        make_datas(array2, STACKK, stack2);
+        make_datas(array2, STACKK, array2.elems.STACKK);
         push (s,array2);
     }
     else if (array1.type==STACKK) {

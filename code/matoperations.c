@@ -442,7 +442,13 @@ void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
     DATA p1=pop(s);
     DATA p2=top(s);
     push(s,p1);
-    if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
+    if (p1.type==BLOCO) {
+        switch (*token) {
+        case ('~'): executaBloco(s,x); break;
+        case ('%'): aplicaBloco(s,x);break;
+        }
+    }
+    else if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
         switch (*token) {
             case ('~'): putArrayStack(s);break;
             case ('+'): p1 = pop(s); p2 = pop(s); concatenateArrays(s,p1,p2); concatenateStrings(s,p1,p2); break;
@@ -453,13 +459,9 @@ void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
             case ('/'): dividirString(s);break;
         }
     } 
-    else if (p1.type==BLOCO) {
-        switch (*token) {
-        case ('~'): aplicaBloco(s,x); break;
-        }
-    }
     else {
         switch (*token) {
+            case ('%'): divResto(s);break;
             case ('~'): notBin(s);break;
             case ('+'): somar(s);break;
             case ('*'): multiplicar(s);break;
@@ -479,7 +481,6 @@ void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
 void matoperations (char *token,STACK *s,VARIABLES *x) {
     switch (*token) {
     case ('-'): subtrair(s);break;
-    case ('%'): divResto(s);break;
     case ('&'): andBin(s);break;
     case ('|'): orBin(s);break;
     case ('^'): xorBin(s);break;

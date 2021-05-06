@@ -40,7 +40,7 @@ void criarBloco (char *line,STACK *s,char **rest) {
     push(s,d);
 }
 
-void aplicaBloco (STACK *s,VARIABLES *x) {
+void executaBloco (STACK *s,VARIABLES *x) {
      DATA p1 = pop(s);
      char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
      int i;
@@ -52,4 +52,47 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
      execbloco[++i]='\0';
 
      s=parse(execbloco,s,x);
+}
+
+void aplicaBloco (STACK *s,VARIABLES *x) {
+     DATA bloco = pop (s);
+     DATA array_string = pop (s);
+    
+     char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+     int j;
+     int length=strlen(bloco.elems.BLOCO)-4;
+     for (j=0;j<length;j++) {
+         if (bloco.elems.BLOCO[j+2]=='}') break;
+         else execbloco[j]=bloco.elems.BLOCO[j+2];
+     }
+     execbloco[++j]='\0';
+
+
+     if (array_string.type==STACKK) {
+         int i;
+         STACK *pilha=array_string.elems.STACKK;
+         int tamanho=pilha->n_elems;
+         for (i=0;i<tamanho;i++) {
+             pilha->n_elems=i+1;
+             STACK *tmp=create_stack();
+             push(tmp,top(pilha));
+             parse(execbloco,tmp,x);
+             DATA data;
+             make_datas(data,STACKK,tmp);
+             push(s,data);
+         }
+     }
+     else {
+         int i;
+         int tamanho=strlen(array_string.elems.STRING);
+         for (i=0;i<tamanho;i++) {
+             STACK *tmp=create_stack();
+             DATA data;
+             make_datas(data,CHAR,array_string.elems.STRING[i]);
+             push(tmp,data);
+             parse(execbloco,tmp,x);
+             make_datas(data,STACKK,tmp);
+             push(s,data);
+         }
+     }
 }

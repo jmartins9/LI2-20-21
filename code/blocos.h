@@ -9,5 +9,8 @@
 
 #include "variables.h"
 
+char *get_delimited_bloco(char *line, char **rest);
+void criarBloco (char *line,STACK *s,char **rest);
+void aplicaBloco (STACK *s,VARIABLES *x);
 
 #endif

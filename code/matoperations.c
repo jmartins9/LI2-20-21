@@ -12,6 +12,7 @@
 #include "arrays.h"
 #include "variables.h"
 #include "matoperations.h"
+#include "blocos.h"
 
 /**
  *
@@ -22,8 +23,8 @@ void somar (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long soma = p2.elems.LONG+p1.elems.LONG;make_datas(Z,LONG,soma);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double soma = p2.elems.LONG+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
+    if (p1.type==LONG && p2.type==LONG) {long soma = p2.elems.LONG+p1.elems.LONG;make_datas(Z,LONG,soma);}
+    if (p1.type==DOUBLE && p2.type==LONG) {double soma = p2.elems.LONG+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
     if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
     if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
     push (s,Z);  
@@ -437,7 +438,7 @@ void procurarSubstring (STACK *s) {
  * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações aritméticas recebem.
  * 
  */
-void handle_arithmetic (char *token,STACK *s) {
+void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
     DATA p1=pop(s);
     DATA p2=top(s);
     push(s,p1);
@@ -452,6 +453,11 @@ void handle_arithmetic (char *token,STACK *s) {
             case ('/'): dividirString(s);break;
         }
     } 
+    else if (p1.type==BLOCO) {
+        switch (*token) {
+        case ('~'): aplicaBloco(s,x); break;
+        }
+    }
     else {
         switch (*token) {
             case ('~'): notBin(s);break;
@@ -470,13 +476,13 @@ void handle_arithmetic (char *token,STACK *s) {
  * Esta é a função que decide qual das operações matemáticas deve ser executada dependendo da instrução dada.
  * 
  */
-void matoperations (char *token,STACK *s) {
+void matoperations (char *token,STACK *s,VARIABLES *x) {
     switch (*token) {
     case ('-'): subtrair(s);break;
     case ('%'): divResto(s);break;
     case ('&'): andBin(s);break;
     case ('|'): orBin(s);break;
     case ('^'): xorBin(s);break;
-    default : handle_arithmetic(token,s);break;
+    default : handle_arithmetic(token,s,x);break;
     }      
 }

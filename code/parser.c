@@ -22,33 +22,8 @@
 #include "convoperations.h"
 #include "arrays.h"
 #include "leituraInputs.h"
+#include "blocos.h"
 
-/**
- *
- * Esta é a função que guarda a linha de comandos dada numa string.
- * 
- */
-void preenche (char *line,char v[]) {
-     int i;
-     for(i=0;*line;i++) {
-         v[i]=*line;
-         line++;
-     } 
-}
-
-/**
- *
- * Esta é a função que converte uma linha de dados em tipo de dados STRING e coloca na Stack.
- * 
- */
-void leituradatas (char *line,STACK *s) {
-    char *delimitadores = " \t\n" ;
-    for (char *token = strtok(line, delimitadores); token != NULL ; token = strtok (NULL, delimitadores)) {
-              DATA data;
-              make_datas(data, STRING,strdup(token));
-              push (s,data);
-    }
-}
 
 /**
  *
@@ -78,7 +53,7 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsArray = ",S/N/";
      char *charsLeitura = "ltp";
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
-     if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
+     if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s,x);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
@@ -120,23 +95,21 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     char *rest[strlen(line)+1];
     char *token = (char*) malloc((sizeof(char)+1)* strlen(line));
     *rest = (char*) malloc((sizeof(char)+1)* strlen(line));
-    char *linenova= (char*) malloc ((strlen(line)+1)*sizeof(char));
-    strcpy(linenova,line);
 
-    for (token = get_token(line,rest); token != NULL; token = get_token(linenova,rest)) {
-        while (strchr(" \t\n",*linenova)!=NULL && *linenova != '\0') { //tirar espaços do inicio
-            linenova++;
+    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
+        while (strchr(" \t\n",*line)!=NULL && *line != '\0') { //tirar espaços do inicio
+            line++;
         }
 
-        if (*linenova == '[') criarArray(linenova+1,s,x,rest);
-        else if (*linenova == '"') {
-            criarString(linenova+1,s,rest);
-        }
+        if (strcmp(token,"[")==0) criarArray(line+1,s,x,rest);
+        else if (*token == '"') criarString(line+1,s,rest);
+        else if (*token == '{') criarBloco(line,s,rest);
         else if (parseNumbers(token,s)==1);
         else alloperations(token,s,x);
         
-        linenova=*rest;
+        line=*rest;
     }
+    free(token);
     return s;
 }
 

@@ -15,11 +15,12 @@
  * 
  */
 typedef enum {
-        LONG = 1,  /**< tipo de dados LONG*/ 
-        DOUBLE = 2, /**< tipo de dados DOUBLE*/ 
-        CHAR = 4,  /**< tipo de dados CHAR*/
-        STRING = 8,   /**< tipo de dados STRING*/
-        STACKK = 16   /**< tipo de dados ARRAY*/
+        LONG=1,  /**< tipo de dados LONG*/ 
+        DOUBLE=2, /**< tipo de dados DOUBLE*/ 
+        CHAR=4,  /**< tipo de dados CHAR*/
+        STRING=8,   /**< tipo de dados STRING*/
+        BLOCO,   /**< tipo de dados BLOCO*/
+        STACKK=16,   /**< tipo de dados ARRAY*/
         } 
         TYPE; /**< variável enum TYPE*/
 
@@ -44,6 +45,7 @@ typedef struct data /**< data - struct definida. */
   double DOUBLE; /**< DOUBLE que armazena o valor da variável*/
   char   CHAR; /**< CHAR que armazena o valor da variável*/
   char*  STRING; /**< STRING que armazena o valor da variável*/
+  char*  BLOCO; /**< Apontador para uma variavel */
   struct stack *STACKK; /**< STACK que armazena o valor de um array ou string*/
   } elems; /**< elems - enum definido. */
 } DATA;  /**< variável struct DATA. */

@@ -59,6 +59,8 @@ void printtop (STACK *s) {
         printf("%c", elem.elems.CHAR); break;
       case STRING:
         printf("%s", elem.elems.STRING); break;
+      case BLOCO:
+        printf("%s", elem.elems.BLOCO); break;        
       case STACKK:
         print_stack(elem.elems.STACKK);break;
     }

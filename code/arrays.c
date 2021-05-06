@@ -161,6 +161,7 @@ void separaWhitespace (STACK *s) {
      STACK *x=create_stack();
      if (p1.type==STRING) {
          int i=0;
+         DATA p2;
          while (p1.elems.STRING[i]!='\0') {
              int j=0;
              char *guardastring = (char *) malloc(strlen(p1.elems.STRING) * sizeof(char));
@@ -171,10 +172,8 @@ void separaWhitespace (STACK *s) {
               i++;
              } 
              guardastring[j]='\0';
-             DATA p2;
              make_datas(p2,STRING,guardastring);
              push(x,p2);
-            
          }
         pop(x);
         make_datas(p1,STACKK,x);
@@ -193,6 +192,7 @@ void separaNewlines (STACK *s) {
      STACK *x=create_stack();
      if (p1.type==STRING) {
          int i=0;
+         DATA p2;
          while (p1.elems.STRING[i]!='\0') {
              int j=0;
              char *guardastring = (char *) malloc(strlen(p1.elems.STRING) * sizeof(char));
@@ -203,7 +203,6 @@ void separaNewlines (STACK *s) {
               i++;
              }
              guardastring[j]='\0';
-             DATA p2;
              make_datas(p2,STRING,guardastring);
              push(x,p2);
          }

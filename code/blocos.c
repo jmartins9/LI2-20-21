@@ -96,3 +96,32 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
          }
      }
 }
+
+void filtraBloco (STACK *s, VARIABLES *x) {
+    DATA bloco = pop (s);
+    DATA array_string = pop (s);
+    
+    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+    int j;
+    int length=strlen(bloco.elems.BLOCO)-4;
+    for (j=0;j<length;j++) {
+        if (bloco.elems.BLOCO[j+2]=='}') break;
+        else execbloco[j]=bloco.elems.BLOCO[j+2];
+    }
+    execbloco[++j]='\0';
+
+    if (array_string.type==STACKK) {
+         int i;
+         STACK *pilha=array_string.elems.STACKK;
+         int tamanho=pilha->n_elems;
+         for (i=0;i<tamanho;i++) {
+             STACK *tmp=create_stack();
+             push(tmp,pilha->stack[i]);
+             parse(execbloco,tmp,x);
+             if (pop(tmp).elems.LONG) push(tmp,pilha->stack[i]);
+             DATA data;
+             make_datas(data,STACKK,tmp);
+             push(s,data);
+         }
+     }
+}

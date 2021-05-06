@@ -57,7 +57,7 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
      if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
-     if (strstr(charsArray,token)!=NULL) {arrayops(token,s);r=1;}
+     if (strstr(charsArray,token)!=NULL) {arrayops(token,s,x);r=1;}
      if (strstr(charsLeitura,token)!=NULL) {leituraop(token,s);r=1;}
      if (r==0) parsedatas(token,s);
 }

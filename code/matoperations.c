@@ -342,6 +342,11 @@ void removeUltarray (STACK *s,DATA array1) {
     }
 }
 
+/**
+ * 
+ * Função que concatena várias vezes um array, e coloca o array concatenado na stack.
+ * 
+ */
 void concatenaNvezes_array (STACK *s,DATA p1,DATA p2) {
      if (p2.type==STACKK) {
         int i;
@@ -368,7 +373,6 @@ void concatenaNvezes_array (STACK *s,DATA p1,DATA p2) {
  * Função que concatena strings n vezes
  *
  */
-
 void concatenaNvezes_string (STACK *s,DATA p1,DATA p2) {
      if (p2.type==STRING) {
          int i;
@@ -381,6 +385,12 @@ void concatenaNvezes_string (STACK *s,DATA p1,DATA p2) {
      }
 }
 
+
+/**
+ * 
+ * Função que divide string por substring e devolve o resultado desta operação num array que é colocado na stack.
+ * 
+ */
 void dividirString (STACK *s) {
     DATA delims = pop(s);
     DATA toDivide = pop(s);

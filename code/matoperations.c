@@ -203,9 +203,8 @@ void putArrayStack (STACK *s) {
         STACK *x=p1.elems.STACKK;
         int i;
         int tamanho=x->n_elems;
-        for(i=0;i<=tamanho;i++) {
-            x->n_elems=i;
-            push(s,top(x));
+        for(i=0;i<tamanho;i++) {
+            push(s,x->stack[i]);
         }
     }
     else {

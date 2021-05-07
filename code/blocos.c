@@ -266,5 +266,11 @@ void ordenarBloco (STACK *s, VARIABLES *x) {
     }
 }
 
-void executatruthy (STACK *s,VARIABLES *x);
-
+void executatruthy (STACK *s,VARIABLES *x) {
+    DATA bloco = top(s);
+    executaBloco(s,x);
+    while (pop(s).elems.LONG) {
+           push(s,bloco);
+           executaBloco(s,x);
+    }
+}

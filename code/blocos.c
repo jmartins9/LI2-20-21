@@ -87,6 +87,7 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
      }
      else {
          int i;
+         //STACK *cond = create_stack();
          int tamanho=strlen(array_string.elems.STRING);
          for (i=0;i<tamanho;i++) {
              STACK *tmp=create_stack();
@@ -94,7 +95,8 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
              make_datas(data,CHAR,array_string.elems.STRING[i]);
              push(tmp,data);
              parse(execbloco,tmp,x);
-             array_string.elems.STRING[i] = top(tmp).elems.CHAR;
+             if (top(tmp).type == CHAR) array_string.elems.STRING[i] = top(tmp).elems.CHAR;
+             //else push(cond,top(tmp));
          }
          push(s,array_string);
      }

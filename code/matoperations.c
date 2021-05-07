@@ -430,6 +430,19 @@ void procurarSubstring (STACK *s) {
         if (line == NULL) i=-1;
         DATA Z; make_datas(Z,LONG, i);
         push(s,Z);
+    } else if (arraytoBeSearched.type == CHAR && arraytoSearch.type == STRING) {
+        char *str1 = (char*) malloc(sizeof(char) * 2);
+        str1[0] = arraytoBeSearched.elems.CHAR; str1[1] = '\0';
+        char *str2 = arraytoSearch.elems.STRING;
+        char *line = strstr(str2,str1);
+        int i = 0;
+    
+        while (str2 != line && *str2) {
+            str2++; i++;
+        }
+        if (line == NULL) i=-1;
+        DATA Z; make_datas(Z,LONG, i);
+        push(s,Z);
     }
 }
 

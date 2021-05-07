@@ -207,7 +207,7 @@ void ordenaSeForVazio (STACK *s,DATA array_string) {
 
 
 void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string) {
-      char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
     int j;
     int length=strlen(bloco.elems.BLOCO)-4;
     for (j=0;j<length;j++) {
@@ -265,3 +265,6 @@ void ordenarBloco (STACK *s, VARIABLES *x) {
         ordenaSeNaoForVazio(s,x,bloco,array_string);
     }
 }
+
+void executatruthy (STACK *s,VARIABLES *x);
+

@@ -19,5 +19,6 @@ void ordenarBloco (STACK *s, VARIABLES *x);
 void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string);
 void ordenaSeForVazio (STACK *s,DATA array_string);
 void swapStack (STACK *s, int index1, int index2);
+void executatruthy (STACK *s,VARIABLES *x);
 
 #endif

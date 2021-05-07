@@ -221,7 +221,7 @@ void separaNewlines (STACK *s) {
  */
 void arrayops (char *token,STACK *s, VARIABLES *x) {
     if (strcmp(token,",")==0 && top(s).type == BLOCO) filtraBloco(s,x);
-    if (strcmp(token,",")==0) tamanho_range(s);
+    else if (strcmp(token,",")==0) tamanho_range(s);
     else if (strcmp(token,"S/")==0) separaWhitespace(s);
     else if (strcmp(token,"N/")==0) separaNewlines(s);
 }

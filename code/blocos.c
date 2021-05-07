@@ -72,15 +72,18 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
          int i;
          STACK *pilha=array_string.elems.STACKK;
          int tamanho=pilha->n_elems;
+         STACK *tmp=create_stack();
          for (i=0;i<tamanho;i++) {
              pilha->n_elems=i+1;
-             STACK *tmp=create_stack();
+             //STACK *tmp=create_stack();
              push(tmp,top(pilha));
              parse(execbloco,tmp,x);
-             DATA data;
-             make_datas(data,STACKK,tmp);
-             push(s,data);
+             //DATA data;
+             //make_datas(data,STACKK,tmp);
+             //push(s,data);
          }
+         DATA Z; make_datas(Z,STACKK,tmp);
+         push(s,Z);
      }
      else {
          int i;
@@ -124,4 +127,33 @@ void filtraBloco (STACK *s, VARIABLES *x) {
              push(s,data);
          }
      }
+}
+
+void foldBloco (STACK *s, VARIABLES *x) {
+    DATA bloco = pop (s);
+    DATA array_string = pop (s);
+    
+    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+    int j;
+    int length=strlen(bloco.elems.BLOCO)-4;
+    for (j=0;j<length;j++) {
+        if (bloco.elems.BLOCO[j+2]=='}') break;
+        else execbloco[j]=bloco.elems.BLOCO[j+2];
+    }
+    execbloco[++j]='\0';
+
+    if (array_string.type==STACKK) {
+        int i;
+        STACK *pilha=array_string.elems.STACKK;
+        int tamanho=pilha->n_elems;
+        STACK *tmp=create_stack();
+        push(tmp,pilha->stack[0]);
+        for (i=1;i<tamanho;i++) {
+            push(tmp,pilha->stack[i]);
+            parse(execbloco,tmp,x);
+        }
+        DATA data;
+        make_datas(data,STACKK,tmp);
+        push(s,data);
+    }
 }

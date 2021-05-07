@@ -446,6 +446,7 @@ void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
         switch (*token) {
         case ('~'): executaBloco(s,x); break;
         case ('%'): aplicaBloco(s,x);break;
+        case ('*'): foldBloco(s,x);break;
         }
     }
     else if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {

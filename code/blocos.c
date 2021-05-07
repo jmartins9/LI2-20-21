@@ -157,3 +157,45 @@ void foldBloco (STACK *s, VARIABLES *x) {
         push(s,data);
     }
 }
+
+void ordenarBloco (STACK *s, VARIABLES *x) {
+    DATA bloco = pop (s);
+    DATA array_string = pop (s);
+    
+    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+    int j;
+    int length=strlen(bloco.elems.BLOCO)-4;
+    for (j=0;j<length;j++) {
+        if (bloco.elems.BLOCO[j+2]=='}') break;
+        else execbloco[j]=bloco.elems.BLOCO[j+2];
+    }
+    execbloco[++j]='\0';
+
+    if (array_string.type==STACKK) {
+        int i, j=0;
+        STACK *pilha=array_string.elems.STACKK; //Stack original nao mapada
+        int tamanho=pilha->n_elems;
+        STACK *tmp=create_stack(); //Stack mapada
+        for (i=0;i<tamanho;i++) {
+            push(tmp,pilha->stack[i]);
+            parse(execbloco,tmp,x);
+        }
+        print_stack(tmp); printf("\n");
+        print_stack(pilha); printf("\n");
+        if ((tmp->stack[0]).type == LONG) { //entao vamos comparar inteiros?
+            printf("entrou\n");
+            for (i=0; i<tamanho; i++) {
+                for (j=0; j<tamanho-1; j++) {
+                    if (tmp->stack[j].elems.LONG > tmp->stack[j+1].elems.LONG) {
+                        printf("trocou \n");
+                        swapStack(pilha,j,j+1);
+                        swapStack(tmp,j,j+1);
+                    }
+                }
+            }
+        }
+        DATA data;
+        make_datas(data,STACKK,pilha);
+        push(s,data);
+    }
+}

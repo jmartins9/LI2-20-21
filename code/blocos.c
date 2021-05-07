@@ -94,9 +94,9 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
              make_datas(data,CHAR,array_string.elems.STRING[i]);
              push(tmp,data);
              parse(execbloco,tmp,x);
-             make_datas(data,STACKK,tmp);
-             push(s,data);
+             array_string.elems.STRING[i] = top(tmp).elems.CHAR;
          }
+         push(s,array_string);
      }
 }
 

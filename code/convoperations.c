@@ -56,6 +56,19 @@ void convertChar (STACK *s) {
 
 /**
  *
+ * Esta é a função que executa o comando s, ou seja, converte o topo da stack em string.
+ *
+ */
+void convertString(STACK *s) {
+    DATA p1 = pop(s);
+    DATA data;
+    char *str = (char*) malloc(sizeof(char) * 50);
+    if (what_type(p1)==LONG) {sprintf(str,"%ld",p1.elems.LONG);make_datas(data,STRING,str);}
+    push(s,data);
+}
+
+/**
+ *
  * Esta é a função que decide qual das operações de conversão deve ser executada dependendo da instrução dada.
  *
  */
@@ -64,6 +77,7 @@ void convoperations (char *token,STACK *s) {
         case ('f'): convertFloat(s);break;
         case ('c'): convertChar(s);break;
         case ('i'): convertLong(s);break;
+        case ('s'): convertString(s);break;
     }
 }
 

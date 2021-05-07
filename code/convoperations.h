@@ -32,6 +32,13 @@ void convertChar (STACK *s);
 
 /**
  *
+ * Este é o header da função que executa o comando s.
+ *
+ */
+void convertString(STACK *s);
+
+/**
+ *
  * Esta é o header da função que decide qual das operações de conversão deve ser executada dependendo da instrução dada.
  *
  */

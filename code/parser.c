@@ -48,7 +48,7 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsStackop = "_;@$\\";
      char *charsMatOp = "+-*/)(%#&|^~";
      char *charsLogicOp = "=<>!?e&e|e<e>";
-     char *charsConvOp = "fci";
+     char *charsConvOp = "fcis";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
      char *charsArray = ",S/N/";
      char *charsLeitura = "ltp";

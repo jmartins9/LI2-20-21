@@ -52,7 +52,7 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
      char *charsArray = ",S/N/";
      char *charsLeitura = "ltp";
-     if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s);r=1;}
+     if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s,x);r=1;}
      if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s,x);r=1;}
      if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
      if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}

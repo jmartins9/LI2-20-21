@@ -15,7 +15,7 @@
  * Esta é o header daa função que decide qual das operações sobre a stack deve ser executada dependendo da instrução dada.
  * 
  */
-void stackoperations (char *token,STACK *s);
+void stackoperations (char *token,STACK *s,VARIABLES *x);
 
 /**
  *

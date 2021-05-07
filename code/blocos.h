@@ -15,5 +15,9 @@ void executaBloco (STACK *s,VARIABLES *x);
 void aplicaBloco (STACK *s,VARIABLES *x);
 void filtraBloco (STACK *s, VARIABLES *x);
 void foldBloco (STACK *s, VARIABLES *x);
+void ordenarBloco (STACK *s, VARIABLES *x);
+void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string);
+void ordenaSeForVazio (STACK *s,DATA array_string);
+void swapStack (STACK *s, int index1, int index2);
 
 #endif

@@ -5,7 +5,9 @@
  */
 #include <stdio.h>
 #include <string.h>
+#include "variables.h"
 #include "pushpop.h"
+#include "blocos.h"
 
 
 /**
@@ -73,13 +75,16 @@ void copynelems (STACK *s) {//  $
  * Esta é a função que decide qual das operações sobre a stack deve ser executada dependendo da instrução dada.
  * 
  */
-void stackoperations (char *token,STACK *s) {
-    switch (*token) {
-       case ('_') : {duplicatop(s); break;}
-       case (';') : {retiratop(s); break;}
-       case ('@') : {changetop3(s); break;}
-       case ('$') : {copynelems(s); break;}
-       case ('\\') : {changetop2(s); break;}
+void stackoperations (char *token,STACK *s,VARIABLES *x) {
+    if (top(s).type==BLOCO) ordenarBloco(s,x);
+    else {
+        switch (*token) {
+            case ('_') : {duplicatop(s); break;}
+            case (';') : {retiratop(s); break;}
+            case ('@') : {changetop3(s); break;}
+            case ('$') : {copynelems(s); break;}
+            case ('\\') : {changetop2(s); break;}
 
+     }
     }
 }

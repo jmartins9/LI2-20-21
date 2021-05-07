@@ -158,11 +158,56 @@ void foldBloco (STACK *s, VARIABLES *x) {
     }
 }
 
-void ordenarBloco (STACK *s, VARIABLES *x) {
-    DATA bloco = pop (s);
-    DATA array_string = pop (s);
-    
-    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
+void swapStack (STACK *s, int index1, int index2) {
+    DATA tmp;
+    tmp = s->stack[index1];
+    s->stack[index1] = s->stack[index2];
+    s->stack[index2] = tmp;
+}
+
+
+void ordenaSeForVazio (STACK *s,DATA array_string) {
+        if (array_string.type==STACKK) {
+        int i,j;
+        STACK *pilha=array_string.elems.STACKK; //Stack original nao mapada
+        int tamanho=pilha->n_elems;
+        STACK *tmp=create_stack(); //Stack mapada
+        for (i=0;i<tamanho;i++) {
+            push(tmp,pilha->stack[i]);
+        }
+
+
+        if ((tmp->stack[0]).type == LONG) { //entao vamos comparar inteiros?
+            for (i=0; i<tamanho; i++) {
+                for (j=0; j<tamanho-1; j++) {
+                    if (tmp->stack[j].elems.LONG > tmp->stack[j+1].elems.LONG) {
+                        swapStack(pilha,j,j+1);
+                        swapStack(tmp,j,j+1);
+                    }
+                }
+            }
+        }
+        else if ((tmp->stack[0]).type==STRING) {
+            for (i=0; i<tamanho; i++) {
+                for (j=0; j<tamanho-1; j++) {
+                    if (strcmp(tmp->stack[j].elems.STRING,tmp->stack[j+1].elems.STRING)>0) {
+                        swapStack(pilha,j,j+1);
+                        swapStack(tmp,j,j+1);
+                    }
+                }
+            }
+        }
+
+
+        DATA data;
+        make_datas(data,STACKK,pilha);
+        push(s,data);
+    }
+}
+
+
+void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string) {
+      char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
     int j;
     int length=strlen(bloco.elems.BLOCO)-4;
     for (j=0;j<length;j++) {
@@ -172,7 +217,7 @@ void ordenarBloco (STACK *s, VARIABLES *x) {
     execbloco[++j]='\0';
 
     if (array_string.type==STACKK) {
-        int i, j=0;
+        int i,j;
         STACK *pilha=array_string.elems.STACKK; //Stack original nao mapada
         int tamanho=pilha->n_elems;
         STACK *tmp=create_stack(); //Stack mapada
@@ -180,22 +225,43 @@ void ordenarBloco (STACK *s, VARIABLES *x) {
             push(tmp,pilha->stack[i]);
             parse(execbloco,tmp,x);
         }
-        print_stack(tmp); printf("\n");
-        print_stack(pilha); printf("\n");
+
+
         if ((tmp->stack[0]).type == LONG) { //entao vamos comparar inteiros?
-            printf("entrou\n");
             for (i=0; i<tamanho; i++) {
                 for (j=0; j<tamanho-1; j++) {
                     if (tmp->stack[j].elems.LONG > tmp->stack[j+1].elems.LONG) {
-                        printf("trocou \n");
                         swapStack(pilha,j,j+1);
                         swapStack(tmp,j,j+1);
                     }
                 }
             }
         }
+        else if ((tmp->stack[0]).type==STRING) {
+            for (i=0; i<tamanho; i++) {
+                for (j=0; j<tamanho-1; j++) {
+                    if (strcmp(tmp->stack[j].elems.STRING,tmp->stack[j+1].elems.STRING)>0) {
+                        swapStack(pilha,j,j+1);
+                        swapStack(tmp,j,j+1);
+                    }
+                }
+            }
+        }
+
+
         DATA data;
         make_datas(data,STACKK,pilha);
         push(s,data);
+    }
+}
+
+void ordenarBloco (STACK *s, VARIABLES *x) {
+    DATA bloco = pop (s);
+    DATA array_string = pop (s);
+    if (strlen(bloco.elems.BLOCO)<=3) {
+        ordenaSeForVazio(s,array_string);
+    }
+    else {
+        ordenaSeNaoForVazio(s,x,bloco,array_string);
     }
 }

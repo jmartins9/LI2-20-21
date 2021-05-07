@@ -117,15 +117,16 @@ void filtraBloco (STACK *s, VARIABLES *x) {
          int i;
          STACK *pilha=array_string.elems.STACKK;
          int tamanho=pilha->n_elems;
+         STACK *tmp=create_stack();
          for (i=0;i<tamanho;i++) {
-             STACK *tmp=create_stack();
+             //STACK *tmp=create_stack();
              push(tmp,pilha->stack[i]);
              parse(execbloco,tmp,x);
              if (pop(tmp).elems.LONG) push(tmp,pilha->stack[i]);
-             DATA data;
-             make_datas(data,STACKK,tmp);
-             push(s,data);
          }
+         DATA data;
+         make_datas(data,STACKK,tmp);
+         push(s,data);
      }
 }
 

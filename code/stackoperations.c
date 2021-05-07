@@ -76,7 +76,7 @@ void copynelems (STACK *s) {//  $
  * 
  */
 void stackoperations (char *token,STACK *s,VARIABLES *x) {
-    if (top(s).type==BLOCO) ordenarBloco(s,x);
+    if (top(s).type==BLOCO && *token == '$') ordenarBloco(s,x);
     else {
         switch (*token) {
             case ('_') : {duplicatop(s); break;}

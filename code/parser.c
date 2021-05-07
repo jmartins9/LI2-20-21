@@ -102,7 +102,7 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
         }
 
         if (strcmp(token,"[")==0) criarArray(line+1,s,x,rest);
-        else if (strcmp(token,"w")==0) executatruthy(s,x);
+        //else if (strcmp(token,"w")==0) executatruthy(s,x);
         else if (*token == '"') criarString(line+1,s,rest);
         else if (*token == '{') criarBloco(line,s,rest);
         else if (parseNumbers(token,s)==1);

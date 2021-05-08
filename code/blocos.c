@@ -88,10 +88,17 @@ void executaBloco (STACK *s,VARIABLES *x) {
      s=parse(execbloco,s,x);
 }
 
-/*
+/**
  *
- * Esta é a função que executa  o comando '%', ou seja, aplicar o bloco a um array/string.
- * 
+ * Esta é a função que executa o comando % quando opera num bloco.
+ * Ao contrário da função 'executaBloco', esta função aplicará o bloco não só ao topo da stack,
+ * mas sim a todos os elementos da stack.
+ * O método que usamos funciona de maneira similar para arrays e para strings, e funciona da seguinte maneira:
+ * Dado que se simplesmente fizessemos o parse da stack com o bloco, apenas seria modificado o topo da stack,
+ * tivemos que arranjar maneira de fazer o parse a todos os elementos da stack, um a um.
+ * Assim, a nossa função percorre o array/string, e coloca o elemento o primeiro elemento numa stack auxiliar,
+ * e faz o parse dessa stack auxiliar, de seguida coloca o próximo elemento, e faz o parse, e assim em diante.
+ * Deste modo, todos os elementos serão parsados pelo nosso bloco.
  * 
  */
 void aplicaBloco (STACK *s,VARIABLES *x) {

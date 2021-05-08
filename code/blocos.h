@@ -11,6 +11,7 @@
 
 char *get_delimited_bloco(char *line, char **rest);
 void criarBloco (char *line,STACK *s,char **rest);
+char *criaexecBloco (DATA p1);
 void executaBloco (STACK *s,VARIABLES *x);
 void aplicaBloco (STACK *s,VARIABLES *x);
 void filtraBloco (STACK *s, VARIABLES *x);

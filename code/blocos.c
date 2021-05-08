@@ -37,9 +37,8 @@ void criarBloco (char *line,STACK *s,char **rest) {
     push(s,d);
 }
 
-void executaBloco (STACK *s,VARIABLES *x) {
-     DATA p1 = pop(s);
-     char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
+char *criaexecBloco (DATA p1) {
+    char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
      int i,j=0;
      int tamanho=strlen(p1.elems.BLOCO)-4;
      for (i=0;i<tamanho;i++) {
@@ -51,7 +50,12 @@ void executaBloco (STACK *s,VARIABLES *x) {
          execbloco[i]=p1.elems.BLOCO[i+2];
      }
      execbloco[++i]='\0';
+     return execbloco;
+}
 
+void executaBloco (STACK *s,VARIABLES *x) {
+     DATA p1 = pop(s);
+     char *execbloco = criaexecBloco(p1);
      s=parse(execbloco,s,x);
 }
 
@@ -59,14 +63,7 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
      DATA bloco = pop (s);
      DATA array_string = pop (s);
     
-     char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
-     int j;
-     int length=strlen(bloco.elems.BLOCO)-4;
-     for (j=0;j<length;j++) {
-         if (bloco.elems.BLOCO[j+2]=='}') break;
-         else execbloco[j]=bloco.elems.BLOCO[j+2];
-     }
-     execbloco[++j]='\0';
+     char *execbloco = criaexecBloco(bloco);
 
 
      if (array_string.type==STACKK) {
@@ -107,14 +104,7 @@ void filtraBloco (STACK *s, VARIABLES *x) {
     DATA bloco = pop (s);
     DATA array_string = pop (s);
     
-    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
-    int j;
-    int length=strlen(bloco.elems.BLOCO)-4;
-    for (j=0;j<length;j++) {
-        if (bloco.elems.BLOCO[j+2]=='}') break;
-        else execbloco[j]=bloco.elems.BLOCO[j+2];
-    }
-    execbloco[++j]='\0';
+    char *execbloco = criaexecBloco(bloco);
 
     if (array_string.type==STACKK) {
          int i;
@@ -137,14 +127,7 @@ void foldBloco (STACK *s, VARIABLES *x) {
     DATA bloco = pop (s);
     DATA array_string = pop (s);
     
-    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
-    int j;
-    int length=strlen(bloco.elems.BLOCO)-4;
-    for (j=0;j<length;j++) {
-        if (bloco.elems.BLOCO[j+2]=='}') break;
-        else execbloco[j]=bloco.elems.BLOCO[j+2];
-    }
-    execbloco[++j]='\0';
+    char *execbloco = criaexecBloco(bloco);
 
     if (array_string.type==STACKK) {
         int i;
@@ -211,14 +194,8 @@ void ordenaSeForVazio (STACK *s,DATA array_string) {
 
 
 void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string) {
-    char *execbloco = (char *) calloc(sizeof(char),strlen(bloco.elems.BLOCO)-4);
-    int j;
-    int length=strlen(bloco.elems.BLOCO)-4;
-    for (j=0;j<length;j++) {
-        if (bloco.elems.BLOCO[j+2]=='}') break;
-        else execbloco[j]=bloco.elems.BLOCO[j+2];
-    }
-    execbloco[++j]='\0';
+
+    char *execbloco = criaexecBloco(bloco);
 
     if (array_string.type==STACKK) {
         int i,j;

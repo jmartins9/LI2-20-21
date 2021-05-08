@@ -18,8 +18,8 @@
  * 
  */
 void loperation (STACK *s) {
-    char line1[10000];
-    assert( fgets (line1,10000,stdin) != NULL);
+    char line1[20000];
+    assert( fgets (line1,20000,stdin) != NULL);
     //assert( line1  [strlen (line1)-1] == '\n');
     line1[strlen(line1)-1] = '\0';
     DATA Z; make_datas(Z,STRING,line1);

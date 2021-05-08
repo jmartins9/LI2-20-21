@@ -38,7 +38,7 @@ void criarBloco (char *line,STACK *s,char **rest) {
 }
 
 char *criaexecBloco (DATA p1) {
-    char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
+    char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-3);
      int i,j=0;
      int tamanho=strlen(p1.elems.BLOCO)-4;
      for (i=0;i<tamanho;i++) {

@@ -9,6 +9,15 @@
 #include "variables.h"
 #include "pushpop.h"
 
+STACK *stackDup(STACK *x) {
+     STACK *tmp = create_stack();
+     int i=0;
+     for (i=0; i<x->n_elems;i++) {
+          push(tmp,x->stack[i]);
+     }
+     return tmp;
+}
+
 /**
  *
  * Esta é a função que executa as instruções :<letra>,em que a variavel fica com o valor do topo da stack.
@@ -16,6 +25,9 @@
  */
 void assvalue (char *token,STACK *s,VARIABLES *x) {
      DATA p1 = top(s);
+     if (p1.type == STACKK) {
+          p1.elems.STACKK = stackDup(p1.elems.STACKK);
+     }
      VAR V;
      V.letra = * token;
      V.valor = p1;

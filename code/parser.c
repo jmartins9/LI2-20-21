@@ -53,13 +53,13 @@ void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *charsArray = ",S/N/";
      char *charsLeitura = "ltp";
      if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s,x);r=1;}
-     if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s,x);r=1;}
-     if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
-     if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
-     if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
-     if (strstr(charsArray,token)!=NULL) {arrayops(token,s,x);r=1;}
-     if (strstr(charsLeitura,token)!=NULL) {leituraop(token,s);r=1;}
-     if (r==0) parsedatas(token,s);
+     else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s,x);r=1;}
+     else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
+     else if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
+     else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
+     else if (strstr(charsArray,token)!=NULL) {arrayops(token,s,x);r=1;}
+     else if (strstr(charsLeitura,token)!=NULL) {leituraop(token,s);r=1;}
+     else if (r==0) parsedatas(token,s);
 }
 
 /**

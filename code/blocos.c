@@ -138,11 +138,10 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
 void filtraBloco (STACK *s, VARIABLES *x) {
     DATA bloco = pop (s);
     DATA array_string = pop (s);
-    
+    int i;
     char *execbloco = criaexecBloco(bloco);
 
     if (array_string.type==STACKK) {
-         int i;
          STACK *pilha=array_string.elems.STACKK;
          int tamanho=pilha->n_elems;
          STACK *tmp=create_stack();
@@ -155,6 +154,23 @@ void filtraBloco (STACK *s, VARIABLES *x) {
          make_datas(data,STACKK,tmp);
          push(s,data);
      }
+    else if (array_string.type==STRING) {
+          int tamanho = strlen(array_string.elems.STRING);
+          STACK *tmp=create_stack();
+          DATA d;
+          int j=0;
+          for (i=0;i<tamanho;i++) {
+             make_datas(d,CHAR,array_string.elems.STRING[i]);
+             push(tmp,d);
+             parse(execbloco,tmp,x);
+             if ((top(tmp).elems.LONG)) {
+                 array_string.elems.STRING[j]=array_string.elems.STRING[i];
+                 j++;
+             } 
+         }
+         array_string.elems.STRING[j]='\0';         
+         push(s,array_string);
+    }
 }
 
 /**

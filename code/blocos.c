@@ -15,17 +15,14 @@
 char *get_delimited_bloco(char *line, char **rest) {
     char *linenova = (char*) malloc((strlen(line)+1)* sizeof(char));
     long unsigned int i=0;
-    int k=0;
+    int k=0, j=0;
     for (i=0;i<strlen(line);i++) {
-        if (line[i] == '}') break;
-        else {
-            linenova[k] = line[i];
-            k++;
+        linenova[k] = line[i]; k++;
+        if (line[i] == '}') {
+            if (j<=1) break;
+            j--;
         }
-    }
-    if (line[i]=='}') {
-        linenova[k]=line[i];
-        k++;
+        else if(line[i] == '{') j++;
     }
     linenova[k]='\0';
     *rest = line + i + 1;
@@ -43,11 +40,15 @@ void criarBloco (char *line,STACK *s,char **rest) {
 void executaBloco (STACK *s,VARIABLES *x) {
      DATA p1 = pop(s);
      char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
-     int i;
+     int i,j=0;
      int tamanho=strlen(p1.elems.BLOCO)-4;
      for (i=0;i<tamanho;i++) {
-         if (p1.elems.BLOCO[i+2]=='}') break;
-         else execbloco[i]=p1.elems.BLOCO[i+2];
+         if (p1.elems.BLOCO[i+2]=='}') {
+             if (j<=0) break;
+             j--;
+         }
+         else if (p1.elems.BLOCO[i+2]=='{') j++;
+         execbloco[i]=p1.elems.BLOCO[i+2];
      }
      execbloco[++i]='\0';
 

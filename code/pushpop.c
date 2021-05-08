@@ -13,23 +13,6 @@
 
 /**
  *
- * Esta função recebe como argumento um elemento do tipo DATA, e devolve um inteiro correspondente ao tipo do elemento.
- * Utilizamos este método de modo a poder representar os tipos de data como inteiro (manuseamento mais fácil), também foi
- * necessário criar uma definição 'enum' de maneira a representar estes tipos como um inteiro.
- * 
- */
-int what_type (DATA d) {
-    int r=0;
-    if (d.type == LONG) r=1;
-    if (d.type == DOUBLE) r=2;
-    if (d.type == CHAR) r=4;
-    if (d.type == STRING) r=8;
-    if (d.type == STACKK) r=16;
-    return r;   
-}
-
-/**
- *
  * Esta função é utilizada para inicializar a stack. Esta é inicializada com tamanho 100, e é alocado espaço para armazenar
  * os elementos do tipo DATA. A stack também tem um parâmetro 'n_elems' que inicialmente toma valor 0, e representa a quantidade
  * elementos na stack.

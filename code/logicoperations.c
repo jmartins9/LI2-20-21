@@ -19,10 +19,10 @@ void equivalente (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long equiv = p2.elems.LONG == p1.elems.LONG;make_datas(Z,LONG,equiv);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {long equiv = p2.elems.LONG == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.LONG;make_datas(Z,LONG,equiv);}
+    if (p1.type==LONG && p2.type==LONG) {long equiv = p2.elems.LONG == p1.elems.LONG;make_datas(Z,LONG,equiv);}
+    if (p1.type==DOUBLE && p2.type==LONG) {long equiv = p2.elems.LONG == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
+    if (p1.type==DOUBLE && p2.type==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.DOUBLE;make_datas(Z,LONG,equiv);}
+    if (p1.type==LONG && p2.type==DOUBLE) {long equiv = p2.elems.DOUBLE == p1.elems.LONG;make_datas(Z,LONG,equiv);}
     if ( p1.type==STRING && p2.type==STRING ) {long equiv = !strcmp(p1.elems.STRING,p2.elems.STRING);make_datas(Z,LONG,equiv);}            
     push (s,Z);  
 }
@@ -38,14 +38,14 @@ void ifthenelse (STACK *s) {  //esta aqui provavelmente pode ser simplificada...
     DATA p1 = pop(s); //else
     DATA p2 = pop(s); //then
     DATA p3 = pop(s); //booleano a avaliar
-    if (what_type (p3)==LONG) {
+    if (p3.type==LONG) {
         if (p3.elems.LONG) {
             push(s,p2);
         } else {
             push(s,p1);
         }
-    } else if (what_type(p3) == STACKK && is_empty(p3.elems.STACKK)) push(s,p1);
-    else if (what_type(p3) == STACKK && !is_empty(p3.elems.STACKK)) push(s,p2);
+    } else if (p3.type == STACKK && is_empty(p3.elems.STACKK)) push(s,p1);
+    else if (p3.type == STACKK && !is_empty(p3.elems.STACKK)) push(s,p2);
     else if (p3.elems.DOUBLE) push (s,p2);
     else push(s,p1); 
 }
@@ -126,9 +126,9 @@ void orlogic (STACK *s) {
 void negate (STACK *s) {
     DATA p1 = pop(s);
     DATA data;
-    if (what_type(p1)==LONG) {long val = !(p1.elems.LONG); make_datas(data,LONG,val); push(s,data);}
-    if (what_type(p1)==DOUBLE) {long val = !(p1.elems.DOUBLE); make_datas(data,LONG,val); push(s,data);}
-    if (what_type(p1)==CHAR) {long val = !(p1.elems.CHAR); make_datas(data,LONG,val); push(s,data);}
+    if (p1.type==LONG) {long val = !(p1.elems.LONG); make_datas(data,LONG,val); push(s,data);}
+    if (p1.type==DOUBLE) {long val = !(p1.elems.DOUBLE); make_datas(data,LONG,val); push(s,data);}
+    if (p1.type==CHAR) {long val = !(p1.elems.CHAR); make_datas(data,LONG,val); push(s,data);}
 }
 
 
@@ -139,9 +139,9 @@ void negate (STACK *s) {
  */
 DATA converteDouble (DATA a) {
     double valor;
-    if (what_type(a)==LONG) {valor = a.elems.LONG;make_datas(a,DOUBLE,valor);} 
-    if (what_type(a)==DOUBLE) {valor = a.elems.DOUBLE;make_datas(a,DOUBLE,valor);} 
-    if (what_type(a)==CHAR) {valor = a.elems.CHAR;make_datas(a,DOUBLE,valor); }
+    if (a.type==LONG) {valor = a.elems.LONG;make_datas(a,DOUBLE,valor);} 
+    if (a.type==DOUBLE) {valor = a.elems.DOUBLE;make_datas(a,DOUBLE,valor);} 
+    if (a.type==CHAR) {valor = a.elems.CHAR;make_datas(a,DOUBLE,valor); }
     return a;
 } 
 

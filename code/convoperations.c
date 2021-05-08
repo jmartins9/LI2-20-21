@@ -18,10 +18,10 @@
 void convertLong (STACK *s) {
     DATA data;
     DATA p1 = pop(s);
-    if (what_type (p1)==LONG) {long conv = p1.elems.LONG;make_datas(data,LONG,conv);}
-    if (what_type (p1)==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(data,LONG,conv);}
-    if (what_type (p1)==CHAR) {long conv = p1.elems.CHAR;make_datas(data,LONG,conv);}
-    if (what_type (p1)==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(data,LONG,conv);}
+    if (p1.type==LONG) {long conv = p1.elems.LONG;make_datas(data,LONG,conv);}
+    if (p1.type==DOUBLE) {long conv = p1.elems.DOUBLE;make_datas(data,LONG,conv);}
+    if (p1.type==CHAR) {long conv = p1.elems.CHAR;make_datas(data,LONG,conv);}
+    if (p1.type==STRING) {long conv = strtol(p1.elems.STRING,NULL,10);make_datas(data,LONG,conv);}
     push (s,data);
 }
 
@@ -33,10 +33,10 @@ void convertLong (STACK *s) {
 void convertFloat (STACK *s) {
     DATA data;
     DATA p1 = pop(s);
-    if (what_type (p1)==LONG) {float conv = p1.elems.LONG;make_datas(data,DOUBLE,conv);}
-    if (what_type (p1)==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(data,DOUBLE,conv);}
-    if (what_type (p1)==CHAR) {float conv = p1.elems.CHAR;make_datas(data,DOUBLE,conv);}
-    if (what_type (p1)==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(data,DOUBLE,conv);}
+    if (p1.type==LONG) {float conv = p1.elems.LONG;make_datas(data,DOUBLE,conv);}
+    if (p1.type==DOUBLE) {float conv = p1.elems.DOUBLE;make_datas(data,DOUBLE,conv);}
+    if (p1.type==CHAR) {float conv = p1.elems.CHAR;make_datas(data,DOUBLE,conv);}
+    if (p1.type==STRING) {float conv = strtod(p1.elems.STRING,NULL);make_datas(data,DOUBLE,conv);}
     push (s,data);
 }
 
@@ -48,9 +48,9 @@ void convertFloat (STACK *s) {
 void convertChar (STACK *s) {
     DATA p1 = pop(s);
     DATA data;
-    if (what_type (p1)==LONG) {char conv = p1.elems.LONG;make_datas(data,CHAR,conv);}
-    if (what_type (p1)==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(data,CHAR,conv);}
-    if (what_type (p1)==CHAR) {char conv = p1.elems.CHAR;make_datas(data,CHAR,conv);}
+    if (p1.type==LONG) {char conv = p1.elems.LONG;make_datas(data,CHAR,conv);}
+    if (p1.type==DOUBLE) {char conv = p1.elems.DOUBLE;make_datas(data,CHAR,conv);}
+    if (p1.type==CHAR) {char conv = p1.elems.CHAR;make_datas(data,CHAR,conv);}
     push(s,data);
 }
 
@@ -63,7 +63,7 @@ void convertString(STACK *s) {
     DATA p1 = pop(s);
     DATA data;
     char *str = (char*) malloc(sizeof(char) * 50);
-    if (what_type(p1)==LONG) {sprintf(str,"%ld",p1.elems.LONG);make_datas(data,STRING,str);}
+    if (p1.type==LONG) {sprintf(str,"%ld",p1.elems.LONG);make_datas(data,STRING,str);}
     push(s,data);
 }
 

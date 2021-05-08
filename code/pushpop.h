@@ -82,7 +82,6 @@ typedef struct stack /**< stact struct definida. */
  * 
  */
 int has_type(DATA elem, int mask);
-int what_type (DATA d);
 STACK *create_stack();
 void push(STACK *s, DATA elem);
 DATA pop(STACK *s);

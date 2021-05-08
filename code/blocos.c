@@ -149,17 +149,15 @@ void filtraBloco (STACK *s, VARIABLES *x) {
     char *execbloco = criaexecBloco(bloco);
 
     if (array_string.type==STACKK) {
-         STACK *pilha=array_string.elems.STACKK;
-         int tamanho=pilha->n_elems;
+         int tamanho=array_string.elems.STACKK->n_elems;
          STACK *tmp=create_stack();
          for (i=0;i<tamanho;i++) {
-             push(tmp,pilha->stack[i]);
+             push(tmp,array_string.elems.STACKK->stack[i]);
              parse(execbloco,tmp,x);
-             if (pop(tmp).elems.LONG) push(tmp,pilha->stack[i]);
+             if (pop(tmp).elems.LONG) push(tmp,array_string.elems.STACKK->stack[i]);
          }
-         DATA data;
-         make_datas(data,STACKK,tmp);
-         push(s,data);
+         array_string.elems.STACKK=tmp;
+         push(s,array_string);
      }
     else if (array_string.type==STRING) {
           int tamanho = strlen(array_string.elems.STRING);
@@ -194,17 +192,15 @@ void foldBloco (STACK *s, VARIABLES *x) {
 
     if (array_string.type==STACKK) {
         int i;
-        STACK *pilha=array_string.elems.STACKK;
-        int tamanho=pilha->n_elems;
+        int tamanho=array_string.elems.STACKK->n_elems;
         STACK *tmp=create_stack();
-        push(tmp,pilha->stack[0]);
+        push(tmp,array_string.elems.STACKK->stack[0]);
         for (i=1;i<tamanho;i++) {
-            push(tmp,pilha->stack[i]);
+            push(tmp,array_string.elems.STACKK->stack[i]);
             parse(execbloco,tmp,x);
         }
-        DATA data;
-        make_datas(data,STACKK,tmp);
-        push(s,data);
+        array_string.elems.STACKK=tmp;
+        push(s,array_string);
     }
 }
 

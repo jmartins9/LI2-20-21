@@ -25,8 +25,8 @@ void somar (STACK *s) {
     DATA Z;
     if (p1.type==LONG && p2.type==LONG) {long soma = p2.elems.LONG+p1.elems.LONG;make_datas(Z,LONG,soma);}
     if (p1.type==DOUBLE && p2.type==LONG) {double soma = p2.elems.LONG+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
+    if (p1.type==DOUBLE && p2.type==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.DOUBLE;make_datas(Z,DOUBLE,soma);}
+    if (p1.type==LONG && p2.type==DOUBLE) {double soma = p2.elems.DOUBLE+p1.elems.LONG;make_datas(Z,DOUBLE,soma);}            
     push (s,Z);  
 }
 
@@ -39,10 +39,10 @@ void subtrair (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long subtracao = p2.elems.LONG-p1.elems.LONG;make_datas(Z,LONG,subtracao);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double subtracao = p2.elems.LONG-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.LONG;make_datas(Z,DOUBLE,subtracao);} 
+    if (p1.type==LONG && p2.type==LONG) {long subtracao = p2.elems.LONG-p1.elems.LONG;make_datas(Z,LONG,subtracao);}
+    if (p1.type==DOUBLE &&p2.type==LONG) {double subtracao = p2.elems.LONG-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
+    if (p1.type==DOUBLE &&p2.type==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.DOUBLE;make_datas(Z,DOUBLE,subtracao);}
+    if (p1.type==LONG && p2.type==DOUBLE) {double subtracao = p2.elems.DOUBLE-p1.elems.LONG;make_datas(Z,DOUBLE,subtracao);} 
     push (s,Z); 
 }
 
@@ -55,10 +55,10 @@ void multiplicar (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long mult = p2.elems.LONG*p1.elems.LONG;make_datas(Z,LONG,mult);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double mult = p2.elems.LONG*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.LONG;make_datas(Z,DOUBLE,mult);} 
+    if (p1.type==LONG && p2.type==LONG) {long mult = p2.elems.LONG*p1.elems.LONG;make_datas(Z,LONG,mult);}
+    if (p1.type==DOUBLE && p2.type==LONG) {double mult = p2.elems.LONG*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
+    if (p1.type==DOUBLE && p2.type==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.DOUBLE;make_datas(Z,DOUBLE,mult);}
+    if (p1.type==LONG && p2.type==DOUBLE) {double mult = p2.elems.DOUBLE*p1.elems.LONG;make_datas(Z,DOUBLE,mult);} 
     push (s,Z); 
 }
 
@@ -71,10 +71,10 @@ void divInteira (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long div = p2.elems.LONG/p1.elems.LONG;make_datas(Z,LONG,div);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double div = p2.elems.LONG/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.LONG;make_datas(Z,DOUBLE,div);} 
+    if (p1.type==LONG && p2.type==LONG) {long div = p2.elems.LONG/p1.elems.LONG;make_datas(Z,LONG,div);}
+    if (p1.type==DOUBLE && p2.type==LONG) {double div = p2.elems.LONG/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
+    if (p1.type==DOUBLE && p2.type==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.DOUBLE;make_datas(Z,DOUBLE,div);}
+    if (p1.type==LONG && p2.type==DOUBLE) {double div = p2.elems.DOUBLE/p1.elems.LONG;make_datas(Z,DOUBLE,div);} 
     push (s,Z);   
 }
 
@@ -100,9 +100,9 @@ void divResto (STACK *s) {
 void somarTop (STACK *s) { 
     DATA p1 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG) {long inc = p1.elems.LONG+1;make_datas(Z,LONG,inc);}
-    if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE+1;make_datas(Z,DOUBLE,inc);}
-    if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR+1;make_datas(Z,CHAR,inc);}
+    if (p1.type==LONG) {long inc = p1.elems.LONG+1;make_datas(Z,LONG,inc);}
+    if (p1.type==DOUBLE) {double inc = p1.elems.DOUBLE+1;make_datas(Z,DOUBLE,inc);}
+    if (p1.type==CHAR) {char inc = p1.elems.CHAR+1;make_datas(Z,CHAR,inc);}
     push (s,Z); 
 }
 
@@ -114,9 +114,9 @@ void somarTop (STACK *s) {
 void subtrairTop (STACK *s) { 
     DATA p1 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG) {long inc = p1.elems.LONG-1;make_datas(Z,LONG,inc);}
-    if (what_type (p1)==DOUBLE) {double inc = p1.elems.DOUBLE-1;make_datas(Z,DOUBLE,inc);}
-    if (what_type (p1)==CHAR) {char inc = p1.elems.CHAR-1;make_datas(Z,CHAR,inc);}
+    if (p1.type==LONG) {long inc = p1.elems.LONG-1;make_datas(Z,LONG,inc);}
+    if (p1.type==DOUBLE) {double inc = p1.elems.DOUBLE-1;make_datas(Z,DOUBLE,inc);}
+    if (p1.type==CHAR) {char inc = p1.elems.CHAR-1;make_datas(Z,CHAR,inc);}
     push (s,Z);
 }
 
@@ -129,10 +129,10 @@ void expoente (STACK *s) {
     DATA p1 = pop(s);
     DATA p2 = pop(s);
     DATA Z;
-    if (what_type (p1)==LONG && what_type(p2)==LONG) {long exp = pow(p2.elems.LONG,p1.elems.LONG);make_datas(Z,LONG,exp);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==LONG) {double exp = pow(p2.elems.LONG,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
-    if (what_type (p1)==DOUBLE && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
-    if (what_type (p1)==LONG && what_type(p2)==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.LONG);make_datas(Z,DOUBLE,exp);} 
+    if (p1.type==LONG && p2.type==LONG) {long exp = pow(p2.elems.LONG,p1.elems.LONG);make_datas(Z,LONG,exp);}
+    if (p1.type==DOUBLE && p2.type==LONG) {double exp = pow(p2.elems.LONG,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
+    if (p1.type==DOUBLE && p2.type==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.DOUBLE);make_datas(Z,DOUBLE,exp);}
+    if (p1.type==LONG && p2.type==DOUBLE) {double exp = pow(p2.elems.DOUBLE,p1.elems.LONG);make_datas(Z,DOUBLE,exp);} 
     push (s,Z);           
 }
 

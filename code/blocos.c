@@ -12,6 +12,13 @@
 #include "parser.h"
 #include "matoperations.h"
 
+/**
+ *
+ * Esta é a função responsável por delimitar a zona correspondente ao bloco.
+ * Após a parse encontrar uma linha que começa com o caracter '{',
+ * esta função cria a string que contém o bloco, e têm em conta os blocos aninhados.
+ * 
+ */
 char *get_delimited_bloco(char *line, char **rest) {
     char *linenova = (char*) malloc((strlen(line)+1)* sizeof(char));
     long unsigned int i=0;
@@ -30,6 +37,12 @@ char *get_delimited_bloco(char *line, char **rest) {
     return linenova;
 }
 
+/**
+ *
+ * Esta função é responsável por criar o bloco (chamando a função que o delimita),
+ * e dá push à stack da string que contém o bloco.
+ * 
+ */
 void criarBloco (char *line,STACK *s,char **rest) {
     char *token = get_delimited_bloco(line, rest);
     DATA d;
@@ -37,10 +50,19 @@ void criarBloco (char *line,STACK *s,char **rest) {
     push(s,d);
 }
 
+/**
+ *
+ * Esta é a função que cria o array que contém a parte do bloco que necessita ser executada, ou
+ * por outras palavras, parsada.
+ * Ao contrário da função 'get_delimited_bloco', esta função vai apenas colocar no array a parte interior do bloco.
+ * Dado que bastantes funções que operam com blocos necessitam de criar este array, esta função será chamada
+ * em maior parte das funções e por isso é eficiente a existência desta função.
+ * 
+ */
 char *criaexecBloco (DATA p1) {
-    char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-3);
+    char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-4);
      int i,j=0;
-     int tamanho=strlen(p1.elems.BLOCO)-4;
+     int tamanho=strlen(p1.elems.BLOCO)-3;
      for (i=0;i<tamanho;i++) {
          if (p1.elems.BLOCO[i+2]=='}') {
              if (j<=0) break;
@@ -53,6 +75,13 @@ char *criaexecBloco (DATA p1) {
      return execbloco;
 }
 
+/**
+ *
+ * Esta é a função responsável por executar o comando '~' quando opera num bloco.
+ * Este operador aplica o bloco apenas ao elemento no topo da stack, portanto simplesmente
+ * faremos o parse da stack, alterando apenas o elemento no topo da mesma.
+ * 
+ */
 void executaBloco (STACK *s,VARIABLES *x) {
      DATA p1 = pop(s);
      char *execbloco = criaexecBloco(p1);
@@ -100,6 +129,12 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
      }
 }
 
+/**
+ *
+ * Esta é a função que executa o comando ',' quando opera num bloco.
+ * 
+ * 
+ */
 void filtraBloco (STACK *s, VARIABLES *x) {
     DATA bloco = pop (s);
     DATA array_string = pop (s);
@@ -145,6 +180,11 @@ void foldBloco (STACK *s, VARIABLES *x) {
     }
 }
 
+/**
+ *
+ * Esta é uma função auxiliar à função 'ordenarBloco', e tem como objetivo trocar a posição de dois elementos numa stack.
+ * 
+ */
 void swapStack (STACK *s, int index1, int index2) {
     DATA tmp;
     tmp = s->stack[index1];

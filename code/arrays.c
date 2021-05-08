@@ -56,6 +56,7 @@ char *get_delimited_array(char *line, char **rest) {
     for (i=0;i<strlen(line);i++) {
         if (line[i] == ']' && j<=0) break;
         else {
+            //if (line[i+1] == ']' && j<=0) break;
             linenova[k] = line[i];
             k++;
         }
@@ -64,7 +65,7 @@ char *get_delimited_array(char *line, char **rest) {
     }
     linenova[k] = '\n'; //isto é perigoso
     linenova[k+1] = '\0';
-    *rest = line + k + 1;
+    *rest = line + k + 2;
     line = linenova;
     return line;
 }
@@ -154,32 +155,31 @@ void tamanho_range (STACK *s) {
 /**
  * 
  *  Função que executa o comando 'S/' , ou seja, 
- *  separa uma string por newlines.
+ *  separa uma string por newlines. Dado que a função get_token, se usada recursivamente, atinge o mesmo objetivo,
+ *  decidimos usá-la de maneira a ser mais eficiente.
  *  
  */
 void separaWhitespace (STACK *s) {
      DATA p1 = pop(s);
      STACK *x=create_stack();
+     char *token = (char*) malloc(sizeof(char) * 50);
+     
+     char *line;
+     DATA tmp;
      if (p1.type==STRING) {
-         int i=0;
-         DATA p2;
-         while (p1.elems.STRING[i]!='\0') {
-             int j=0;
-             char *guardastring = (char *) malloc(strlen(p1.elems.STRING) * sizeof(char));
-             while ((p1.elems.STRING[i]==' ' || p1.elems.STRING[i]=='\n' || p1.elems.STRING[i]=='\t') &&  p1.elems.STRING[i]!='\0') i++;
-             while (p1.elems.STRING[i]!=' ' && p1.elems.STRING[i]!='\n' && p1.elems.STRING[i]!='\t' &&  p1.elems.STRING[i]!='\0') {
-              guardastring[j]=p1.elems.STRING[i];
-              j++;
-              i++;
-             } 
-             guardastring[j]='\0';
-             make_datas(p2,STRING,guardastring);
-             push(x,p2);
-         }
-        pop(x);
-        make_datas(p1,STACKK,x);
-        push(s,p1);
+        line = strdup(p1.elems.STRING);
+        char *rest[strlen(line)+1];
+        *rest = (char*) malloc(sizeof(char)*(strlen(line)+1));
+        for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
+            make_datas(tmp,STRING,token);
+            push(x,tmp);
+
+            line = *rest;
+        }
+        make_datas(tmp,STACKK,x);
+        push(s,tmp);
      }
+     free(token);
 }
 
 /**

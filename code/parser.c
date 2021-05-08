@@ -96,9 +96,8 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     char *token = (char*) malloc(sizeof(char)*(strlen(line)+1));
     *rest = (char*) malloc(sizeof(char)*(strlen(line)+1));
 
-    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {
-      
-        if (strcmp(token,"[")==0) criarArray(line+1,s,x,rest);
+    for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {      
+        if (*token == '[') criarArray(line+2,s,x,rest);
         else if (strcmp(token,"w")==0) executatruthy(s,x);
         else if (*token == '"') criarString(line+1,s,rest);
         else if (*token == '{') criarBloco(line,s,rest);

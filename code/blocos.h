@@ -94,4 +94,11 @@ void swapStack (STACK *s, int index1, int index2);
  */
 void executatruthy (STACK *s,VARIABLES *x);
 
+/**
+ *
+ * Esta é o header da função que define a função que vai correr conforme o operador em blocos.
+ * 
+ */
+void blocoOperations (char *token,STACK *s, VARIABLES *x);
+
 #endif

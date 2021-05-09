@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include "variables.h"
 #include "pushpop.h"
-
+#include "stackoperations.h"
+#include "leituraInputs.h"
 /**
  *
  * Esta é a função que executa o comando i, ou seja, converte o topo da stack em long.
@@ -74,10 +75,18 @@ void convertString(STACK *s) {
  */
 void convoperations (char *token,STACK *s) {
     switch (*token) {
+        case ('$'): copynelems(s); break;
         case ('f'): convertFloat(s);break;
         case ('c'): convertChar(s);break;
         case ('i'): convertLong(s);break;
         case ('s'): convertString(s);break;
+        case ('\\') : {changetop2(s); break;}
+        case ('_') : {duplicatop(s); break;}
+        case (';') : {retiratop(s); break;}
+        case ('@') : {changetop3(s); break;}
+        case ('l'): loperation(s);break;
+        case ('t'): toperation(s);break;
+        case ('p'): printtop(s);break;
     }
 }
 

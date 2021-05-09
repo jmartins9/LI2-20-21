@@ -72,13 +72,12 @@ void printtop (STACK *s) {
  * 
  * Esta é a função responsável pela execução dos comandos de leitura dependendo do token.  
  * 
- */
+ 
 void leituraop (char *token,STACK *s) {
      switch (*token)
      {
-     case ('l'): loperation(s);break;
-     case ('t'): toperation(s);break;
-     case ('p'): printtop(s);break;
+     
  
      }
 }
+*/

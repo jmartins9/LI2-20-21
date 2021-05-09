@@ -316,3 +316,14 @@ void executatruthy (STACK *s,VARIABLES *x) {
            executaBloco(s,x);
     }
 }
+
+void blocoOperations (char *token,STACK *s, VARIABLES *x) {
+    switch (*token) {
+        case ('~'): executaBloco(s,x); break;
+        case ('%'): aplicaBloco(s,x);break;
+        case ('*'): foldBloco(s,x);break;
+        case ('$'): ordenarBloco(s,x); break;
+        case (','): filtraBloco(s,x); break;
+        case ('w'): executatruthy(s,x); break;
+    }
+}

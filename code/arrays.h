@@ -17,7 +17,7 @@
 char *get_token(char *line, char **rest) ;
 char *get_delimited_array(char *line, char **rest);
 void criarArray (char *line, STACK *s,VARIABLES *x, char **rest);
-void arrayops (char *token,STACK *s, VARIABLES *x);
+void arrayops (char *token,STACK *s);
 void tamanho_range (STACK *s);
 void separaWhitespace (STACK *s);
 void separaNewlines (STACK *s);

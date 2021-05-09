@@ -13,6 +13,7 @@
 #include "variables.h"
 #include "matoperations.h"
 #include "blocos.h"
+#include "stackoperations.h"
 
 /**
  *
@@ -451,18 +452,11 @@ void procurarSubstring (STACK *s) {
  * Decide qual instrução deve ser executado dependendo dos tipos dos argumentos que as operações aritméticas recebem.
  * 
  */
-void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
+void handle_arithmetic (char *token,STACK *s) {
     DATA p1=pop(s);
     DATA p2=top(s);
     push(s,p1);
-    if (p1.type==BLOCO) {
-        switch (*token) {
-        case ('~'): executaBloco(s,x); break;
-        case ('%'): aplicaBloco(s,x);break;
-        case ('*'): foldBloco(s,x);break;
-        }
-    }
-    else if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
+    if ((p1.type==STRING || p1.type==STACKK) || (p2.type==STACKK || p2.type==STRING)) {
         switch (*token) {
             case ('~'): putArrayStack(s);break;
             case ('+'): p1 = pop(s); p2 = pop(s); concatenateArrays(s,p1,p2); concatenateStrings(s,p1,p2); break;
@@ -492,12 +486,12 @@ void handle_arithmetic (char *token,STACK *s,VARIABLES *x) {
  * Esta é a função que decide qual das operações matemáticas deve ser executada dependendo da instrução dada.
  * 
  */
-void matoperations (char *token,STACK *s,VARIABLES *x) {
+void matoperations (char *token,STACK *s) {
     switch (*token) {
     case ('-'): subtrair(s);break;
     case ('&'): andBin(s);break;
     case ('|'): orBin(s);break;
     case ('^'): xorBin(s);break;
-    default : handle_arithmetic(token,s,x);break;
+    default : handle_arithmetic(token,s);break;
     }      
 }

@@ -50,6 +50,6 @@ void changetop3 (STACK *s);
  * Este é o header da função que executa o comando n $.
  * 
  */
-void copynelem (STACK *s);
+void copynelems (STACK *s);
 
 #endif

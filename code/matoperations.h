@@ -15,7 +15,7 @@
  * Esta é o header da função que decide qual das operações matemáticas deve ser executada dependendo da instrução dada.
  * 
  */
-void matoperations (char *token,STACK *s,VARIABLES *x);
+void matoperations (char *token,STACK *s);
 
 /**
  *
@@ -106,7 +106,7 @@ void xorBin (STACK *s);
  * Este é o header da função que decide a operação a executar conforme o tipo dos elementos no topo da stack.
  * 
  */
-void handle_arithmetic (char *token,STACK *s,VARIABLES *x);
+void handle_arithmetic (char *token,STACK *s);
 
 /**
  *

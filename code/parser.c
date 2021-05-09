@@ -46,22 +46,19 @@ void parsedatas (char *token,STACK *s) {
  * 
  */
 void alloperations (char *token,STACK *s,VARIABLES *x) {
-     int r=0;
-     char *charsStackop = "_;@$\\";
+     char *blocoOperadores = "~%*,$w";
      char *charsMatOp = "+-*/)(%#&|^~";
      char *charsLogicOp = "=<>!?e&e|e<e>";
-     char *charsConvOp = "fcis";
+     char *charsConvOpStackOpLeitura = "fcis\\_;$@ltp";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
      char *charsArray = ",S/N/";
-     char *charsLeitura = "ltp";
-     if (strstr(charsStackop,token)!=NULL) {stackoperations(token,s,x);r=1;}
-     else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s,x);r=1;}
-     else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
-     else if (strstr(charsConvOp,token)!=NULL) {convoperations(token,s);r=1;}
-     else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);r=1;}
-     else if (strstr(charsArray,token)!=NULL) {arrayops(token,s,x);r=1;}
-     else if (strstr(charsLeitura,token)!=NULL) {leituraop(token,s);r=1;}
-     else if (r==0) parsedatas(token,s);
+     if (strstr(blocoOperadores,token)!=NULL && top(s).type == BLOCO) blocoOperations(token,s,x);
+     else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);}
+     else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);}
+     else if (strstr(charsConvOpStackOpLeitura,token)!=NULL) {convoperations(token,s);}
+     else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);}
+     else if (strstr(charsArray,token)!=NULL) {arrayops(token,s);}
+     else parsedatas(token,s);
 }
 
 /**

@@ -9,6 +9,12 @@
 #include "variables.h"
 #include "pushpop.h"
 
+
+/**
+ *
+ * Esta é a função que copia um valor de um DATA.
+ * 
+ */
 STACK *stackDup(STACK *x) {
      STACK *tmp = create_stack();
      int i=0;

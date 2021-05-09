@@ -82,7 +82,6 @@ void foldBloco (STACK *s, VARIABLES *x);
  */
 void ordenarBloco (STACK *s, VARIABLES *x);
 void ordenaString (int tamanho,STACK *tmp,STACK *pilha);
-void ordenaBlocoArray (STACK *tmp,STACK *pilha,int tamanho);
 
 /**
  *

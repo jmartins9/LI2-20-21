@@ -62,6 +62,10 @@ void criarBloco (char *line,STACK *s,char **rest) {
 char *criaexecBloco (DATA p1) {
      char *execbloco = (char *) calloc(sizeof(char),strlen(p1.elems.BLOCO)-3);
      int i,j=0;
+     if (strcmp(p1.elems.BLOCO,"{ }")==0) {
+         strcpy(execbloco," ");
+         return execbloco;
+     }
      int tamanho=strlen(p1.elems.BLOCO)-4;
      for (i=0;i<tamanho;i++) {
          if (p1.elems.BLOCO[i+2]=='}') {
@@ -237,47 +241,13 @@ void ordenaString (int tamanho,STACK *tmp,STACK *pilha) {
 
 /**
  *
- * Esta é a função que ordena um Array ou String caso o bloco seja vazio.
+ * Esta é a função que executa o comando $, ou seja, ordenar usando o bloco.
  * 
  */
-void ordenaSeForVazio (STACK *s,DATA array_string) {
-        int i,j;
 
-        if (array_string.type==STACKK) {
-        STACK *pilha=array_string.elems.STACKK; //Stack original nao mapada
-        int tamanho=pilha->n_elems;
-        STACK *tmp=create_stack(); //Stack mapada
-        for (i=0;i<tamanho;i++) {
-            push(tmp,pilha->stack[i]);
-        }
-
-
-        if ((tmp->stack[0]).type == LONG) { //entao vamos comparar inteiros?
-            for (i=0; i<tamanho; i++) {
-                for (j=0; j<tamanho-1; j++) {
-                    if (tmp->stack[j].elems.LONG > tmp->stack[j+1].elems.LONG) {
-                        swapStack(pilha,j,j+1);
-                        swapStack(tmp,j,j+1);
-                    }
-                }
-            }
-        }
-        else if ((tmp->stack[0]).type==STRING) {
-            ordenaString(tamanho,tmp,pilha);
-        }
-
-        make_datas(array_string,STACKK,pilha);
-        push(s,array_string);
-    }
-}
-
-
-/**
- *
- * Esta é a função que ordena um Array ou String caso o bloco não seja vazio.
- * 
- */
-void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string) {
+void ordenarBloco (STACK *s,VARIABLES *x) {
+    DATA bloco = pop (s);
+    DATA array_string = pop (s);
     int i,j;
     char *execbloco = criaexecBloco(bloco);
  
@@ -309,22 +279,6 @@ void ordenaSeNaoForVazio (STACK *s,VARIABLES *x,DATA bloco,DATA array_string) {
 
         make_datas(array_string,STACKK,pilha);
         push(s,array_string);
-    }
-}
-
-/**
- *
- * Esta é a função que executa o comando $, ou seja, ordenar usando o bloco.
- * 
- */
-void ordenarBloco (STACK *s, VARIABLES *x) {
-    DATA bloco = pop (s);
-    DATA array_string = pop (s);
-    if (strlen(bloco.elems.BLOCO)<=3) {
-        ordenaSeForVazio(s,array_string);
-    }
-    else {
-        ordenaSeNaoForVazio(s,x,bloco,array_string);
     }
 }
 

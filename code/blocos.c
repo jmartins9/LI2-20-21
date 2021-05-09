@@ -142,6 +142,48 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
 
 /**
  *
+ * Esta é a função que executa o comando ',' quando opera num bloco e array.
+ * 
+ */
+void filtraBlocoArray (STACK *s, VARIABLES *x, char* execbloco) {
+    DATA array = pop(s);
+    int tamanho=array.elems.STACKK->n_elems;
+    STACK *tmp=create_stack();
+    int i;
+    for (i=0;i<tamanho;i++) {
+        push(tmp,array.elems.STACKK->stack[i]);
+        parse(execbloco,tmp,x);
+        if (pop(tmp).elems.LONG) push(tmp,array.elems.STACKK->stack[i]);
+    }
+    array.elems.STACKK=tmp;
+    push(s,array);
+}
+
+/**
+ *
+ * Esta é a função que executa o comando ',' quando opera num bloco e string.
+ * 
+ */
+void filtraBlocoString (STACK *s, VARIABLES *x, char* execbloco) {
+    DATA string = pop(s);
+    int tamanho = strlen(string.elems.STRING);
+    STACK *tmp=create_stack();
+    DATA d;
+    int j=0,i;
+    for (i=0;i<tamanho;i++) {
+        make_datas(d,CHAR,string.elems.STRING[i]);
+        push(tmp,d);
+        parse(execbloco,tmp,x);
+        if ((top(tmp).elems.LONG)) {
+            string.elems.STRING[j]=string.elems.STRING[i];
+            j++;
+        } 
+    }
+    string.elems.STRING[j]='\0';         
+    push(s,string);
+}
+/**
+ *
  * Esta é a função que executa o comando ',' quando opera num bloco.
  * Este comando filtra a stack conforme um bloco, ou seja, aplica o bloco a todos os elementos, e se o resultado
  * for diferente de 0, deixa o elemento na stack, caso contrário, tira da stack.
@@ -149,38 +191,10 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
  */
 void filtraBloco (STACK *s, VARIABLES *x) {
     DATA bloco = pop (s);
-    DATA array_string = pop (s);
-    int i;
+    DATA array_string = top (s);
     char *execbloco = criaexecBloco(bloco);
-
-    if (array_string.type==STACKK) {
-         int tamanho=array_string.elems.STACKK->n_elems;
-         STACK *tmp=create_stack();
-         for (i=0;i<tamanho;i++) {
-             push(tmp,array_string.elems.STACKK->stack[i]);
-             parse(execbloco,tmp,x);
-             if (pop(tmp).elems.LONG) push(tmp,array_string.elems.STACKK->stack[i]);
-         }
-         array_string.elems.STACKK=tmp;
-         push(s,array_string);
-     }
-    else if (array_string.type==STRING) {
-          int tamanho = strlen(array_string.elems.STRING);
-          STACK *tmp=create_stack();
-          DATA d;
-          int j=0;
-          for (i=0;i<tamanho;i++) {
-             make_datas(d,CHAR,array_string.elems.STRING[i]);
-             push(tmp,d);
-             parse(execbloco,tmp,x);
-             if ((top(tmp).elems.LONG)) {
-                 array_string.elems.STRING[j]=array_string.elems.STRING[i];
-                 j++;
-             } 
-         }
-         array_string.elems.STRING[j]='\0';         
-         push(s,array_string);
-    }
+    if (array_string.type==STACKK) filtraBlocoArray(s,x,execbloco);
+    else if (array_string.type==STRING) filtraBlocoString(s,x,execbloco);
 }
 
 /**

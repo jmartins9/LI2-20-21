@@ -40,24 +40,39 @@ void parsedatas (char *token,STACK *s) {
 
 /**
  *
- * Esta é a função que gere os dados dados no token e executa as suas instruções.
+ * Esta é a função que gere os dados dados no token e executa as suas instruções (para operações lógicas,Aritméticas e Arrays/Strings).
+ * De maneira a não ter demasiadas condições, optamos por criar arrays auxiliares com certos operador do mesmo grupo,
+ * e de seguida é verificado se o token pertence a estes arrays, chamando a função correspondente.
+ * 
+ */
+int operationslogicMatArray (char *token,STACK *s) {
+    char *charsMatOp = "+-*/)(%#&|^~";
+    char *charsLogicOp = "=<>!?e&e|e<e>";
+    char *charsArray = ",S/N/";
+    int r=0;
+    if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);r=1;}
+    else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);r=1;}
+    else if (strstr(charsArray,token)!=NULL) {arrayops(token,s);r=1;}
+    return r;
+}
+
+
+
+/**
+ *
+ * Esta é a função que gere os dados dados no token e executa as suas instruções (para operações de variáveis, blocos e de Leitura de Inputs).
  * De maneira a não ter demasiadas condições, optamos por criar arrays auxiliares com certos operador do mesmo grupo,
  * e de seguida é verificado se o token pertence a estes arrays, chamando a função correspondente.
  * 
  */
 void alloperations (char *token,STACK *s,VARIABLES *x) {
      char *blocoOperadores = "~%*,$w";
-     char *charsMatOp = "+-*/)(%#&|^~";
-     char *charsLogicOp = "=<>!?e&e|e<e>";
      char *charsConvOpStackOpLeitura = "fcis\\_;$@ltp";
      char *charsVar = ":A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z";
-     char *charsArray = ",S/N/";
      if (strstr(blocoOperadores,token)!=NULL && top(s).type == BLOCO) blocoOperations(token,s,x);
-     else if (strstr(charsMatOp,token)!=NULL) {matoperations(token,s);}
-     else if (strstr(charsLogicOp,token)!=NULL) {logicoperations(token,s);}
      else if (strstr(charsConvOpStackOpLeitura,token)!=NULL) {convoperations(token,s);}
      else if (strstr(charsVar,token)!=NULL) {varoperations(token,s,x);}
-     else if (strstr(charsArray,token)!=NULL) {arrayops(token,s);}
+     else if (operationslogicMatArray(token,s)==1);
      else parsedatas(token,s);
 }
 
@@ -82,7 +97,18 @@ int parseNumbers (char *token,STACK *s) {
     return r;
 }
 
-
+/**
+ * 
+ * Esta é a função responsável pelo parse de Strings, Arrays e Blocos.  
+ * 
+ */
+int blocosArraysStringsOp (char *token,char *line,STACK *s,VARIABLES *x,char **rest) {
+    int r=0;
+    if (*token == '[') {criarArray(line+2,s,x,rest); r=1;}
+    else if (*token == '"') {criarString(line+1,s,rest); r=1;}
+    else if (*token == '{') {criarBloco(line,s,rest); r=1;}
+    return r;
+}
 
 /**
  * 
@@ -96,9 +122,7 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
     *rest = (char*) malloc(sizeof(char)*(strlen(line)+1));
 
     for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {      
-        if (*token == '[') criarArray(line+2,s,x,rest);
-        else if (*token == '"') criarString(line+1,s,rest);
-        else if (*token == '{') criarBloco(line,s,rest);
+        if (blocosArraysStringsOp(token,line,s,x,rest)==1);
         else if (parseNumbers(token,s)==1);
         else alloperations(token,s,x);
         

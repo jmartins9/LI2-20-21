@@ -40,17 +40,19 @@ void parsedatas (char *token,STACK *s);
 
 /**
  *
- * Esta é o header da função que executa as instruções.
- * 
- */
-void alloperations (char *token,STACK *s,VARIABLES *x);
-
-/**
- *
  * Esta é o header da função que faz o parse de dados tipo long e double.
  * 
  */
 int parseNumbers (char *token,STACK *s);
+
+/**
+ *
+ * Headers das funções que fazem a filtragem da intrução que deve ser exutada a cada momento.
+ * 
+ */
+void alloperations (char *token,STACK *s,VARIABLES *x);
+int blocosArraysStringsOp (char *token,char *line,STACK *s,VARIABLES *x,char **rest);
+int operationslogicMatArray (char *token,STACK *s); 
 
 
 #endif

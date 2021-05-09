@@ -248,8 +248,8 @@ void concatenateStrings (STACK *s,DATA array1,DATA array2) {
  * 
  */
 void concatenateArrays (STACK *s,DATA array1,DATA array2) {
+    int i;
     if (array1.type==STACKK && array2.type==STACKK) {
-        int i;
         for (i=0; i<array1.elems.STACKK->n_elems; i++) {
             push(array2.elems.STACKK,array1.elems.STACKK->stack[i]);
         }
@@ -259,7 +259,6 @@ void concatenateArrays (STACK *s,DATA array1,DATA array2) {
     else if (array1.type==STACKK) {
         STACK *x=create_stack();
         push(x,array2);
-        int i = 0;
         for (i=0; i<array1.elems.STACKK->n_elems; i++) {
             push(x,array1.elems.STACKK->stack[i]);
         }
@@ -416,10 +415,7 @@ void dividirString (STACK *s) {
  * Função que procura uma string dentro de outra string e devolve o índice onde a mesma aparece
  *
  */
-void procurarSubstring (STACK *s) {
-    DATA arraytoBeSearched = pop(s);
-    DATA arraytoSearch = pop(s);
-    if (arraytoBeSearched.type == STRING && arraytoSearch.type == STRING) {
+void procuraStringString (DATA arraytoBeSearched,DATA arraytoSearch,STACK *s) {
         char *str1 = arraytoSearch.elems.STRING;
         char *str2 = arraytoBeSearched.elems.STRING;
         char *line = strstr(str1,str2);
@@ -431,7 +427,14 @@ void procurarSubstring (STACK *s) {
         if (line == NULL) i=-1;
         DATA Z; make_datas(Z,LONG, i);
         push(s,Z);
-    } else if (arraytoBeSearched.type == CHAR && arraytoSearch.type == STRING) {
+}
+
+/**
+ *
+ * Função que procura um caratere dentro de outra string e devolve o índice onde a mesma aparece
+ *
+ */
+void procuraStringChar (DATA arraytoBeSearched,DATA arraytoSearch,STACK *s) {
         char *str1 = (char*) malloc(sizeof(char) * 2);
         str1[0] = arraytoBeSearched.elems.CHAR; str1[1] = '\0';
         char *str2 = arraytoSearch.elems.STRING;
@@ -444,6 +447,20 @@ void procurarSubstring (STACK *s) {
         if (line == NULL) i=-1;
         DATA Z; make_datas(Z,LONG, i);
         push(s,Z);
+}
+
+/**
+ *
+ * Função que procura uma string dentro de outra string e devolve o índice onde a mesma aparece
+ *
+ */
+void procurarSubstring (STACK *s) {
+    DATA arraytoBeSearched = pop(s);
+    DATA arraytoSearch = pop(s);
+    if (arraytoBeSearched.type == STRING && arraytoSearch.type == STRING) {
+        procuraStringString(arraytoBeSearched,arraytoSearch,s);
+    } else if (arraytoBeSearched.type == CHAR && arraytoSearch.type == STRING) {
+        procuraStringChar(arraytoBeSearched,arraytoSearch,s);
     }
 }
 

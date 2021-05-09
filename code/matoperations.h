@@ -117,10 +117,12 @@ void putArrayStack (STACK *s);
 
 /**
  *
- * Este é o header da função que concatena arrays.
+ * Este é o header das funções relacionadas com Arrays e Strings.
  * 
  */
 void concatenateArrays (STACK *s,DATA array1,DATA array2);
+void procuraStringChar (DATA arraytoBeSearched,DATA arraytoSearch,STACK *s);
+void procuraStringString (DATA arraytoBeSearched,DATA arraytoSearch,STACK *s);
 void concatenateStrings (STACK *s,DATA array1,DATA array2);
 void remove1string (STACK *s,DATA array1);
 void remove1array (STACK *s,DATA array1);

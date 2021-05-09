@@ -16,7 +16,6 @@
  */
 void loperation (STACK *s);
 void toperation (STACK *s);
-void leituraop (char *token,STACK *s);
 void printtop (STACK *s);
 
 #endif

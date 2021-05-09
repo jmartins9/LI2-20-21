@@ -67,17 +67,3 @@ void printtop (STACK *s) {
     }
     printf("\n");
 } 
-
-/**
- * 
- * Esta é a função responsável pela execução dos comandos de leitura dependendo do token.  
- * 
- 
-void leituraop (char *token,STACK *s) {
-     switch (*token)
-     {
-     
- 
-     }
-}
-*/

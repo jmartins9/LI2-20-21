@@ -317,6 +317,11 @@ void executatruthy (STACK *s,VARIABLES *x) {
     }
 }
 
+/**
+ * 
+ *  Função lê um token sobre operações relacionadas com os blocos e manda executar as operações. 
+ * 
+ */
 void blocoOperations (char *token,STACK *s, VARIABLES *x) {
     switch (*token) {
         case ('~'): executaBloco(s,x); break;

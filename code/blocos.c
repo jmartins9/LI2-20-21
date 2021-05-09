@@ -92,6 +92,48 @@ void executaBloco (STACK *s,VARIABLES *x) {
      s=parse(execbloco,s,x);
 }
 
+
+/**
+ *
+ * Esta é uma função auxiliar responsável por executar o comando '%' (função aplicabloco ), quando o elemento a
+ * ser tratado é um array.
+ * 
+ */
+void aplicaBlocoStack (DATA array_string,char *execbloco,STACK *s,VARIABLES *x) {
+        int i;
+        STACK *pilha=array_string.elems.STACKK;
+        int tamanho=pilha->n_elems;
+        STACK *tmp=create_stack();
+        for (i=0;i<tamanho;i++) {
+             pilha->n_elems=i+1;
+             push(tmp,top(pilha));
+             parse(execbloco,tmp,x);
+        }
+        DATA Z; make_datas(Z,STACKK,tmp);
+        push(s,Z);
+}
+
+/**
+ *
+ * Esta é uma função auxiliar responsável por executar o comando '%' (função aplicabloco ), quando o elemento a
+ * ser tratado é uma String.
+ * 
+ */
+void aplicaBlocoString (DATA array_string,char *execbloco,STACK *s,VARIABLES *x) {
+        int i;
+        int tamanho=strlen(array_string.elems.STRING);
+        for (i=0;i<tamanho;i++) {
+            STACK *tmp=create_stack();
+            DATA data;
+            make_datas(data,CHAR,array_string.elems.STRING[i]);
+            push(tmp,data);
+            parse(execbloco,tmp,x);
+            if (top(tmp).type == CHAR) array_string.elems.STRING[i] = top(tmp).elems.CHAR;
+        }
+        push(s,array_string);
+}
+
+
 /**
  *
  * Esta é a função que executa o comando % quando opera num bloco.
@@ -113,30 +155,10 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
 
 
      if (array_string.type==STACKK) {
-         int i;
-         STACK *pilha=array_string.elems.STACKK;
-         int tamanho=pilha->n_elems;
-         STACK *tmp=create_stack();
-         for (i=0;i<tamanho;i++) {
-             pilha->n_elems=i+1;
-             push(tmp,top(pilha));
-             parse(execbloco,tmp,x);
-         }
-         DATA Z; make_datas(Z,STACKK,tmp);
-         push(s,Z);
+         aplicaBlocoStack(array_string,execbloco,s,x);
      }
      else {
-         int i;
-         int tamanho=strlen(array_string.elems.STRING);
-         for (i=0;i<tamanho;i++) {
-             STACK *tmp=create_stack();
-             DATA data;
-             make_datas(data,CHAR,array_string.elems.STRING[i]);
-             push(tmp,data);
-             parse(execbloco,tmp,x);
-             if (top(tmp).type == CHAR) array_string.elems.STRING[i] = top(tmp).elems.CHAR;
-         }
-         push(s,array_string);
+         aplicaBlocoString(array_string,execbloco,s,x);
      }
 }
 
@@ -255,6 +277,7 @@ void ordenaString (int tamanho,STACK *tmp,STACK *pilha) {
 }
 
 
+
 /**
  *
  * Esta é a função que executa o comando $, ou seja, ordenar usando o bloco.
@@ -264,18 +287,16 @@ void ordenaString (int tamanho,STACK *tmp,STACK *pilha) {
  * Assim, a stack original vai acabar ordenada conforme o bloco.
  * 
  */
-
 void ordenarBloco (STACK *s,VARIABLES *x) {
     DATA bloco = pop (s);
     DATA array_string = pop (s);
-    int i,j;
     char *execbloco = criaexecBloco(bloco);
  
     if (array_string.type==STACKK) {
         STACK *pilha=array_string.elems.STACKK; //Stack original nao mapada
         int tamanho=pilha->n_elems;
         STACK *tmp=create_stack(); //Stack mapada
-        
+        int i;
         for (i=0;i<tamanho;i++) {
             push(tmp,pilha->stack[i]);
             parse(execbloco,tmp,x);
@@ -283,6 +304,7 @@ void ordenarBloco (STACK *s,VARIABLES *x) {
 
 
         if ((tmp->stack[0]).type == LONG) { //entao vamos comparar inteiros?
+            int j;
             for (i=0; i<tamanho; i++) {
                 for (j=0; j<tamanho-1; j++) {
                     if (tmp->stack[j].elems.LONG > tmp->stack[j+1].elems.LONG) {

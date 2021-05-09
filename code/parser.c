@@ -41,6 +41,8 @@ void parsedatas (char *token,STACK *s) {
 /**
  *
  * Esta é a função que gere os dados dados no token e executa as suas instruções.
+ * De maneira a não ter demasiadas condições, optamos por criar arrays auxiliares com certos operador do mesmo grupo,
+ * e de seguida é verificado se o token pertence a estes arrays, chamando a função correspondente.
  * 
  */
 void alloperations (char *token,STACK *s,VARIABLES *x) {

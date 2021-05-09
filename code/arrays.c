@@ -45,6 +45,8 @@ char *get_token(char *line, char **rest) {
 /**
  * 
  *  Função que separa o token de um array do resto do input.
+ *  Dado que podem haver arrays uns dentro dos outros, utilizamos uma variável auxiliar que contava quantos parêntesis
+ *  já tinham aparecido, de modo a não fechar o array mais cedo do que o suposto
  *  
  *  \returns O token e o resto da linha.
  * 
@@ -97,7 +99,7 @@ char *get_delimited_string(char *line, char **rest) {
 
 /**
  * 
- *  Função que cria um array e realiza as operaçoes nele contidas. 
+ *  Função que cria uma string, e insere-a na stack. 
  * 
  */
 void criarString (char *line, STACK *s, char **rest) {

@@ -143,7 +143,8 @@ void aplicaBloco (STACK *s,VARIABLES *x) {
 /**
  *
  * Esta é a função que executa o comando ',' quando opera num bloco.
- * 
+ * Este comando filtra a stack conforme um bloco, ou seja, aplica o bloco a todos os elementos, e se o resultado
+ * for diferente de 0, deixa o elemento na stack, caso contrário, tira da stack.
  * 
  */
 void filtraBloco (STACK *s, VARIABLES *x) {
@@ -185,7 +186,8 @@ void filtraBloco (STACK *s, VARIABLES *x) {
 /**
  *
  * Esta é a função que executa o comando '*' , ou seja, faz o fold sobre um array usando um bloco.
- * 
+ * Este comando vai aplicar o bloco aos dois primeiros elementos da stack, de seguida, vai pegar no resultado,
+ * e vai aplicar o bloco ao proximo elemento, e assim em diante, até sobrar um elemento na stack.
  * 
  */
 void foldBloco (STACK *s, VARIABLES *x) {
@@ -242,6 +244,10 @@ void ordenaString (int tamanho,STACK *tmp,STACK *pilha) {
 /**
  *
  * Esta é a função que executa o comando $, ou seja, ordenar usando o bloco.
+ * A maneira como implementamos este operador foi inicialmente aplicar o bloco a todos os elementos,
+ * enquanto temos a stack original guardada. De seguida, pegamos na stack parsada e ordenámo-la,
+ * trocando as posições dos elementos nesta stack, e também na stack original.
+ * Assim, a stack original vai acabar ordenada conforme o bloco.
  * 
  */
 

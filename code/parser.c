@@ -97,7 +97,6 @@ STACK *parse(char *line,STACK *s,VARIABLES *x) {
 
     for (token = get_token(line,rest); token != NULL; token = get_token(line,rest)) {      
         if (*token == '[') criarArray(line+2,s,x,rest);
-        else if (strcmp(token,"w")==0) executatruthy(s,x);
         else if (*token == '"') criarString(line+1,s,rest);
         else if (*token == '{') criarBloco(line,s,rest);
         else if (parseNumbers(token,s)==1);
